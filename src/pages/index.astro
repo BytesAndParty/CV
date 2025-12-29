@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation';
+import Hero from '../components/Hero';
+import About from '../components/About';
+import Experience from '../components/Experience';
+import Skills from '../components/Skills';
+import Education from '../components/Education';
+import Contact from '../components/Contact';
+---
+
+<Layout title="Robert Stickler | Software Engineer & Solution Architect">
+	<Navigation client:load />
+	<main>
+		<Hero client:load />
+		<About client:visible />
+		<Experience client:visible />
+		<Skills client:visible />
+		<Education client:visible />
+		<Contact client:visible />
+	</main>
+</Layout>
