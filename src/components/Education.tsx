@@ -57,11 +57,11 @@ export default function Education() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
               Ausbildung & Zertifikate
             </span>
           </h2>
-          <div className="w-24 h-1 bg-linear-to-r from-primary to-accent mx-auto rounded-full" />
+          <div className="w-24 h-1 bg-linear-to-r from-primary via-accent to-primary mx-auto rounded-full" />
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12">
@@ -140,10 +140,10 @@ export default function Education() {
                 >
                   <Card className="bg-card/50 border-border hover:border-accent/50 transition-colors">
                     <CardContent className="p-4 flex items-center gap-4">
-                      <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center flex-shrink-0 text-2xl">
+                      <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center shrink-0 text-2xl">
                         {cert.icon}
                       </div>
-                      <div className="flex-grow">
+                      <div className="grow">
                         <h4 className="text-foreground font-medium text-sm">{cert.name}</h4>
                         <p className="text-muted-foreground text-xs">{cert.issuer} Certified</p>
                       </div>

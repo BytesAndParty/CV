@@ -3,24 +3,60 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ============================================
+   DYNAMIC COLOR SYSTEM
+   ============================================
+   Colors are now controlled via the ThemeSwitcher component
+   in the navigation bar. No need to edit this file!
+   ============================================ */
+
+/* Base theme with dynamic color support */
 @theme {
   --font-sans: 'Inter', system-ui, sans-serif;
 
-  /* Custom colors for CV */
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
+  /* Dynamic colors - controlled by data-color-scheme attribute */
+  --color-primary-500: rgb(var(--theme-primary));
+  --color-primary-600: rgb(var(--theme-primary) / 0.9);
+  --color-primary-700: rgb(var(--theme-primary) / 0.8);
 
-  --color-accent-400: #a78bfa;
-  --color-accent-500: #8b5cf6;
-  --color-accent-600: #7c3aed;
+  --color-accent-500: rgb(var(--theme-accent));
+  --color-accent-600: rgb(var(--theme-accent) / 0.9);
+}
+
+/* ============================================
+   DYNAMIC COLOR SCHEME SYSTEM
+   These are applied via JavaScript in ThemeSwitcher
+   ============================================ */
+
+:root[data-color-scheme="green"],
+:root:not([data-color-scheme]) {
+  --theme-primary: 16 185 129;
+  --theme-accent: 45 212 191;
+  --theme-hue: 165;
+}
+
+:root[data-color-scheme="orange"] {
+  --theme-primary: 245 158 11;
+  --theme-accent: 249 115 22;
+  --theme-hue: 40;
+}
+
+:root[data-color-scheme="purple"] {
+  --theme-primary: 168 85 247;
+  --theme-accent: 232 121 249;
+  --theme-hue: 290;
+}
+
+:root[data-color-scheme="red"] {
+  --theme-primary: 239 68 68;
+  --theme-accent: 244 63 94;
+  --theme-hue: 10;
+}
+
+:root[data-color-scheme="blue"] {
+  --theme-primary: 99 102 241;
+  --theme-accent: 59 130 246;
+  --theme-hue: 250;
 }
 
 /* Smooth scrolling */
@@ -34,16 +70,18 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1f2937;
+  background: rgb(28 25 23);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4b5563;
+  background: rgb(var(--theme-primary));
   border-radius: 4px;
+  opacity: 0.8;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
+  background: rgb(var(--theme-primary));
+  opacity: 1;
 }
 
 @theme inline {
@@ -87,73 +125,78 @@ html {
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* Light Mode (Dynamic - adapts to color scheme) */
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.15 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.15 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.15 0 0);
+  --primary: oklch(0.50 0.20 var(--theme-hue));
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.96 0.005 var(--theme-hue));
+  --secondary-foreground: oklch(0.15 0 0);
+  --muted: oklch(0.96 0.005 var(--theme-hue));
+  --muted-foreground: oklch(0.45 0.01 var(--theme-hue));
+  --accent: oklch(0.55 0.18 calc(var(--theme-hue) + 10));
+  --accent-foreground: oklch(0.99 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --border: oklch(0.90 0.005 var(--theme-hue));
+  --input: oklch(0.90 0.005 var(--theme-hue));
+  --ring: oklch(0.50 0.20 var(--theme-hue));
+  --chart-1: oklch(0.50 0.20 var(--theme-hue));
+  --chart-2: oklch(0.55 0.18 calc(var(--theme-hue) + 10));
+  --chart-3: oklch(0.45 0.15 calc(var(--theme-hue) - 10));
+  --chart-4: oklch(0.60 0.18 calc(var(--theme-hue) + 20));
+  --chart-5: oklch(0.40 0.20 calc(var(--theme-hue) - 5));
+  --sidebar: oklch(0.99 0 0);
+  --sidebar-foreground: oklch(0.15 0 0);
+  --sidebar-primary: oklch(0.50 0.20 var(--theme-hue));
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.96 0.005 var(--theme-hue));
+  --sidebar-accent-foreground: oklch(0.15 0 0);
+  --sidebar-border: oklch(0.90 0.005 var(--theme-hue));
+  --sidebar-ring: oklch(0.50 0.20 var(--theme-hue));
 }
 
+/* ============================================
+   DARK MODE COLORS (Dynamic - adapts to color scheme)
+   ============================================ */
+
 .dark {
-  --background: oklch(0.13 0.01 260);
+  --background: oklch(0.13 0.01 var(--theme-hue));
   --foreground: oklch(0.97 0 0);
-  --card: oklch(0.18 0.01 260);
+  --card: oklch(0.18 0.01 var(--theme-hue));
   --card-foreground: oklch(0.97 0 0);
-  --popover: oklch(0.18 0.01 260);
+  --popover: oklch(0.18 0.01 var(--theme-hue));
   --popover-foreground: oklch(0.97 0 0);
-  --primary: oklch(0.65 0.19 250);
+  --primary: oklch(0.65 0.19 var(--theme-hue));
   --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.25 0.02 260);
+  --secondary: oklch(0.25 0.02 var(--theme-hue));
   --secondary-foreground: oklch(0.97 0 0);
-  --muted: oklch(0.25 0.02 260);
+  --muted: oklch(0.25 0.02 var(--theme-hue));
   --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.65 0.22 300);
+  --accent: oklch(0.70 0.18 calc(var(--theme-hue) + 10));
   --accent-foreground: oklch(0.98 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.65 0.19 250);
-  --chart-1: oklch(0.65 0.19 250);
-  --chart-2: oklch(0.65 0.22 300);
-  --chart-3: oklch(0.70 0.15 180);
-  --chart-4: oklch(0.75 0.18 80);
-  --chart-5: oklch(0.60 0.20 30);
-  --sidebar: oklch(0.18 0.01 260);
+  --ring: oklch(0.65 0.19 var(--theme-hue));
+  --chart-1: oklch(0.65 0.19 var(--theme-hue));
+  --chart-2: oklch(0.70 0.18 calc(var(--theme-hue) + 10));
+  --chart-3: oklch(0.60 0.15 calc(var(--theme-hue) - 10));
+  --chart-4: oklch(0.75 0.18 calc(var(--theme-hue) + 20));
+  --chart-5: oklch(0.60 0.20 calc(var(--theme-hue) - 5));
+  --sidebar: oklch(0.18 0.01 var(--theme-hue));
   --sidebar-foreground: oklch(0.97 0 0);
-  --sidebar-primary: oklch(0.65 0.19 250);
+  --sidebar-primary: oklch(0.65 0.19 var(--theme-hue));
   --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.25 0.02 260);
+  --sidebar-accent: oklch(0.25 0.02 var(--theme-hue));
   --sidebar-accent-foreground: oklch(0.97 0 0);
   --sidebar-border: oklch(1 0 0 / 12%);
-  --sidebar-ring: oklch(0.65 0.19 250);
+  --sidebar-ring: oklch(0.65 0.19 var(--theme-hue));
 }
 
 @layer base {

@@ -52,7 +52,6 @@ const skillCategories = [
 const languages = [
   { name: 'Deutsch', level: 'Muttersprache' },
   { name: 'English', level: 'Fluent' },
-  { name: 'Dutch', level: 'Basic' },
 ];
 
 function SkillBar({ name, level, delay }: { name: string; level: number; delay: number }) {
@@ -91,11 +90,11 @@ export default function Skills() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
               Skills & Fähigkeiten
             </span>
           </h2>
-          <div className="w-24 h-1 bg-linear-to-r from-primary to-accent mx-auto rounded-full" />
+          <div className="w-24 h-1 bg-linear-to-r from-primary via-accent to-primary mx-auto rounded-full" />
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -187,7 +186,7 @@ export default function Skills() {
               >
                 <Badge
                   variant="outline"
-                  className="px-4 py-2 cursor-default hover:bg-primary/10 hover:border-primary/50 transition-colors"
+                  className="px-4 py-2 cursor-default hover:bg-primary/10 hover:border-primary/50 transition-colors border-primary/30 text-foreground"
                 >
                   {interest}
                 </Badge>

@@ -64,7 +64,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <span className="bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70 bg-clip-text text-transparent">
+            <span className="text-foreground">
               Robert Stickler
             </span>
           </motion.h1>
@@ -75,7 +75,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-semibold">
+            <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent font-semibold">
               Software Engineer & Solution Architect
             </span>
           </motion.h2>
@@ -131,6 +131,7 @@ export default function Hero() {
               asChild
               variant="outline"
               size="lg"
+              className="border-primary/50 hover:bg-primary/10"
             >
               <motion.a
                 href="#experience"

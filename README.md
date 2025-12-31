@@ -1,46 +1,92 @@
-# Astro Starter Kit: Basics
+# Robert Stickler - CV Website
 
-```sh
-npm create astro@latest -- --template basics
-```
+Modern, responsive CV website built with Astro, React, Tailwind CSS, and shadcn/ui.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🎨 Features
 
-## 🚀 Project Structure
+- **Dynamic Theme System**: Switch between 6 color schemes and light/dark mode
+- **Smooth Animations**: Powered by Framer Motion
+- **Fully Responsive**: Mobile-first design
+- **Modern Stack**: Built with Astro 5, React 19, and Tailwind v4
 
-Inside of your Astro project, you'll see the following folders and files:
+## 🎨 Theme Switcher
+
+The website includes a dynamic theme switcher in the navigation bar with:
+
+**Color Schemes:**
+- 🟢 Green/Mint (Default)
+- 🟠 Orange/Amber
+- 🟣 Purple/Pink
+- 🔴 Red/Rose
+- 🔵 Indigo/Blue
+- ⚫ Slate/Neutral
+
+**Theme Modes:**
+- ☀️ Light Mode
+- 🌙 Dark Mode (Default)
+
+All preferences are saved to `localStorage` and persist across sessions.
+
+## 🚀 Commands
+
+All commands use **Bun** as the package manager:
+
+| Command          | Action                                       |
+| :--------------- | :------------------------------------------- |
+| `bun install`    | Installs dependencies                        |
+| `bun run dev`    | Starts local dev server at `localhost:4321`  |
+| `bun run build`  | Build production site to `./dist/`           |
+| `bun run preview`| Preview build locally before deploying       |
+
+## 📦 Tech Stack
+
+- **Framework**: [Astro](https://astro.build) 5.x
+- **UI Library**: [React](https://react.dev) 19
+- **Styling**: [Tailwind CSS](https://tailwindcss.com) v4
+- **Components**: [shadcn/ui](https://ui.shadcn.com)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev)
+- **Package Manager**: [Bun](https://bun.sh)
+
+## 📁 Project Structure
 
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
+├── public/              # Static assets
+├── src/
+│   ├── components/      # React components
+│   │   ├── ui/         # shadcn/ui components
+│   │   ├── Hero.tsx
+│   │   ├── About.tsx
+│   │   ├── Experience.tsx
+│   │   ├── Skills.tsx
+│   │   ├── Education.tsx
+│   │   ├── Contact.tsx
+│   │   ├── Navigation.tsx
+│   │   └── ThemeSwitcher.tsx
+│   ├── layouts/         # Astro layouts
+│   ├── pages/           # Astro pages
+│   └── styles/          # Global styles
+│       └── global.css   # Tailwind + theme variables
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## 🎯 Customization
 
-## 🧞 Commands
+### Modifying Content
 
-All commands are run from the root of the project, from a terminal:
+Edit the component files in `src/components/` to update your information:
+- `Hero.tsx` - Name, title, location
+- `About.tsx` - Bio, stats, soft skills
+- `Experience.tsx` - Work history
+- `Skills.tsx` - Technical skills
+- `Education.tsx` - Education & certifications
+- `Contact.tsx` - Contact information
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+### Adding New Color Schemes
 
-## 👀 Want to learn more?
+Edit `src/styles/global.css` and `src/components/ThemeSwitcher.tsx` to add new color options.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 📝 License
+
+Personal CV Website - All Rights Reserved

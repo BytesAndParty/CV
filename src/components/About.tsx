@@ -33,11 +33,11 @@ export default function About() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
               Über mich
             </span>
           </h2>
-          <div className="w-24 h-1 bg-linear-to-r from-primary to-accent mx-auto rounded-full" />
+          <div className="w-24 h-1 bg-linear-to-r from-primary via-accent to-primary mx-auto rounded-full" />
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -94,7 +94,7 @@ export default function About() {
             {/* Soft Skills */}
             <div className="flex flex-wrap gap-2 mb-8">
               {softSkills.map((skill) => (
-                <Badge key={skill} variant="outline" className="text-xs">
+                <Badge key={skill} variant="outline" className="text-xs border-primary/30 text-foreground">
                   {skill}
                 </Badge>
               ))}
