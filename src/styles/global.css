@@ -64,23 +64,36 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - Light mode */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgb(28 25 23);
+  background: oklch(0.95 0 0);
 }
 
 ::-webkit-scrollbar-thumb {
   background: rgb(var(--theme-primary));
   border-radius: 4px;
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(var(--theme-primary));
+  opacity: 0.8;
+}
+
+/* Custom scrollbar - Dark mode */
+.dark ::-webkit-scrollbar-track {
+  background: oklch(0.15 0.01 var(--theme-hue));
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  opacity: 0.8;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
   opacity: 1;
 }
 

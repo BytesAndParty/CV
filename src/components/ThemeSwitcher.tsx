@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Palette } from 'lucide-react';
+import { Palette, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -36,6 +36,7 @@ export default function ThemeSwitcher() {
       document.documentElement.classList.toggle('dark', savedMode === 'dark');
     } else {
       // Default to dark mode
+      setThemeMode('dark');
       document.documentElement.classList.add('dark');
     }
 
@@ -55,36 +56,61 @@ export default function ThemeSwitcher() {
     applyColorScheme(scheme);
   };
 
+  const handleThemeModeToggle = () => {
+    const newMode: ThemeMode = themeMode === 'dark' ? 'light' : 'dark';
+    setThemeMode(newMode);
+    localStorage.setItem('themeMode', newMode);
+    document.documentElement.classList.toggle('dark', newMode === 'dark');
+  };
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="hover:bg-secondary"
-          title="Change Color Scheme"
-        >
-          <Palette className="w-5 h-5" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48">
-        <DropdownMenuLabel>Farbschema</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        {Object.entries(colorSchemes).map(([key, { name, hue }]) => (
-          <DropdownMenuItem
-            key={key}
-            onClick={() => handleColorChange(key as ColorScheme)}
-            className="flex items-center gap-3 cursor-pointer"
+    <div className="flex items-center gap-2">
+      {/* Theme Mode Toggle */}
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={handleThemeModeToggle}
+        className="hover:bg-secondary"
+        title={themeMode === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+      >
+        {themeMode === 'dark' ? (
+          <Sun className="w-5 h-5" />
+        ) : (
+          <Moon className="w-5 h-5" />
+        )}
+      </Button>
+
+      {/* Color Scheme Picker */}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hover:bg-secondary"
+            title="Change Color Scheme"
           >
-            <div
-              className="w-4 h-4 rounded-full"
-              style={{ backgroundColor: `oklch(0.65 0.19 ${hue})` }}
-            />
-            <span>{name}</span>
-            {colorScheme === key && <span className="ml-auto text-primary">✓</span>}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+            <Palette className="w-5 h-5" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-48">
+          <DropdownMenuLabel>Farbschema</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          {Object.entries(colorSchemes).map(([key, { name, hue }]) => (
+            <DropdownMenuItem
+              key={key}
+              onClick={() => handleColorChange(key as ColorScheme)}
+              className="flex items-center gap-3 cursor-pointer"
+            >
+              <div
+                className="w-4 h-4 rounded-full"
+                style={{ backgroundColor: `oklch(0.65 0.19 ${hue})` }}
+              />
+              <span>{name}</span>
+              {colorScheme === key && <span className="ml-auto text-primary">✓</span>}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }
