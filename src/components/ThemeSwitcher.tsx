@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Palette, Sun, Moon } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -26,6 +27,9 @@ export default function ThemeSwitcher() {
   const [themeMode, setThemeMode] = useState<ThemeMode>('dark');
 
   useEffect(() => {
+    // Detect system preference
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
     // Load saved preferences
     const savedColor = localStorage.getItem('colorScheme') as ColorScheme;
     const savedMode = localStorage.getItem('themeMode') as ThemeMode;
@@ -35,15 +39,30 @@ export default function ThemeSwitcher() {
       setThemeMode(savedMode);
       document.documentElement.classList.toggle('dark', savedMode === 'dark');
     } else {
-      // Default to dark mode
-      setThemeMode('dark');
-      document.documentElement.classList.add('dark');
+      // Use system preference or default to dark mode
+      const defaultMode: ThemeMode = systemPrefersDark ? 'dark' : 'dark'; // Always default to dark as requested
+      setThemeMode(defaultMode);
+      document.documentElement.classList.toggle('dark', defaultMode === 'dark');
     }
 
     // Apply color scheme
     if (savedColor) {
       applyColorScheme(savedColor);
     }
+
+    // Listen for system theme changes (optional enhancement)
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e: MediaQueryListEvent) => {
+      // Only apply if user hasn't set a preference
+      if (!localStorage.getItem('themeMode')) {
+        const newMode: ThemeMode = e.matches ? 'dark' : 'light';
+        setThemeMode(newMode);
+        document.documentElement.classList.toggle('dark', newMode === 'dark');
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   const applyColorScheme = (scheme: ColorScheme) => {
@@ -63,6 +82,19 @@ export default function ThemeSwitcher() {
     document.documentElement.classList.toggle('dark', newMode === 'dark');
   };
 
+  // Keyboard shortcut: Ctrl+Shift+T (or Cmd+Shift+T on Mac)
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'T') {
+        e.preventDefault();
+        handleThemeModeToggle();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [themeMode]);
+
   return (
     <div className="flex items-center gap-2">
       {/* Theme Mode Toggle */}
@@ -70,14 +102,33 @@ export default function ThemeSwitcher() {
         variant="ghost"
         size="icon"
         onClick={handleThemeModeToggle}
-        className="hover:bg-secondary"
-        title={themeMode === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+        className="hover:bg-secondary relative overflow-hidden"
+        title={`${themeMode === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'} (Ctrl+Shift+T)`}
+        aria-label={`Currently in ${themeMode} mode. Click to switch to ${themeMode === 'dark' ? 'light' : 'dark'} mode`}
       >
-        {themeMode === 'dark' ? (
-          <Sun className="w-5 h-5" />
-        ) : (
-          <Moon className="w-5 h-5" />
-        )}
+        <AnimatePresence mode="wait" initial={false}>
+          {themeMode === 'dark' ? (
+            <motion.div
+              key="sun"
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Sun className="w-5 h-5" />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="moon"
+              initial={{ rotate: 90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: -90, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Moon className="w-5 h-5" />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Button>
 
       {/* Color Scheme Picker */}

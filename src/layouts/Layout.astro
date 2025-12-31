@@ -22,12 +22,27 @@ const { title, description = "Personal CV & Portfolio" } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<script is:inline>
-			// Apply theme before page renders to avoid flash
+			// Optimized FOUC prevention - Apply theme before page renders
+			// This runs synchronously in the head to prevent any flash
 			(function() {
-				const savedMode = localStorage.getItem('themeMode');
-				if (savedMode === 'light') {
-					document.documentElement.classList.remove('dark');
-				} else {
+				try {
+					const savedMode = localStorage.getItem('themeMode');
+					const savedColor = localStorage.getItem('colorScheme');
+					const html = document.documentElement;
+
+					// Apply theme mode
+					if (savedMode === 'light') {
+						html.classList.remove('dark');
+					} else {
+						html.classList.add('dark');
+					}
+
+					// Apply color scheme
+					if (savedColor) {
+						html.setAttribute('data-color-scheme', savedColor);
+					}
+				} catch (e) {
+					// Fallback to dark mode if localStorage is not available
 					document.documentElement.classList.add('dark');
 				}
 			})();
