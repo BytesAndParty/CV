@@ -3,19 +3,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import ThemeSwitcher from './ThemeSwitcher';
+import LanguageSwitcher from './LanguageSwitcher';
+import type { Translations } from '../i18n/utils';
+import type { Language } from '../i18n/config';
 
-const navItems = [
-  { name: 'Start', href: '#hero' },
-  { name: 'Über mich', href: '#about' },
-  { name: 'Erfahrung', href: '#experience' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Ausbildung', href: '#education' },
-  { name: 'Kontakt', href: '#contact' },
-];
+interface NavigationProps {
+  lang: Language;
+  translations: Translations;
+}
 
-export default function Navigation() {
+export default function Navigation({ lang, translations: t }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const navItems = [
+    { name: t.nav.start, href: '#hero' },
+    { name: t.nav.about, href: '#about' },
+    { name: t.nav.experience, href: '#experience' },
+    { name: t.nav.skills, href: '#skills' },
+    { name: t.nav.projects, href: '#projects' },
+    { name: t.nav.education, href: '#education' },
+    { name: t.nav.contact, href: '#contact' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,11 +74,13 @@ export default function Navigation() {
                 </motion.a>
               ))}
             </div>
+            <LanguageSwitcher currentLang={lang} />
             <ThemeSwitcher />
           </div>
 
           {/* Mobile Menu */}
           <div className="md:hidden flex items-center gap-2">
+            <LanguageSwitcher currentLang={lang} />
             <ThemeSwitcher />
             <Button
               variant="ghost"
