@@ -3,23 +3,18 @@ import { useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Briefcase, GraduationCap, Award, Users } from 'lucide-react';
+import type { Translations } from '../i18n/utils';
 
-const stats = [
-  { value: '3+', label: 'Jahre Erfahrung', icon: Briefcase },
-  { value: '4', label: 'MS Zertifikate', icon: Award },
-  { value: 'Master', label: 'Software Engineering', icon: GraduationCap },
-];
+interface AboutProps {
+  translations: Translations;
+}
 
-const softSkills = [
-  'Leadership & Mentoring',
-  'Self-Management',
-  'Client Communication',
-  'Problem-Solving',
-  'Team Player',
-  'Adaptability',
-];
-
-export default function About() {
+export default function About({ translations: t }: AboutProps) {
+  const stats = [
+    { value: '3+', label: t.about.stats.experience, icon: Briefcase },
+    { value: '4', label: t.about.stats.certificates, icon: Award },
+    { value: 'Master', label: t.about.stats.degree, icon: GraduationCap },
+  ];
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
@@ -34,7 +29,7 @@ export default function About() {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              Über mich
+              {t.about.title}
             </span>
           </h2>
           <div className="w-24 h-1 bg-linear-to-r from-primary via-accent to-primary mx-auto rounded-full" />
@@ -51,9 +46,11 @@ export default function About() {
             <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto">
               <div className="absolute inset-0 bg-linear-to-br from-primary to-accent rounded-2xl rotate-6" />
               <div className="absolute inset-0 bg-card rounded-2xl overflow-hidden border border-border">
-                <div className="w-full h-full bg-linear-to-br from-secondary to-card flex items-center justify-center">
-                  <span className="text-6xl font-bold text-primary">RS</span>
-                </div>
+                <img
+                  src="/profile.webp"
+                  alt="Robert Stickler"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
 
@@ -65,7 +62,7 @@ export default function About() {
             >
               <Badge className="bg-primary text-primary-foreground px-3 py-1">
                 <Users className="w-3 h-3 mr-1" />
-                Avanade
+                {t.about.company}
               </Badge>
             </motion.div>
           </motion.div>
@@ -77,23 +74,18 @@ export default function About() {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <h3 className="text-2xl font-semibold text-foreground mb-4">
-              Hallo, ich bin <span className="text-primary">Robert</span>
+              {t.about.greeting} <span className="text-primary">{t.about.name}</span>
             </h3>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              Software Engineer & aspiring Solution Architect mit 3+ Jahren Erfahrung
-              in Softwareentwicklung und Consulting bei <span className="text-primary font-medium">Avanade Austria</span>.
-              Spezialisiert auf C#/.NET, Microsoft Power Platform und Full-Stack Web Development.
+              {t.about.bio1}
             </p>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Ich bin erfahren in Requirements Engineering, Solution Design, Pre-Sales und
-              Aufwandsschätzung. Meine Stärke liegt darin, skalierbare und automatisierte
-              Lösungen zu konzipieren und direkt umzusetzen. Teamarbeit, Mentoring und
-              Kundenkommunikation gehören zu meinem täglichen Geschäft.
+              {t.about.bio2}
             </p>
 
             {/* Soft Skills */}
             <div className="flex flex-wrap gap-2 mb-8">
-              {softSkills.map((skill) => (
+              {t.about.softSkills.map((skill) => (
                 <Badge key={skill} variant="outline" className="text-xs border-primary/30 text-foreground">
                   {skill}
                 </Badge>

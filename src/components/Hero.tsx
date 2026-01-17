@@ -2,8 +2,13 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { MapPin, Mail, Phone } from 'lucide-react';
+import type { Translations } from '../i18n/utils';
 
-export default function Hero() {
+interface HeroProps {
+  translations: Translations;
+}
+
+export default function Hero({ translations: t }: HeroProps) {
   return (
     <section
       id="hero"
@@ -54,7 +59,7 @@ export default function Hero() {
           >
             <Badge variant="secondary" className="text-sm px-3 py-1">
               <MapPin className="w-3 h-3 mr-1" />
-              Vienna, Austria
+              {t.hero.location}
             </Badge>
           </motion.div>
 
@@ -65,7 +70,7 @@ export default function Hero() {
             transition={{ delay: 0.3 }}
           >
             <span className="text-foreground">
-              Robert Stickler
+              {t.hero.name}
             </span>
           </motion.h1>
 
@@ -76,7 +81,7 @@ export default function Hero() {
             transition={{ delay: 0.4 }}
           >
             <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent font-semibold">
-              Software Engineer & Solution Architect
+              {t.hero.title}
             </span>
           </motion.h2>
 
@@ -86,8 +91,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            3+ Jahre Erfahrung in Softwareentwicklung und Consulting.
-            Spezialisiert auf C#/.NET, Microsoft Power Platform und Full-Stack Web Development.
+            {t.hero.description}
           </motion.p>
 
           <motion.div
@@ -124,7 +128,7 @@ export default function Hero() {
                 whileTap={{ scale: 0.95 }}
               >
                 <Mail className="w-4 h-4 mr-2" />
-                Kontakt aufnehmen
+                {t.hero.cta}
               </motion.a>
             </Button>
             <Button
@@ -138,7 +142,7 @@ export default function Hero() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Mehr erfahren
+                {t.hero.learnMore}
               </motion.a>
             </Button>
           </motion.div>

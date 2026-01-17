@@ -3,47 +3,15 @@ import { useRef } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { GraduationCap, Award, MapPin, Calendar } from 'lucide-react';
+import type { Translations } from '../i18n/utils';
 
-const education = [
-  {
-    degree: 'Master of Science in Software Engineering',
-    institution: 'FH Technikum Wien',
-    location: 'Vienna, Austria',
-    period: 'Aug 2022 – Oct 2024',
-    highlight: 'Exchange Semester: Iowa State University, USA (Jan – May 2023)',
-  },
-  {
-    degree: 'Bachelor of Science in Computer Science',
-    institution: 'FH Technikum Wien',
-    location: 'Vienna, Austria',
-    period: 'Aug 2019 – June 2022',
-  },
-];
+const certIcons = ['🔷', '🔷', '☁️', '⚡'];
 
-const certifications = [
-  {
-    name: 'Power Platform Functional Consultant Associate',
-    issuer: 'Microsoft',
-    icon: '🔷',
-  },
-  {
-    name: 'Dynamics 365 Fundamentals (CRM)',
-    issuer: 'Microsoft',
-    icon: '🔷',
-  },
-  {
-    name: 'Azure Fundamentals',
-    issuer: 'Microsoft',
-    icon: '☁️',
-  },
-  {
-    name: 'Power Platform Fundamentals',
-    issuer: 'Microsoft',
-    icon: '⚡',
-  },
-];
+interface EducationProps {
+  translations: Translations;
+}
 
-export default function Education() {
+export default function Education({ translations: t }: EducationProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
@@ -58,7 +26,7 @@ export default function Education() {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              Ausbildung & Zertifikate
+              {t.education.title}
             </span>
           </h2>
           <div className="w-24 h-1 bg-linear-to-r from-primary via-accent to-primary mx-auto rounded-full" />
@@ -76,11 +44,11 @@ export default function Education() {
               <span className="p-2 bg-primary/20 rounded-lg">
                 <GraduationCap className="w-6 h-6 text-primary" />
               </span>
-              Ausbildung
+              {t.education.educationTitle}
             </motion.h3>
 
             <div className="space-y-6">
-              {education.map((edu, index) => (
+              {t.education.items.map((edu, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 30 }}
@@ -94,7 +62,7 @@ export default function Education() {
                         <Calendar className="w-4 h-4" />
                         {edu.period}
                       </div>
-                      <h4 className="text-lg font-semibold text-foreground">{edu.degree}</h4>
+                      <h4 className="text-lg font-semibold text-foreground">{edu.degree} in {edu.field}</h4>
                       <div className="flex items-center gap-2 text-muted-foreground">
                         <MapPin className="w-4 h-4" />
                         <span>{edu.institution}</span>
@@ -126,11 +94,11 @@ export default function Education() {
               <span className="p-2 bg-accent/20 rounded-lg">
                 <Award className="w-6 h-6 text-accent" />
               </span>
-              Microsoft Zertifikate
+              {t.education.certificatesTitle}
             </motion.h3>
 
             <div className="space-y-4">
-              {certifications.map((cert, index) => (
+              {t.education.certificates.map((cert, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: 30 }}
@@ -141,14 +109,14 @@ export default function Education() {
                   <Card className="bg-card/50 border-border hover:border-accent/50 transition-colors">
                     <CardContent className="p-4 flex items-center gap-4">
                       <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center shrink-0 text-2xl">
-                        {cert.icon}
+                        {certIcons[index] || '🔷'}
                       </div>
                       <div className="grow">
                         <h4 className="text-foreground font-medium text-sm">{cert.name}</h4>
                         <p className="text-muted-foreground text-xs">{cert.issuer} Certified</p>
                       </div>
                       <Badge variant="secondary" className="text-xs">
-                        Verified
+                        {t.education.verified}
                       </Badge>
                     </CardContent>
                   </Card>

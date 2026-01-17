@@ -3,56 +3,13 @@ import { useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Code2, Database, Wrench, Brain } from 'lucide-react';
+import type { Translations } from '../i18n/utils';
 
-const skillCategories = [
-  {
-    name: 'Programming & Frameworks',
-    icon: Code2,
-    skills: [
-      { name: 'C# / .NET', level: 90 },
-      { name: 'TypeScript', level: 85 },
-      { name: 'JavaScript', level: 85 },
-      { name: 'Next.js', level: 80 },
-      { name: 'Astro', level: 75 },
-      { name: 'Power Platform', level: 88 },
-    ],
-  },
-  {
-    name: 'Databases & Cloud',
-    icon: Database,
-    skills: [
-      { name: 'SQL Server', level: 85 },
-      { name: 'Firebase', level: 80 },
-      { name: 'Azure Web Jobs', level: 78 },
-      { name: 'Azure App Registration', level: 75 },
-    ],
-  },
-  {
-    name: 'Tools & Practices',
-    icon: Wrench,
-    skills: [
-      { name: 'Git', level: 90 },
-      { name: 'Azure DevOps', level: 85 },
-      { name: 'Agile/Scrum', level: 88 },
-      { name: 'CI/CD', level: 75 },
-    ],
-  },
-  {
-    name: 'Business Skills',
-    icon: Brain,
-    skills: [
-      { name: 'Solution Design', level: 85 },
-      { name: 'Requirements Engineering', level: 88 },
-      { name: 'Pre-Sales', level: 80 },
-      { name: 'Effort Estimation', level: 82 },
-    ],
-  },
-];
+const categoryIcons = [Code2, Database, Wrench, Brain];
 
-const languages = [
-  { name: 'Deutsch', level: 'Muttersprache' },
-  { name: 'English', level: 'Fluent' },
-];
+interface SkillsProps {
+  translations: Translations;
+}
 
 function SkillBar({ name, level, delay }: { name: string; level: number; delay: number }) {
   const ref = useRef(null);
@@ -76,7 +33,7 @@ function SkillBar({ name, level, delay }: { name: string; level: number; delay: 
   );
 }
 
-export default function Skills() {
+export default function Skills({ translations: t }: SkillsProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
@@ -91,42 +48,45 @@ export default function Skills() {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              Skills & Fähigkeiten
+              {t.skills.title}
             </span>
           </h2>
           <div className="w-24 h-1 bg-linear-to-r from-primary via-accent to-primary mx-auto rounded-full" />
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {skillCategories.map((category, categoryIndex) => (
-            <motion.div
-              key={category.name}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: categoryIndex * 0.15 }}
-            >
-              <Card className="bg-card/50 border-border hover:border-primary/30 transition-colors h-full">
-                <CardHeader className="pb-4">
-                  <CardTitle className="flex items-center gap-3 text-lg">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <category.icon className="w-5 h-5 text-primary" />
-                    </div>
-                    {category.name}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {category.skills.map((skill, skillIndex) => (
-                    <SkillBar
-                      key={skill.name}
-                      name={skill.name}
-                      level={skill.level}
-                      delay={categoryIndex * 0.15 + skillIndex * 0.08}
-                    />
-                  ))}
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+          {t.skills.categories.map((category, categoryIndex) => {
+            const Icon = categoryIcons[categoryIndex];
+            return (
+              <motion.div
+                key={category.name}
+                initial={{ opacity: 0, y: 50 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: categoryIndex * 0.15 }}
+              >
+                <Card className="bg-card/50 border-border hover:border-primary/30 transition-colors h-full">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="flex items-center gap-3 text-lg">
+                      <div className="p-2 bg-primary/10 rounded-lg">
+                        <Icon className="w-5 h-5 text-primary" />
+                      </div>
+                      {category.name}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {category.skills.map((skill, skillIndex) => (
+                      <SkillBar
+                        key={skill.name}
+                        name={skill.name}
+                        level={skill.level}
+                        delay={categoryIndex * 0.15 + skillIndex * 0.08}
+                      />
+                    ))}
+                  </CardContent>
+                </Card>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Languages */}
@@ -138,11 +98,11 @@ export default function Skills() {
         >
           <Card className="bg-card/50 border-border">
             <CardHeader className="pb-4">
-              <CardTitle className="text-lg text-center">Sprachen</CardTitle>
+              <CardTitle className="text-lg text-center">{t.skills.languages.title}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap justify-center gap-4">
-                {languages.map((lang) => (
+                {t.skills.languages.items.map((lang) => (
                   <div
                     key={lang.name}
                     className="flex items-center gap-2 px-4 py-2 bg-secondary/50 rounded-lg"
@@ -165,18 +125,9 @@ export default function Skills() {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="mt-8 text-center"
         >
-          <h3 className="text-lg text-muted-foreground mb-4">Interessen</h3>
+          <h3 className="text-lg text-muted-foreground mb-4">{t.skills.interests.title}</h3>
           <div className="flex flex-wrap justify-center gap-3">
-            {[
-              'Klettern',
-              'Volleyball',
-              'Skifahren',
-              'Programmieren',
-              'Lesen',
-              'Schreiben',
-              'Musik',
-              'Team Events',
-            ].map((interest, index) => (
+            {t.skills.interests.items.map((interest, index) => (
               <motion.div
                 key={interest}
                 initial={{ opacity: 0, scale: 0.8 }}
