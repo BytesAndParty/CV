@@ -1,0 +1,229 @@
+{
+  "nav": {
+    "start": "Start",
+    "about": "Über mich",
+    "experience": "Erfahrung",
+    "skills": "Skills",
+    "projects": "Projekte",
+    "education": "Ausbildung",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "location": "Wien, Österreich",
+    "name": "Robert Stickler",
+    "title": "Software Engineer & Solution Architect",
+    "description": "Von der Mechanik zur Software – ich löse gerne komplexe Probleme. Als Software Engineer bei Avanade Austria entwickle ich Lösungen, die Prozesse automatisieren und Teams produktiver machen.",
+    "cta": "Kontakt aufnehmen",
+    "learnMore": "Mehr erfahren"
+  },
+  "about": {
+    "title": "Über mich",
+    "greeting": "Hallo, ich bin",
+    "name": "Robert",
+    "bio1": "Mein Weg in die IT war nicht geradlinig – vom Maschinenbau über ein Auslandssemester in Iowa bis zum Software Engineering. Diese Vielfalt hilft mir, Probleme aus verschiedenen Perspektiven zu betrachten und praktische Lösungen zu finden.",
+    "bio2": "Bei Avanade Austria arbeite ich an der Schnittstelle zwischen Technik und Business. Ich entwickle nicht nur Code, sondern begleite Projekte von der ersten Anforderungsanalyse bis zur Übergabe. Teamarbeit, Mentoring und direkte Kundenkommunikation gehören zu meinem Alltag.",
+    "company": "Avanade",
+    "softSkills": [
+      "Leadership & Mentoring",
+      "Selbstorganisation",
+      "Kundenkommunikation",
+      "Problemlösung",
+      "Teamplayer",
+      "Anpassungsfähigkeit"
+    ],
+    "stats": {
+      "experience": "Jahre Erfahrung",
+      "certificates": "MS Zertifikate",
+      "degree": "Software Engineering"
+    }
+  },
+  "experience": {
+    "title": "Berufserfahrung",
+    "present": "Heute",
+    "jobs": [
+      {
+        "title": "Software Engineer",
+        "company": "Avanade Austria",
+        "location": "Wien",
+        "period": "Feb 2022 – Heute",
+        "highlights": [
+          "Entwicklung und Automatisierung von Geschäftsprozessen mit Microsoft Power Platform und C#/.NET Backend",
+          "Leitung der Digitalisierung und Automatisierung des Honorar-Systems für externe Mitarbeiter",
+          "Aufbau eines sicheren Portals unter Einhaltung strenger Datenschutzanforderungen",
+          "Automatisierte PDF-Generierung und Genehmigungsworkflows für ~500 Honorare pro Woche",
+          "Verwaltung von SQL Server, Firebase und Azure Services (Web Jobs, App Registration)",
+          "Erstellung technischer Spezifikationen, Requirements-Analyse und Pre-Sales Support",
+          "Selbstständige Kundenberatung und Architekturentscheidungen",
+          "Mentoring von Junior Developern und interne Schulungen"
+        ],
+        "technologies": ["C#/.NET", "Power Platform", "SQL Server", "Azure", "Firebase"]
+      },
+      {
+        "title": "Maschinenbauingenieur / Projektkoordinator",
+        "company": "Berndorf Sondermaschinenbau",
+        "location": "Österreich",
+        "period": "Feb 2019 – Dez 2020",
+        "highlights": [
+          "Unterstützung bei Projektdurchführung und mechanischem Design",
+          "Koordination zwischen verschiedenen Abteilungen",
+          "Technische Dokumentation und Projektplanung"
+        ],
+        "technologies": ["CAD", "Projektmanagement", "Technische Dokumentation"]
+      }
+    ]
+  },
+  "skills": {
+    "title": "Skills & Fähigkeiten",
+    "categories": [
+      {
+        "name": "Programmierung & Frameworks",
+        "skills": [
+          { "name": "C# / .NET", "level": 90 },
+          { "name": "TypeScript", "level": 85 },
+          { "name": "JavaScript", "level": 85 },
+          { "name": "Next.js", "level": 75 },
+          { "name": "Astro", "level": 70 },
+          { "name": "Power Platform", "level": 90 }
+        ]
+      },
+      {
+        "name": "Datenbanken & Cloud",
+        "skills": [
+          { "name": "SQL Server", "level": 85 },
+          { "name": "Firebase", "level": 75 },
+          { "name": "Azure Web Jobs", "level": 80 },
+          { "name": "Azure App Registration", "level": 75 }
+        ]
+      },
+      {
+        "name": "Tools & Methoden",
+        "skills": [
+          { "name": "Git", "level": 90 },
+          { "name": "Azure DevOps", "level": 85 },
+          { "name": "Agile / Scrum", "level": 80 },
+          { "name": "CI/CD", "level": 75 }
+        ]
+      },
+      {
+        "name": "Business Skills",
+        "skills": [
+          { "name": "Solution Design", "level": 85 },
+          { "name": "Requirements Engineering", "level": 90 },
+          { "name": "Pre-Sales", "level": 80 },
+          { "name": "Aufwandsschätzung", "level": 85 }
+        ]
+      }
+    ],
+    "languages": {
+      "title": "Sprachen",
+      "items": [
+        { "name": "Deutsch", "level": "Muttersprache" },
+        { "name": "Englisch", "level": "Fließend" }
+      ]
+    },
+    "interests": {
+      "title": "Interessen",
+      "items": ["Klettern", "Volleyball", "Skifahren", "Programmieren", "Lesen", "Schreiben", "Musik", "Team Events"]
+    }
+  },
+  "projects": {
+    "title": "Projekte",
+    "items": [
+      {
+        "title": "Honorarnoten-System",
+        "description": "Komplette Digitalisierung des Honorar-Workflows für externe Mitarbeiter. Von der Excel-basierten Lösung zu einer vollautomatisierten Plattform mit Portal, automatischer PDF-Generierung und Genehmigungsworkflows.",
+        "highlights": [
+          "~500 Honorare pro Woche automatisiert verarbeitet",
+          "50 aktive User im Self-Service Portal",
+          "Strikte Datenschutzanforderungen umgesetzt",
+          "Von Excel zu strukturierter Datenbank migriert"
+        ],
+        "technologies": ["Power Platform", "C#/.NET", "SQL Server", "Firebase", "Azure"]
+      },
+      {
+        "title": "Mailjet-Dynamics Integration",
+        "description": "Entwicklung von Azure WebJobs zur Ablösung von Mailchimp durch Mailjet. Die Integration ermöglicht die Steuerung von E-Mail-Kampagnen direkt aus Dynamics 365.",
+        "highlights": [
+          "Bidirektionale Synchronisation Dynamics ↔ Mailjet",
+          "Automatisierte Kampagnen-Steuerung aus dem CRM",
+          "Event-basierte Verarbeitung über Azure WebJobs"
+        ],
+        "technologies": ["C#/.NET", "Azure WebJobs", "Dynamics 365", "Dataverse", "Mailjet API"]
+      }
+    ]
+  },
+  "education": {
+    "title": "Ausbildung & Zertifikate",
+    "educationTitle": "Ausbildung",
+    "certificatesTitle": "Microsoft Zertifikate",
+    "verified": "Verifiziert",
+    "items": [
+      {
+        "degree": "Master of Science",
+        "field": "Software Engineering",
+        "institution": "FH Technikum Wien",
+        "location": "Wien, Österreich",
+        "period": "Aug 2022 – Okt 2024",
+        "highlight": "Auslandssemester: Iowa State University, USA (Jan – Mai 2023)"
+      },
+      {
+        "degree": "Bachelor of Science",
+        "field": "Informatik",
+        "institution": "FH Technikum Wien",
+        "location": "Wien, Österreich",
+        "period": "Aug 2019 – Juni 2022"
+      }
+    ],
+    "certificates": [
+      {
+        "name": "Power Platform Functional Consultant Associate",
+        "issuer": "Microsoft"
+      },
+      {
+        "name": "Dynamics 365 Fundamentals (CRM)",
+        "issuer": "Microsoft"
+      },
+      {
+        "name": "Azure Fundamentals",
+        "issuer": "Microsoft"
+      },
+      {
+        "name": "Power Platform Fundamentals",
+        "issuer": "Microsoft"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Kontakt",
+    "heading": "Lass uns in Kontakt treten",
+    "description": "Interesse an einer Zusammenarbeit oder hast du Fragen? Fülle das Formular aus oder kontaktiere mich direkt.",
+    "info": {
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "location": "Standort"
+    },
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Dein Name",
+      "email": "E-Mail",
+      "emailPlaceholder": "deine@email.com",
+      "subject": "Betreff",
+      "subjectPlaceholder": "Worum geht es?",
+      "message": "Nachricht",
+      "messagePlaceholder": "Deine Nachricht...",
+      "submit": "Nachricht senden",
+      "submitting": "Wird gesendet...",
+      "required": "* Pflichtfelder. Deine Daten werden vertraulich behandelt."
+    },
+    "success": {
+      "title": "Nachricht gesendet!",
+      "message": "Danke für deine Nachricht. Ich melde mich bald bei dir."
+    },
+    "download": "CV als PDF herunterladen",
+    "followMe": "Folge mir auf",
+    "footer": {
+      "copyright": "© {year} Robert Stickler. Alle Rechte vorbehalten.",
+      "madeWith": "Erstellt mit Astro, React, Tailwind CSS & shadcn/ui"
+    }
+  }
+}
