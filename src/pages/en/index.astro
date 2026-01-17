@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation';
+import Hero from '../../components/Hero';
+import About from '../../components/About';
+import Experience from '../../components/Experience';
+import Skills from '../../components/Skills';
+import Projects from '../../components/Projects';
+import Education from '../../components/Education';
+import Contact from '../../components/Contact';
+import { getTranslations } from '../../i18n/utils';
+import type { Language } from '../../i18n/config';
+
+const lang: Language = 'en';
+const t = getTranslations(lang);
+---
+
+<Layout title="Robert Stickler | Software Engineer & Solution Architect" lang={lang}>
+	<Navigation client:load lang={lang} translations={t} />
+	<main>
+		<Hero client:load translations={t} />
+		<About client:visible translations={t} />
+		<Experience client:visible translations={t} />
+		<Skills client:visible translations={t} />
+		<Projects client:visible translations={t} />
+		<Education client:visible translations={t} />
+		<Contact client:visible lang={lang} translations={t} />
+	</main>
+</Layout>
