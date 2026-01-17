@@ -6,43 +6,54 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { Mail, Phone, MapPin, Linkedin, Instagram, Download, Send, CheckCircle2 } from 'lucide-react';
-
-const contactInfo = [
-  {
-    icon: Mail,
-    label: 'E-Mail',
-    value: 'rstickler98@gmail.com',
-    href: 'mailto:rstickler98@gmail.com',
-  },
-  {
-    icon: Phone,
-    label: 'Telefon',
-    value: '+43 650 503 0177',
-    href: 'tel:+436505030177',
-  },
-  {
-    icon: MapPin,
-    label: 'Standort',
-    value: 'Vienna, Austria',
-    href: null,
-  },
-];
+import { Mail, Phone, MapPin, Linkedin, Instagram, Github, Download, Send, CheckCircle2 } from 'lucide-react';
+import type { Translations } from '../i18n/utils';
+import type { Language } from '../i18n/config';
 
 const socialLinks = [
   {
     name: 'LinkedIn',
-    url: 'https://linkedin.com/in/your-profile', // TODO: Ersetze mit deinem LinkedIn Profil
+    url: 'https://www.linkedin.com/in/robert-stickler-6b30b8258/',
     icon: Linkedin,
   },
   {
+    name: 'GitHub',
+    url: 'https://github.com/BytesAndParty',
+    icon: Github,
+  },
+  {
     name: 'Instagram',
-    url: 'https://instagram.com/your-profile', // TODO: Ersetze mit deinem Instagram Profil
+    url: 'https://www.instagram.com/robert_stickler/',
     icon: Instagram,
   },
 ];
 
-export default function Contact() {
+interface ContactProps {
+  lang: Language;
+  translations: Translations;
+}
+
+export default function Contact({ lang, translations: t }: ContactProps) {
+  const contactInfo = [
+    {
+      icon: Mail,
+      label: t.contact.info.email,
+      value: 'rstickler98@gmail.com',
+      href: 'mailto:rstickler98@gmail.com',
+    },
+    {
+      icon: Phone,
+      label: t.contact.info.phone,
+      value: '+43 650 503 0177',
+      href: 'tel:+436505030177',
+    },
+    {
+      icon: MapPin,
+      label: t.contact.info.location,
+      value: lang === 'de' ? 'Wien, Österreich' : 'Vienna, Austria',
+      href: null,
+    },
+  ];
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -52,26 +63,26 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget);
-    const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      subject: formData.get('subject'),
-      message: formData.get('message'),
-    };
+    const form = e.currentTarget;
+    const formData = new FormData(form);
 
-    // Hier kannst du später einen echten Form-Handler einbauen (z.B. Formspree, Netlify Forms, etc.)
-    // Für jetzt simulieren wir einen Submit
-    console.log('Form submitted:', data);
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
+      });
 
-    // Simuliere API Call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+      if (response.ok) {
+        setIsSubmitted(true);
+        form.reset();
+        setTimeout(() => setIsSubmitted(false), 5000);
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+    }
 
     setIsSubmitting(false);
-    setIsSubmitted(true);
-
-    // Reset nach 5 Sekunden
-    setTimeout(() => setIsSubmitted(false), 5000);
   };
 
   return (
@@ -90,7 +101,7 @@ export default function Contact() {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              Kontakt
+              {t.contact.title}
             </span>
           </h2>
           <div className="w-24 h-1 bg-linear-to-r from-primary via-accent to-primary mx-auto rounded-full" />
@@ -106,11 +117,10 @@ export default function Contact() {
             <Card className="bg-card/50 border-border h-full">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-semibold text-foreground mb-6">
-                  Lass uns in Kontakt treten
+                  {t.contact.heading}
                 </h3>
                 <p className="text-muted-foreground mb-8">
-                  Interesse an einer Zusammenarbeit oder hast du Fragen?
-                  Fülle das Formular aus oder kontaktiere mich direkt.
+                  {t.contact.description}
                 </p>
 
                 {/* Contact Info */}
@@ -159,7 +169,7 @@ export default function Contact() {
                   >
                     <a href="/cv-robert-stickler.pdf" download>
                       <Download className="w-4 h-4 mr-2" />
-                      CV als PDF herunterladen
+                      {t.contact.download}
                     </a>
                   </Button>
                 </motion.div>
@@ -172,7 +182,7 @@ export default function Contact() {
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.7 }}
                 >
-                  <p className="text-sm text-muted-foreground mb-4">Folge mir auf</p>
+                  <p className="text-sm text-muted-foreground mb-4">{t.contact.followMe}</p>
                   <div className="flex gap-3">
                     {socialLinks.map((link, index) => (
                       <motion.a
@@ -206,7 +216,7 @@ export default function Contact() {
             <Card className="bg-card/50 border-border">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-semibold text-foreground mb-6">
-                  Nachricht senden
+                  {t.contact.form.submit}
                 </h3>
 
                 {isSubmitted ? (
@@ -219,32 +229,39 @@ export default function Contact() {
                       <CheckCircle2 className="w-8 h-8 text-green-500" />
                     </div>
                     <h4 className="text-xl font-semibold text-foreground mb-2">
-                      Nachricht gesendet!
+                      {t.contact.success.title}
                     </h4>
                     <p className="text-muted-foreground">
-                      Danke für deine Nachricht. Ich melde mich bald bei dir.
+                      {t.contact.success.message}
                     </p>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
+                  <form
+                    name="contact"
+                    method="POST"
+                    data-netlify="true"
+                    onSubmit={handleSubmit}
+                    className="space-y-5"
+                  >
+                    <input type="hidden" name="form-name" value="contact" />
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="name">Name *</Label>
+                        <Label htmlFor="name">{t.contact.form.name} *</Label>
                         <Input
                           id="name"
                           name="name"
-                          placeholder="Dein Name"
+                          placeholder={t.contact.form.namePlaceholder}
                           required
                           className="bg-secondary/50"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="email">E-Mail *</Label>
+                        <Label htmlFor="email">{t.contact.form.email} *</Label>
                         <Input
                           id="email"
                           name="email"
                           type="email"
-                          placeholder="deine@email.com"
+                          placeholder={t.contact.form.emailPlaceholder}
                           required
                           className="bg-secondary/50"
                         />
@@ -252,21 +269,21 @@ export default function Contact() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="subject">Betreff</Label>
+                      <Label htmlFor="subject">{t.contact.form.subject}</Label>
                       <Input
                         id="subject"
                         name="subject"
-                        placeholder="Worum geht es?"
+                        placeholder={t.contact.form.subjectPlaceholder}
                         className="bg-secondary/50"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="message">Nachricht *</Label>
+                      <Label htmlFor="message">{t.contact.form.message} *</Label>
                       <Textarea
                         id="message"
                         name="message"
-                        placeholder="Deine Nachricht..."
+                        placeholder={t.contact.form.messagePlaceholder}
                         rows={5}
                         required
                         className="bg-secondary/50 resize-none"
@@ -282,18 +299,18 @@ export default function Contact() {
                       {isSubmitting ? (
                         <>
                           <span className="animate-spin mr-2">⏳</span>
-                          Wird gesendet...
+                          {t.contact.form.submitting}
                         </>
                       ) : (
                         <>
                           <Send className="w-4 h-4 mr-2" />
-                          Nachricht senden
+                          {t.contact.form.submit}
                         </>
                       )}
                     </Button>
 
                     <p className="text-xs text-muted-foreground text-center">
-                      * Pflichtfelder. Deine Daten werden vertraulich behandelt.
+                      {t.contact.form.required}
                     </p>
                   </form>
                 )}
@@ -310,10 +327,10 @@ export default function Contact() {
           className="mt-16 pt-8 border-t border-border text-center"
         >
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Robert Stickler. Alle Rechte vorbehalten.
+            {t.contact.footer.copyright.replace('{year}', new Date().getFullYear().toString())}
           </p>
           <p className="text-muted-foreground/60 text-xs mt-2">
-            Erstellt mit Astro, React, Tailwind CSS & shadcn/ui
+            {t.contact.footer.madeWith}
           </p>
         </motion.div>
       </div>
