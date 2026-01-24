@@ -4,6 +4,7 @@ import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GlowCard } from '@/components/ui/glow-card';
 import { Badge } from '@/components/ui/badge';
 import { Code2, Database, Wrench, Brain } from 'lucide-react';
+import TechMarquee from './TechMarquee';
 import type { Translations } from '../i18n/utils';
 
 const categoryIcons = [Code2, Database, Wrench, Brain];
@@ -55,7 +56,10 @@ export default function Skills({ translations: t }: SkillsProps) {
           <div className="w-24 h-1 bg-linear-to-r from-primary via-accent to-primary mx-auto rounded-full" />
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* Tech Stack Marquee */}
+        <TechMarquee title="Tech Stack" />
+
+        <div className="grid md:grid-cols-2 gap-6 mt-8">
           {t.skills.categories.map((category, categoryIndex) => {
             const Icon = categoryIcons[categoryIndex];
             return (

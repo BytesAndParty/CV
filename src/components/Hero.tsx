@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { MagneticButton } from '@/components/ui/magnetic-button';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, Mail, Phone } from 'lucide-react';
+import { MapPin, Mail } from 'lucide-react';
+import { TextScramble } from './TextScramble';
+import { RotatingDecoration } from './ScrollRotate';
 import type { Translations } from '../i18n/utils';
 
 interface HeroProps {
@@ -14,35 +17,68 @@ export default function Hero({ translations: t }: HeroProps) {
       id="hero"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
-      {/* Animated Background */}
+      {/* Decorative SVG Pattern Background */}
+      <div className="absolute inset-0 -z-30 hero-decorative-pattern" />
+
+      {/* Circuit Pattern Background */}
+      <div className="absolute inset-0 -z-20 hero-pattern" />
+
+      {/* Morphing Gradient Background */}
+      <div className="absolute inset-0 -z-10 morphing-gradient" />
+
+      {/* Animated Blobs */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background" />
         <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 dark:bg-primary/20 rounded-full blur-3xl opacity-60 dark:opacity-100"
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 dark:bg-primary/30 rounded-full blur-3xl opacity-60 dark:opacity-100"
           animate={{
-            x: [0, 50, 0],
-            y: [0, 30, 0],
-            scale: [1, 1.1, 1],
+            x: [0, 60, 20, 0],
+            y: [0, 40, -20, 0],
+            scale: [1, 1.2, 0.9, 1],
+            rotate: [0, 90, 180, 360],
           }}
           transition={{
-            duration: 8,
+            duration: 12,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
         />
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 dark:bg-accent/20 rounded-full blur-3xl opacity-60 dark:opacity-100"
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 dark:bg-accent/30 rounded-full blur-3xl opacity-60 dark:opacity-100"
           animate={{
-            x: [0, -50, 0],
-            y: [0, -30, 0],
-            scale: [1, 1.2, 1],
+            x: [0, -70, -30, 0],
+            y: [0, -50, 20, 0],
+            scale: [1, 1.3, 0.85, 1],
+            rotate: [0, -120, -240, -360],
           }}
           transition={{
-            duration: 10,
+            duration: 15,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
         />
+        {/* Third blob for more visual interest */}
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 rounded-full blur-3xl opacity-50 dark:opacity-80"
+          animate={{
+            scale: [1, 1.15, 1, 0.9, 1],
+            rotate: [0, 45, 90, 135, 180],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      </div>
+
+      {/* Rotating Decoration - Left */}
+      <div className="absolute left-8 top-1/3 hidden lg:block opacity-30">
+        <RotatingDecoration />
+      </div>
+
+      {/* Rotating Decoration - Right */}
+      <div className="absolute right-8 bottom-1/3 hidden lg:block opacity-30">
+        <RotatingDecoration className="scale-75" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -64,20 +100,21 @@ export default function Hero({ translations: t }: HeroProps) {
           </motion.div>
 
           <motion.h1
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 blur-reveal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
             <span className="text-foreground">
-              {t.hero.name}
+              <TextScramble text={t.hero.name} delay={400} speed={40} />
             </span>
           </motion.h1>
 
           <motion.h2
-            className="text-2xl md:text-3xl lg:text-4xl mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            className="text-2xl md:text-3xl lg:text-4xl mb-8 blur-reveal"
+            style={{ animationDelay: '0.2s' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
             <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent font-semibold">
@@ -100,7 +137,7 @@ export default function Hero({ translations: t }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55 }}
           >
-            {['C# / .NET', 'Power Platform', 'Next.js', 'TypeScript', 'Azure'].map((tech) => (
+            {['Power Platform', 'Dynamics 365', 'C# / .NET', 'Azure', 'TypeScript'].map((tech) => (
               <Badge
                 key={tech}
                 variant="outline"
@@ -117,20 +154,14 @@ export default function Hero({ translations: t }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            <Button
-              asChild
+            <MagneticButton
               size="lg"
               className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              <motion.a
-                href="#contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Mail className="w-4 h-4 mr-2" />
-                {t.hero.cta}
-              </motion.a>
-            </Button>
+              <Mail className="w-4 h-4 mr-2" />
+              {t.hero.cta}
+            </MagneticButton>
             <Button
               asChild
               variant="outline"
@@ -145,29 +176,6 @@ export default function Hero({ translations: t }: HeroProps) {
                 {t.hero.learnMore}
               </motion.a>
             </Button>
-          </motion.div>
-
-          {/* Contact Info */}
-          <motion.div
-            className="flex flex-wrap justify-center gap-6 mt-12 text-sm text-muted-foreground"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
-            <a
-              href="mailto:rstickler98@gmail.com"
-              className="flex items-center gap-2 hover:text-primary transition-colors"
-            >
-              <Mail className="w-4 h-4" />
-              rstickler98@gmail.com
-            </a>
-            <a
-              href="tel:+436505030177"
-              className="flex items-center gap-2 hover:text-primary transition-colors"
-            >
-              <Phone className="w-4 h-4" />
-              +43 650 503 0177
-            </a>
           </motion.div>
         </motion.div>
 

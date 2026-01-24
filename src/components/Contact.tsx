@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { MagneticButton } from '@/components/ui/magnetic-button';
 import { CardContent } from '@/components/ui/card';
 import { GlowCard } from '@/components/ui/glow-card';
 import { Input } from '@/components/ui/input';
@@ -8,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Mail, Phone, MapPin, Linkedin, Instagram, Github, Download, Send, CheckCircle2 } from 'lucide-react';
+import { TextScramble } from './TextScramble';
 import type { Translations } from '../i18n/utils';
 import type { Language } from '../i18n/config';
 
@@ -87,7 +89,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
   };
 
   return (
-    <section id="contact" className="py-24 relative" ref={ref}>
+    <section id="contact" className="py-24 relative grain-texture" ref={ref}>
       {/* Background Gradient */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-linear-to-t from-primary/5 to-transparent" />
@@ -144,10 +146,20 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                             href={info.href}
                             className="text-foreground font-medium hover:text-primary transition-colors"
                           >
-                            {info.value}
+                            <TextScramble
+                              text={info.value}
+                              delay={500 + index * 200}
+                              speed={25}
+                            />
                           </a>
                         ) : (
-                          <p className="text-foreground font-medium">{info.value}</p>
+                          <p className="text-foreground font-medium">
+                            <TextScramble
+                              text={info.value}
+                              delay={500 + index * 200}
+                              speed={25}
+                            />
+                          </p>
                         )}
                       </div>
                     </motion.div>
@@ -291,11 +303,12 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                       />
                     </div>
 
-                    <Button
+                    <MagneticButton
                       type="submit"
                       size="lg"
                       className="w-full bg-linear-to-r from-primary to-accent hover:opacity-90 transition-opacity"
                       disabled={isSubmitting}
+                      strength={0.2}
                     >
                       {isSubmitting ? (
                         <>
@@ -308,7 +321,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                           {t.contact.form.submit}
                         </>
                       )}
-                    </Button>
+                    </MagneticButton>
 
                     <p className="text-xs text-muted-foreground text-center">
                       {t.contact.form.required}
