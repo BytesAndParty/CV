@@ -1,7 +1,8 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { CardContent } from '@/components/ui/card';
+import { GlowCard } from '@/components/ui/glow-card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -114,7 +115,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Card className="bg-card/50 border-border h-full">
+            <GlowCard className="bg-card/50 h-full">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-semibold text-foreground mb-6">
                   {t.contact.heading}
@@ -204,7 +205,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                   </div>
                 </motion.div>
               </CardContent>
-            </Card>
+            </GlowCard>
           </motion.div>
 
           {/* Contact Form */}
@@ -213,7 +214,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <Card className="bg-card/50 border-border">
+            <GlowCard className="bg-card/50">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-semibold text-foreground mb-6">
                   {t.contact.form.submit}
@@ -315,7 +316,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                   </form>
                 )}
               </CardContent>
-            </Card>
+            </GlowCard>
           </motion.div>
         </div>
 

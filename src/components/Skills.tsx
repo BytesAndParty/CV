@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { GlowCard } from '@/components/ui/glow-card';
 import { Badge } from '@/components/ui/badge';
 import { Code2, Database, Wrench, Brain } from 'lucide-react';
 import type { Translations } from '../i18n/utils';
@@ -64,7 +65,7 @@ export default function Skills({ translations: t }: SkillsProps) {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: categoryIndex * 0.15 }}
               >
-                <Card className="bg-card/50 border-border hover:border-primary/30 transition-colors h-full">
+                <GlowCard className="bg-card/50 h-full">
                   <CardHeader className="pb-4">
                     <CardTitle className="flex items-center gap-3 text-lg">
                       <div className="p-2 bg-primary/10 rounded-lg">
@@ -83,7 +84,7 @@ export default function Skills({ translations: t }: SkillsProps) {
                       />
                     ))}
                   </CardContent>
-                </Card>
+                </GlowCard>
               </motion.div>
             );
           })}
@@ -96,7 +97,7 @@ export default function Skills({ translations: t }: SkillsProps) {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-12"
         >
-          <Card className="bg-card/50 border-border">
+          <GlowCard className="bg-card/50">
             <CardHeader className="pb-4">
               <CardTitle className="text-lg text-center">{t.skills.languages.title}</CardTitle>
             </CardHeader>
@@ -115,7 +116,7 @@ export default function Skills({ translations: t }: SkillsProps) {
                 ))}
               </div>
             </CardContent>
-          </Card>
+          </GlowCard>
         </motion.div>
 
         {/* Interests */}
