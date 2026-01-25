@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robert Stickler - CV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Color Schemes */
+    :root,
+    :root[data-color="green"] {
+      --primary: #10b981;
+      --primary-dark: #059669;
+      --primary-light: #d1fae5;
+      --primary-lighter: #ecfdf5;
+    }
+
+    :root[data-color="orange"] {
+      --primary: #f59e0b;
+      --primary-dark: #d97706;
+      --primary-light: #fef3c7;
+      --primary-lighter: #fffbeb;
+    }
+
+    :root[data-color="purple"] {
+      --primary: #a855f7;
+      --primary-dark: #9333ea;
+      --primary-light: #f3e8ff;
+      --primary-lighter: #faf5ff;
+    }
+
+    :root[data-color="red"] {
+      --primary: #ef4444;
+      --primary-dark: #dc2626;
+      --primary-light: #fee2e2;
+      --primary-lighter: #fef2f2;
+    }
+
+    :root[data-color="blue"] {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --primary-light: #e0e7ff;
+      --primary-lighter: #eef2ff;
+    }
+
+    :root {
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --border: #e5e7eb;
+      --bg-light: #f9fafb;
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 9pt;
+      line-height: 1.4;
+      color: var(--text);
+      background: white;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      padding: 10mm 12mm;
+      margin: 0 auto;
+      background: white;
+      overflow: hidden;
+    }
+
+    @media print {
+      body { background: white; }
+      .page {
+        margin: 0;
+        padding: 10mm 12mm;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      gap: 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary);
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--primary-lighter) 0%, white 50%);
+      margin: -10mm -12mm 10px -12mm;
+      padding: 10mm 12mm 10px 12mm;
+    }
+
+    .profile-photo {
+      width: 75px;
+      height: 95px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 2px solid var(--primary);
+      flex-shrink: 0;
+    }
+
+    .header-content {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .header-left h1 {
+      font-size: 22pt;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .header-left .title {
+      font-size: 11pt;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .header-right {
+      text-align: right;
+      font-size: 8pt;
+      color: var(--text-light);
+    }
+
+    .header-right a {
+      color: var(--text-light);
+      text-decoration: none;
+    }
+
+    .header-right a:hover {
+      color: var(--primary);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 5px;
+      margin-bottom: 3px;
+    }
+
+    .contact-icon {
+      width: 12px;
+      height: 12px;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    /* Main Layout */
+    .main {
+      display: grid;
+      grid-template-columns: 1fr 175px;
+      gap: 14px;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 10pt;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .section-icon {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Summary */
+    .summary {
+      font-size: 8.5pt;
+      line-height: 1.5;
+      color: var(--text);
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      background: linear-gradient(135deg, var(--primary-lighter) 0%, var(--bg-light) 100%);
+      border-radius: 5px;
+      border-left: 3px solid var(--primary);
+    }
+
+    /* Experience */
+    .job {
+      margin-bottom: 14px;
+      position: relative;
+      padding-left: 12px;
+      border-left: 2px solid var(--border);
+    }
+
+    .job:last-child {
+      margin-bottom: 0;
+    }
+
+    .job::before {
+      content: "";
+      position: absolute;
+      left: -5px;
+      top: 3px;
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .job-title {
+      font-weight: 600;
+      font-size: 9.5pt;
+    }
+
+    .job-period {
+      font-size: 8pt;
+      color: var(--text-light);
+      background: var(--bg-light);
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+
+    .job-company {
+      font-size: 8.5pt;
+      color: var(--text-light);
+      margin-bottom: 5px;
+    }
+
+    .job-highlights {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .job-highlights li {
+      position: relative;
+      padding-left: 10px;
+      margin-bottom: 3px;
+      font-size: 8.5pt;
+      line-height: 1.45;
+    }
+
+    .job-highlights li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 7pt;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 6px;
+    }
+
+    .tech-tag {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 7pt;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+
+    /* Projects */
+    .project {
+      margin-bottom: 12px;
+      padding: 8px 10px;
+      background: var(--bg-light);
+      border-radius: 4px;
+      border-left: 2px solid var(--primary);
+    }
+
+    .project:last-child {
+      margin-bottom: 0;
+    }
+
+    .project-title {
+      font-weight: 600;
+      font-size: 9pt;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .project-desc {
+      font-size: 8pt;
+      color: var(--text-light);
+      margin-bottom: 5px;
+      line-height: 1.45;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      padding-left: 12px;
+      border-left: 1px solid var(--border);
+    }
+
+    .sidebar .section {
+      margin-bottom: 10px;
+    }
+
+    .sidebar .section-title {
+      font-size: 9pt;
+    }
+
+    /* Skills - Modernized */
+    .skill-category {
+      margin-bottom: 7px;
+    }
+
+    .skill-category-name {
+      font-size: 8pt;
+      font-weight: 600;
+      margin-bottom: 3px;
+      color: var(--text);
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+
+    .skill-item {
+      font-size: 7pt;
+      background: var(--primary-lighter);
+      color: var(--text);
+      padding: 2px 5px;
+      border-radius: 3px;
+      border: 1px solid var(--primary-light);
+    }
+
+    /* Education */
+    .edu-item {
+      margin-bottom: 7px;
+      padding-left: 8px;
+      border-left: 2px solid var(--primary-light);
+    }
+
+    .edu-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .edu-degree {
+      font-weight: 600;
+      font-size: 8.5pt;
+    }
+
+    .edu-field {
+      font-size: 8pt;
+      color: var(--primary-dark);
+    }
+
+    .edu-institution {
+      font-size: 7.5pt;
+      color: var(--text-light);
+    }
+
+    .edu-period {
+      font-size: 7pt;
+      color: var(--text-light);
+    }
+
+    .edu-highlight {
+      font-size: 7pt;
+      color: var(--primary);
+      font-weight: 500;
+      margin-top: 1px;
+    }
+
+    /* Certificates */
+    .cert-item {
+      font-size: 7.5pt;
+      margin-bottom: 3px;
+      padding: 2px 0 2px 8px;
+      position: relative;
+      background: var(--primary-lighter);
+      border-radius: 2px;
+    }
+
+    .cert-item::before {
+      content: "✓";
+      position: absolute;
+      left: 2px;
+      color: var(--primary);
+      font-size: 6pt;
+      font-weight: bold;
+    }
+
+    /* Languages */
+    .lang-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8pt;
+      margin-bottom: 4px;
+    }
+
+    .lang-level {
+      color: var(--text-light);
+      font-size: 7pt;
+    }
+
+    .lang-bar {
+      display: flex;
+      gap: 2px;
+      margin-left: auto;
+      margin-right: 5px;
+    }
+
+    .lang-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    .lang-dot.filled {
+      background: var(--primary);
+    }
+
+    /* Interests */
+    .interests {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+
+    .interest-item {
+      font-size: 7pt;
+      color: var(--text-light);
+      background: var(--bg-light);
+      padding: 2px 6px;
+      border-radius: 10px;
+    }
+
+    /* Language toggle - hide content based on lang */
+    [data-lang="en"] .lang-de,
+    [data-lang="de"] .lang-en,
+    :root:not([data-lang]) .lang-en {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Header -->
+    <header class="header">
+      <img src="profile.webp" alt="Robert Stickler" class="profile-photo">
+      <div class="header-content">
+        <div class="header-left">
+          <h1>Robert Stickler</h1>
+          <div class="title">Software Engineer & Solution Architect</div>
+        </div>
+        <div class="header-right">
+          <div class="contact-item">
+            <span>robert.stickler@hotmail.com</span>
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div class="contact-item">
+            <span>+43 664 1234567</span>
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+          </div>
+          <div class="contact-item">
+            <span class="lang-de">Wien, Österreich</span>
+            <span class="lang-en">Vienna, Austria</span>
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="contact-item">
+            <a href="https://linkedin.com/in/robertstickler">linkedin.com/in/robertstickler</a>
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </div>
+          <div class="contact-item">
+            <a href="https://github.com/robertstickler">github.com/robertstickler</a>
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Summary -->
+    <div class="summary">
+      <span class="lang-de">Von der Mechanik zur Software – ich löse gerne komplexe Probleme. Bei Avanade Austria entwickle ich Lösungen mit Microsoft Power Platform und C#/.NET, die Prozesse automatisieren und Teams produktiver machen. Mein Weg über Maschinenbau und ein Auslandssemester in den USA gibt mir eine einzigartige Perspektive auf technische Herausforderungen.</span>
+      <span class="lang-en">From mechanics to software – I enjoy solving complex problems. At Avanade Austria, I develop solutions with Microsoft Power Platform and C#/.NET that automate processes and boost team productivity. My journey through mechanical engineering and a semester abroad in the USA gives me a unique perspective on technical challenges.</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+      <!-- Left Column -->
+      <div class="content">
+        <!-- Experience -->
+        <section class="section">
+          <h2 class="section-title">
+            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+              <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+            </svg>
+            <span class="lang-de">Berufserfahrung</span>
+            <span class="lang-en">Experience</span>
+          </h2>
+
+          <div class="job">
+            <div class="job-header">
+              <span class="job-title">Software Engineer</span>
+              <span class="job-period lang-de">Feb 2022 – Heute</span>
+              <span class="job-period lang-en">Feb 2022 – Present</span>
+            </div>
+            <div class="job-company lang-de">Avanade Austria | Wien</div>
+            <div class="job-company lang-en">Avanade Austria | Vienna</div>
+            <ul class="job-highlights lang-de">
+              <li>Entwicklung und Automatisierung von Geschäftsprozessen mit Power Platform und C#/.NET</li>
+              <li>Leitung der Digitalisierung des Honorar-Systems: ~500 Honorare/Woche automatisiert verarbeitet</li>
+              <li>Aufbau eines sicheren Portals unter Einhaltung strenger Datenschutzanforderungen</li>
+              <li>Verwaltung von SQL Server, Firebase und Azure Services (Web Jobs, App Registration)</li>
+              <li>Technische Spezifikationen, Requirements-Analyse und Pre-Sales Support</li>
+              <li>Selbstständige Kundenberatung und Architekturentscheidungen</li>
+              <li>Mentoring von Junior Developern und interne Schulungen</li>
+            </ul>
+            <ul class="job-highlights lang-en">
+              <li>Development and automation of business processes with Power Platform and C#/.NET</li>
+              <li>Led digitalization of fee system: ~500 invoices/week processed automatically</li>
+              <li>Built secure portal compliant with strict data protection requirements</li>
+              <li>Managed SQL Server, Firebase and Azure Services (Web Jobs, App Registration)</li>
+              <li>Technical specifications, requirements analysis and pre-sales support</li>
+              <li>Independent client consulting and architecture decisions</li>
+              <li>Mentoring junior developers and conducting internal trainings</li>
+            </ul>
+            <div class="tech-tags">
+              <span class="tech-tag">C#/.NET</span>
+              <span class="tech-tag">Power Platform</span>
+              <span class="tech-tag">SQL Server</span>
+              <span class="tech-tag">Azure</span>
+              <span class="tech-tag">Firebase</span>
+            </div>
+          </div>
+
+          <div class="job">
+            <div class="job-header">
+              <span class="job-title lang-de">Maschinenbauingenieur / Projektkoordinator</span>
+              <span class="job-title lang-en">Mechanical Engineer / Project Coordinator</span>
+              <span class="job-period lang-de">Feb 2019 – Dez 2020</span>
+              <span class="job-period lang-en">Feb 2019 – Dec 2020</span>
+            </div>
+            <div class="job-company lang-de">Berndorf Sondermaschinenbau | Österreich</div>
+            <div class="job-company lang-en">Berndorf Sondermaschinenbau | Austria</div>
+            <ul class="job-highlights lang-de">
+              <li>Unterstützung bei Projektdurchführung und mechanischem Design</li>
+              <li>Koordination zwischen verschiedenen Abteilungen</li>
+              <li>Technische Dokumentation und Projektplanung</li>
+            </ul>
+            <ul class="job-highlights lang-en">
+              <li>Support in project execution and mechanical design</li>
+              <li>Coordination between various departments</li>
+              <li>Technical documentation and project planning</li>
+            </ul>
+            <div class="tech-tags">
+              <span class="tech-tag">CAD</span>
+              <span class="tech-tag lang-de">Projektmanagement</span>
+              <span class="tech-tag lang-en">Project Management</span>
+              <span class="tech-tag lang-de">Dokumentation</span>
+              <span class="tech-tag lang-en">Documentation</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="section">
+          <h2 class="section-title">
+            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/>
+            </svg>
+            <span class="lang-de">Ausgewählte Projekte</span>
+            <span class="lang-en">Selected Projects</span>
+          </h2>
+
+          <div class="project">
+            <div class="project-title lang-de">Honorarnoten-System</div>
+            <div class="project-title lang-en">Fee Invoice System</div>
+            <div class="project-desc lang-de">
+              Komplette Digitalisierung des Honorar-Workflows für externe Mitarbeiter. Migration von Excel zu einer vollautomatisierten Plattform mit Portal, automatischer PDF-Generierung und Genehmigungsworkflows. 50 aktive User, ~500 Honorare/Woche.
+            </div>
+            <div class="project-desc lang-en">
+              Complete digitalization of fee workflow for external employees. Migration from Excel to fully automated platform with portal, automatic PDF generation and approval workflows. 50 active users, ~500 invoices/week.
+            </div>
+            <div class="tech-tags">
+              <span class="tech-tag">Power Platform</span>
+              <span class="tech-tag">C#/.NET</span>
+              <span class="tech-tag">SQL Server</span>
+              <span class="tech-tag">Azure</span>
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="project-title">Mailjet-Dynamics Integration</div>
+            <div class="project-desc lang-de">
+              Azure WebJobs zur Ablösung von Mailchimp durch Mailjet. Bidirektionale Synchronisation mit Dynamics 365 und automatisierte Kampagnen-Steuerung aus dem CRM.
+            </div>
+            <div class="project-desc lang-en">
+              Azure WebJobs to replace Mailchimp with Mailjet. Bidirectional synchronization with Dynamics 365 and automated campaign management from CRM.
+            </div>
+            <div class="tech-tags">
+              <span class="tech-tag">C#/.NET</span>
+              <span class="tech-tag">Azure WebJobs</span>
+              <span class="tech-tag">Dynamics 365</span>
+              <span class="tech-tag">Mailjet API</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- Skills -->
+        <section class="section">
+          <h2 class="section-title">
+            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+            </svg>
+            Skills
+          </h2>
+
+          <div class="skill-category">
+            <div class="skill-category-name lang-de">Programmierung</div>
+            <div class="skill-category-name lang-en">Programming</div>
+            <div class="skill-list">
+              <span class="skill-item">C#/.NET</span>
+              <span class="skill-item">TypeScript</span>
+              <span class="skill-item">JavaScript</span>
+              <span class="skill-item">Next.js</span>
+              <span class="skill-item">Astro</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <div class="skill-category-name">Microsoft</div>
+            <div class="skill-list">
+              <span class="skill-item">Power Platform</span>
+              <span class="skill-item">Dynamics 365</span>
+              <span class="skill-item">Azure</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <div class="skill-category-name lang-de">Datenbanken</div>
+            <div class="skill-category-name lang-en">Databases</div>
+            <div class="skill-list">
+              <span class="skill-item">SQL Server</span>
+              <span class="skill-item">Firebase</span>
+              <span class="skill-item">Dataverse</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <div class="skill-category-name">Tools</div>
+            <div class="skill-list">
+              <span class="skill-item">Git</span>
+              <span class="skill-item">Azure DevOps</span>
+              <span class="skill-item">CI/CD</span>
+              <span class="skill-item">Scrum</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Education -->
+        <section class="section">
+          <h2 class="section-title">
+            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+            <span class="lang-de">Ausbildung</span>
+            <span class="lang-en">Education</span>
+          </h2>
+
+          <div class="edu-item">
+            <div class="edu-degree">Master of Science</div>
+            <div class="edu-field">Software Engineering</div>
+            <div class="edu-institution">FH Technikum Wien</div>
+            <div class="edu-period lang-de">Aug 2022 – Okt 2024</div>
+            <div class="edu-period lang-en">Aug 2022 – Oct 2024</div>
+            <div class="edu-highlight lang-de">Auslandssemester: Iowa State University</div>
+            <div class="edu-highlight lang-en">Exchange semester: Iowa State University</div>
+          </div>
+
+          <div class="edu-item">
+            <div class="edu-degree">Bachelor of Science</div>
+            <div class="edu-field lang-de">Informatik</div>
+            <div class="edu-field lang-en">Computer Science</div>
+            <div class="edu-institution">FH Technikum Wien</div>
+            <div class="edu-period lang-de">Aug 2019 – Juni 2022</div>
+            <div class="edu-period lang-en">Aug 2019 – June 2022</div>
+          </div>
+        </section>
+
+        <!-- Certificates -->
+        <section class="section">
+          <h2 class="section-title">
+            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="7"/>
+              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+            </svg>
+            <span class="lang-de">Zertifikate</span>
+            <span class="lang-en">Certificates</span>
+          </h2>
+          <div class="cert-item">Power Platform Functional Consultant</div>
+          <div class="cert-item">Dynamics 365 Fundamentals (CRM)</div>
+          <div class="cert-item">Azure Fundamentals</div>
+          <div class="cert-item">Power Platform Fundamentals</div>
+        </section>
+
+        <!-- Languages -->
+        <section class="section">
+          <h2 class="section-title">
+            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+            </svg>
+            <span class="lang-de">Sprachen</span>
+            <span class="lang-en">Languages</span>
+          </h2>
+          <div class="lang-item">
+            <span lang-de>Deutsch</span>
+            <span lang-en>German</span>
+            <div class="lang-bar">
+              <span class="lang-dot filled"></span>
+              <span class="lang-dot filled"></span>
+              <span class="lang-dot filled"></span>
+              <span class="lang-dot filled"></span>
+              <span class="lang-dot filled"></span>
+            </div>
+          </div>
+          <div class="lang-item">
+            <span class="lang-de">Englisch</span>
+            <span class="lang-en">English</span>
+            <div class="lang-bar">
+              <span class="lang-dot filled"></span>
+              <span class="lang-dot filled"></span>
+              <span class="lang-dot filled"></span>
+              <span class="lang-dot filled"></span>
+              <span class="lang-dot"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Interests -->
+        <section class="section">
+          <h2 class="section-title">
+            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+            </svg>
+            <span class="lang-de">Interessen</span>
+            <span class="lang-en">Interests</span>
+          </h2>
+          <div class="interests">
+            <span class="interest-item lang-de">Klettern</span>
+            <span class="interest-item lang-en">Climbing</span>
+            <span class="interest-item">Volleyball</span>
+            <span class="interest-item lang-de">Skifahren</span>
+            <span class="interest-item lang-en">Skiing</span>
+            <span class="interest-item lang-de">Programmieren</span>
+            <span class="interest-item lang-en">Programming</span>
+            <span class="interest-item lang-de">Lesen</span>
+            <span class="interest-item lang-en">Reading</span>
+            <span class="interest-item lang-de">Musik</span>
+            <span class="interest-item lang-en">Music</span>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    // Read URL parameters and apply color scheme + language
+    const params = new URLSearchParams(window.location.search);
+    const color = params.get('color') || 'green';
+    const lang = params.get('lang') || 'de';
+
+    // Apply color scheme
+    document.documentElement.setAttribute('data-color', color);
+
+    // Apply language
+    document.documentElement.setAttribute('data-lang', lang);
+    document.documentElement.setAttribute('lang', lang);
+  </script>
+</body>
+</html>
