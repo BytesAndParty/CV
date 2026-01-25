@@ -12,7 +12,7 @@
     "location": "Wien, Österreich",
     "name": "Robert Stickler",
     "title": "Software Engineer & Solution Architect",
-    "description": "Von der Mechanik zur Software – ich löse gerne komplexe Probleme. Als Software Engineer bei Avanade Austria entwickle ich Lösungen, die Prozesse automatisieren und Teams produktiver machen.",
+    "description": "Ich löse gerne komplexe Probleme – beruflich wie privat. Als Software Engineer bei Avanade Austria entwickle ich Lösungen, die Prozesse automatisieren und Teams produktiver machen.",
     "cta": "Kontakt aufnehmen",
     "learnMore": "Mehr erfahren"
   },
@@ -20,7 +20,7 @@
     "title": "Über mich",
     "greeting": "Hallo, ich bin",
     "name": "Robert",
-    "bio1": "Mein Weg in die IT war nicht geradlinig – vom Maschinenbau über ein Auslandssemester in Iowa bis zum Software Engineering. Diese Vielfalt hilft mir, Probleme aus verschiedenen Perspektiven zu betrachten und praktische Lösungen zu finden.",
+    "bio1": "Programmieren ist für mich mehr als nur Beruf – auch in meiner Freizeit arbeite ich an eigenen Projekten, und schon während des Studiums habe ich jede Gelegenheit genutzt, um zu coden. Meine Masterarbeit war ein KI-Projekt, bei dem ich eine Lernplattform für Schüler entwickelt habe.",
     "bio2": "Bei Avanade Austria arbeite ich an der Schnittstelle zwischen Technik und Business. Ich entwickle nicht nur Code, sondern begleite Projekte von der ersten Anforderungsanalyse bis zur Übergabe. Teamarbeit, Mentoring und direkte Kundenkommunikation gehören zu meinem Alltag.",
     "company": "Avanade",
     "softSkills": [
@@ -47,16 +47,15 @@
         "location": "Wien",
         "period": "Feb 2022 – Heute",
         "highlights": [
-          "Entwicklung und Automatisierung von Geschäftsprozessen mit Microsoft Power Platform und C#/.NET Backend",
-          "Leitung der Digitalisierung und Automatisierung des Honorar-Systems für externe Mitarbeiter",
-          "Aufbau eines sicheren Portals unter Einhaltung strenger Datenschutzanforderungen",
-          "Automatisierte PDF-Generierung und Genehmigungsworkflows für ~500 Honorare pro Woche",
-          "Verwaltung von SQL Server, Firebase und Azure Services (Web Jobs, App Registration)",
-          "Erstellung technischer Spezifikationen, Requirements-Analyse und Pre-Sales Support",
-          "Selbstständige Kundenberatung und Architekturentscheidungen",
-          "Mentoring von Junior Developern und interne Schulungen"
+          "Selbstständige Betreuung mehrerer Kunden gleichzeitig – von der Anforderungsanalyse bis zur Umsetzung",
+          "End-to-End Projektverantwortung: Requirements, Kostenschätzung, Solution Design und Implementierung",
+          "Full-Stack Entwicklung: Power Apps, TypeScript (Frontend-Logik), C#/.NET (Backend)",
+          "Entwicklung von Dataverse Plugins in C# – Event-basierte Backend-Logik auf Datenbankebene",
+          "Unit- und Integration-Tests, Performance-Optimierung bestehender Lösungen",
+          "Knowledge Sharing: interne Schulungen und technische Dokumentation",
+          "Pre-Sales Support: Machbarkeitsanalysen und Aufwandsschätzungen für Kundenanfragen"
         ],
-        "technologies": ["C#/.NET", "Power Platform", "SQL Server", "Azure", "Firebase"]
+        "technologies": ["C#/.NET", "Power Platform", "TypeScript", "Dataverse", "Azure"]
       },
       {
         "title": "Maschinenbauingenieur / Projektkoordinator",
@@ -78,39 +77,39 @@
       {
         "name": "Programmierung & Frameworks",
         "skills": [
-          { "name": "C# / .NET", "level": 90 },
-          { "name": "TypeScript", "level": 85 },
-          { "name": "JavaScript", "level": 85 },
-          { "name": "Next.js", "level": 75 },
-          { "name": "Astro", "level": 70 },
-          { "name": "Power Platform", "level": 90 }
+          { "name": "C# / .NET", "level": 90, "tooltip": "Backend-Entwicklung, Dataverse Plugins, Azure WebJobs, REST APIs und Unit-Tests mit xUnit/NUnit" },
+          { "name": "TypeScript", "level": 85, "tooltip": "Frontend-Logik in Power Apps (PCF Controls), React-Komponenten und typsichere API-Integration" },
+          { "name": "JavaScript", "level": 85, "tooltip": "Frontend-Entwicklung, DOM-Manipulation und schnelle Prototypen" },
+          { "name": "Next.js", "level": 75, "tooltip": "Full-Stack Web-Apps wie meine KI-Lernplattform (Masterarbeit) mit SSR und API Routes" },
+          { "name": "Astro", "level": 70, "tooltip": "Statische Websites wie diese Portfolio-Seite – schnell, modern und SEO-optimiert" },
+          { "name": "Power Platform", "level": 90, "tooltip": "Model-Driven Apps, Canvas Apps, Power Automate Flows und Custom Connectors für Geschäftsprozesse" }
         ]
       },
       {
         "name": "Datenbanken & Cloud",
         "skills": [
-          { "name": "SQL Server", "level": 85 },
-          { "name": "Firebase", "level": 75 },
-          { "name": "Azure Web Jobs", "level": 80 },
-          { "name": "Azure App Registration", "level": 75 }
+          { "name": "Dataverse", "level": 90, "tooltip": "Datenmodellierung, Plugins, Custom APIs und komplexe Abfragen mit FetchXML" },
+          { "name": "SQL Server", "level": 85, "tooltip": "Datenbankdesign, Stored Procedures, Performance-Optimierung und Reporting" },
+          { "name": "Firebase", "level": 75, "tooltip": "Realtime Database, Authentication und Cloud Functions für schnelle Prototypen" },
+          { "name": "Azure Web Jobs", "level": 80, "tooltip": "Hintergrund-Jobs für Daten-Synchronisation und automatisierte Prozesse" }
         ]
       },
       {
         "name": "Tools & Methoden",
         "skills": [
-          { "name": "Git", "level": 90 },
-          { "name": "Azure DevOps", "level": 85 },
-          { "name": "Agile / Scrum", "level": 80 },
-          { "name": "CI/CD", "level": 75 }
+          { "name": "Git", "level": 90, "tooltip": "Versionskontrolle, Branching-Strategien, Pull Requests und Code Reviews" },
+          { "name": "Azure DevOps", "level": 85, "tooltip": "Pipelines, Repos, Work Items und Release Management" },
+          { "name": "Agile / Scrum", "level": 80, "tooltip": "Sprint Planning, Daily Standups, Retrospektiven und kontinuierliche Verbesserung" },
+          { "name": "CI/CD", "level": 75, "tooltip": "Automatisierte Builds, Tests und Deployments für schnellere Releases" }
         ]
       },
       {
         "name": "Business Skills",
         "skills": [
-          { "name": "Solution Design", "level": 85 },
-          { "name": "Requirements Engineering", "level": 90 },
-          { "name": "Pre-Sales", "level": 80 },
-          { "name": "Aufwandsschätzung", "level": 85 }
+          { "name": "Solution Design", "level": 85, "tooltip": "Architektur-Entscheidungen, Tech-Stack Auswahl und Lösungskonzepte für Kundenanforderungen" },
+          { "name": "Requirements Engineering", "level": 90, "tooltip": "Anforderungsanalyse, User Stories, Akzeptanzkriterien und Stakeholder-Kommunikation" },
+          { "name": "Pre-Sales", "level": 80, "tooltip": "Machbarkeitsanalysen, Demos und technische Beratung für potenzielle Projekte" },
+          { "name": "Aufwandsschätzung", "level": 85, "tooltip": "Realistische Schätzungen basierend auf Erfahrung und strukturierter Analyse" }
         ]
       }
     ],
@@ -123,22 +122,41 @@
     },
     "interests": {
       "title": "Interessen",
-      "items": ["Klettern", "Volleyball", "Skifahren", "Programmieren", "Lesen", "Schreiben", "Musik", "Team Events"]
+      "items": [
+        { "name": "Bouldern", "tooltip": "7a+ / V7 ist der aktuelle Highscore. Stärke: Coordination. Schwäche: Compression (und Höhenangst – Seilklettern war nur einmal im Auslandssemester 😅)" },
+        { "name": "Volleyball", "tooltip": "Sommersport mit Arbeitskollegen! Beach > Halle. Früher Hobbyturniere, USI-Kurs 6v6 absolviert." },
+        { "name": "Skifahren", "tooltip": "Einmal im Jahr, weil teuer – aber ich lieb's. Pistenrekord: 81km an einem Tag. Die 100km kommen noch! 🎿" },
+        { "name": "Bauen & Basteln", "tooltip": "Code, Holz, egal – Hauptsache selbst gemacht. Aktuell: Obsidian Plugins entwickeln." },
+        { "name": "Lesen", "tooltip": "Top Picks: Unsichtbare Frauen, Gerechtigkeit (Sandel), Utopien für Realisten (Bregman), Not Quite Dead Yet" },
+        { "name": "Laufen", "tooltip": "5km in 23min – Intervalltraining im Sommer, um schneller zu werden." },
+        { "name": "Gym", "tooltip": "Krafttraining als Ausgleich zum Sitzen. Bouldern braucht auch Muskeln!" }
+      ]
     }
   },
   "projects": {
     "title": "Projekte",
     "items": [
       {
+        "title": "KI-Lernplattform (Masterarbeit)",
+        "description": "Eine Plattform, auf der Schüler mittels KI mit Texten interagieren können. Inklusive Wrapper-Logik, um Missbrauch zu verhindern, sowie Metriken-Tracking zur Analyse der Nutzung.",
+        "highlights": [
+          "KI-gestützte Text-Interaktion für Schüler",
+          "Sicherheits-Wrapper gegen Zweckentfremdung der KI",
+          "Selbst gehostete Web-Applikation",
+          "Nutzungsmetriken und Analytics"
+        ],
+        "technologies": ["Next.js", "OpenAI API", "Tailwind", "Netlify"]
+      },
+      {
         "title": "Honorarnoten-System",
         "description": "Komplette Digitalisierung des Honorar-Workflows für externe Mitarbeiter. Von der Excel-basierten Lösung zu einer vollautomatisierten Plattform mit Portal, automatischer PDF-Generierung und Genehmigungsworkflows.",
         "highlights": [
           "~500 Honorare pro Woche automatisiert verarbeitet",
           "50 aktive User im Self-Service Portal",
-          "Strikte Datenschutzanforderungen umgesetzt",
+          "Umfangreiche Test-Suite in TypeScript und C#",
           "Von Excel zu strukturierter Datenbank migriert"
         ],
-        "technologies": ["Power Platform", "C#/.NET", "SQL Server", "Firebase", "Azure"]
+        "technologies": ["Power Platform", "C#/.NET", "SQL Server", "Azure"]
       },
       {
         "title": "Mailjet-Dynamics Integration",
@@ -149,6 +167,16 @@
           "Event-basierte Verarbeitung über Azure WebJobs"
         ],
         "technologies": ["C#/.NET", "Azure WebJobs", "Dynamics 365", "Dataverse", "Mailjet API"]
+      },
+      {
+        "title": "Censhare-Integration",
+        "description": "Schnittstellen-Entwicklung zwischen Censhare CMS und internen Systemen. Automatisierte Content-Synchronisation und Datenabgleich.",
+        "highlights": [
+          "REST API Schnittstelle zu Censhare CMS",
+          "Automatisierte Content-Synchronisation",
+          "Datenabgleich zwischen verschiedenen Systemen"
+        ],
+        "technologies": ["C#/.NET", "REST API", "Azure", "Censhare"]
       }
     ]
   },
@@ -220,6 +248,7 @@
       "message": "Danke für deine Nachricht. Ich melde mich bald bei dir."
     },
     "download": "CV als PDF herunterladen",
+    "downloadTooltip": "Farbe und Sprache werden von der aktuellen Seite übernommen",
     "followMe": "Folge mir auf",
     "footer": {
       "copyright": "© {year} Robert Stickler. Alle Rechte vorbehalten.",

@@ -173,11 +173,11 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.6 }}
-                  className="mb-6"
+                  className="mb-6 skill-tooltip-wrapper"
                 >
                   <Button
                     variant="outline"
-                    className="w-full"
+                    className="w-full cursor-help"
                     onClick={() => {
                       const colorScheme = document.documentElement.getAttribute('data-color-scheme') || 'green';
                       const printWindow = window.open(`/cv-a4.html?color=${colorScheme}&lang=${lang}`, '_blank');
@@ -191,6 +191,10 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                     <Download className="w-4 h-4 mr-2" />
                     {t.contact.download}
                   </Button>
+                  <div className="skill-tooltip">
+                    <div className="skill-tooltip-title">{t.contact.download}</div>
+                    <div className="skill-tooltip-desc">{t.contact.downloadTooltip}</div>
+                  </div>
                 </motion.div>
 
                 <Separator className="my-6" />

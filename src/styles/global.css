@@ -1005,3 +1005,109 @@ html *::after {
   inset: -10px;
   z-index: -1;
 }
+
+/* ============================================
+   FANCY SKILL TOOLTIP
+   ============================================ */
+
+.skill-tooltip-wrapper {
+  position: relative;
+}
+
+.skill-tooltip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  min-width: 280px;
+  max-width: 320px;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid rgb(var(--theme-primary) / 0.2);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 20px 40px -15px rgb(0 0 0 / 0.2),
+    0 0 30px rgb(var(--theme-primary) / 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* Glass effect */
+.skill-tooltip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgb(var(--theme-primary) / 0.05) 0%,
+    transparent 50%,
+    rgb(var(--theme-accent) / 0.05) 100%
+  );
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Arrow */
+.skill-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 16px;
+  height: 16px;
+  background: var(--card);
+  border-right: 1px solid rgb(var(--theme-primary) / 0.2);
+  border-bottom: 1px solid rgb(var(--theme-primary) / 0.2);
+}
+
+/* Glow border on tooltip */
+.skill-tooltip-wrapper:hover .skill-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+/* Tooltip content styling */
+.skill-tooltip-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--foreground);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skill-tooltip-title::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, rgb(var(--theme-primary)), rgb(var(--theme-accent)));
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+.skill-tooltip-desc {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+}
+
+
+/* Dark mode adjustments */
+.dark .skill-tooltip {
+  box-shadow:
+    0 20px 40px -15px rgb(0 0 0 / 0.5),
+    0 0 40px rgb(var(--theme-primary) / 0.15),
+    inset 0 1px 0 rgb(255 255 255 / 0.05);
+}
