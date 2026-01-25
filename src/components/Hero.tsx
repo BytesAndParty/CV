@@ -1,11 +1,104 @@
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/magnetic-button';
 import { Badge } from '@/components/ui/badge';
 import { MapPin, Mail } from 'lucide-react';
 import { TextScramble } from './TextScramble';
-import { RotatingDecoration } from './ScrollRotate';
 import type { Translations } from '../i18n/utils';
+
+// Animated Pattern Mask Component - creates spotlight effect synchronized with blobs
+function AnimatedPatternMask() {
+  // Motion values for Spotlight 1 (top-left, synced with blob 1)
+  const spot1X = useMotionValue(0);
+  const spot1Y = useMotionValue(0);
+  const spot1Scale = useMotionValue(1);
+
+  // Motion values for Spotlight 2 (bottom-right, synced with blob 2)
+  const spot2X = useMotionValue(0);
+  const spot2Y = useMotionValue(0);
+  const spot2Scale = useMotionValue(1);
+
+  // Start animations synchronized with blob animations
+  useEffect(() => {
+    // Spotlight 1 - matches blob 1 animation (duration: 12s)
+    const animation1X = animate(spot1X, [0, 60, 20, 0], {
+      duration: 12,
+      repeat: Infinity,
+      ease: 'easeInOut',
+    });
+    const animation1Y = animate(spot1Y, [0, 40, -20, 0], {
+      duration: 12,
+      repeat: Infinity,
+      ease: 'easeInOut',
+    });
+    const animation1Scale = animate(spot1Scale, [1, 1.2, 0.9, 1], {
+      duration: 12,
+      repeat: Infinity,
+      ease: 'easeInOut',
+    });
+
+    // Spotlight 2 - matches blob 2 animation (duration: 15s)
+    const animation2X = animate(spot2X, [0, -70, -30, 0], {
+      duration: 15,
+      repeat: Infinity,
+      ease: 'easeInOut',
+    });
+    const animation2Y = animate(spot2Y, [0, -50, 20, 0], {
+      duration: 15,
+      repeat: Infinity,
+      ease: 'easeInOut',
+    });
+    const animation2Scale = animate(spot2Scale, [1, 1.3, 0.85, 1], {
+      duration: 15,
+      repeat: Infinity,
+      ease: 'easeInOut',
+    });
+
+    return () => {
+      animation1X.stop();
+      animation1Y.stop();
+      animation1Scale.stop();
+      animation2X.stop();
+      animation2Y.stop();
+      animation2Scale.stop();
+    };
+  }, [spot1X, spot1Y, spot1Scale, spot2X, spot2Y, spot2Scale]);
+
+  // Create dynamic mask image from motion values
+  const maskImage = useTransform(
+    [spot1X, spot1Y, spot1Scale, spot2X, spot2Y, spot2Scale],
+    ([x1, y1, s1, x2, y2, s2]) => {
+      // Base positions: 25% from edges for spot1, 75% for spot2
+      // Spotlight radius: 450px (larger than blob 384px/192px radius)
+      const radius1 = 450 * (s1 as number);
+      const radius2 = 450 * (s2 as number);
+
+      // Calculate positions (percentage + pixel offset)
+      const pos1X = `calc(25% + ${x1}px)`;
+      const pos1Y = `calc(25% + ${y1}px)`;
+      const pos2X = `calc(75% + ${x2}px)`;
+      const pos2Y = `calc(75% + ${y2}px)`;
+
+      return `
+        radial-gradient(circle ${radius1}px at ${pos1X} ${pos1Y}, black 30%, transparent 70%),
+        radial-gradient(circle ${radius2}px at ${pos2X} ${pos2Y}, black 30%, transparent 70%)
+      `;
+    }
+  );
+
+  return (
+    <motion.div
+      className="absolute inset-0 -z-30 hero-decorative-pattern"
+      style={{
+        maskImage,
+        WebkitMaskImage: maskImage,
+        maskComposite: 'add',
+        WebkitMaskComposite: 'source-over',
+      }}
+    />
+  );
+}
 
 interface HeroProps {
   translations: Translations;
@@ -17,8 +110,8 @@ export default function Hero({ translations: t }: HeroProps) {
       id="hero"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
-      {/* Decorative SVG Pattern Background */}
-      <div className="absolute inset-0 -z-30 hero-decorative-pattern" />
+      {/* Line Pattern Background with animated spotlight mask */}
+      <AnimatedPatternMask />
 
       {/* Circuit Pattern Background */}
       <div className="absolute inset-0 -z-20 hero-pattern" />
@@ -69,16 +162,6 @@ export default function Hero({ translations: t }: HeroProps) {
             ease: 'easeInOut',
           }}
         />
-      </div>
-
-      {/* Rotating Decoration - Left */}
-      <div className="absolute left-8 top-1/3 hidden lg:block opacity-30">
-        <RotatingDecoration />
-      </div>
-
-      {/* Rotating Decoration - Right */}
-      <div className="absolute right-8 bottom-1/3 hidden lg:block opacity-30">
-        <RotatingDecoration className="scale-75" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

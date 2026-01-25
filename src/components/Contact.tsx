@@ -176,14 +176,20 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                   className="mb-6"
                 >
                   <Button
-                    asChild
                     variant="outline"
                     className="w-full"
+                    onClick={() => {
+                      const colorScheme = document.documentElement.getAttribute('data-color-scheme') || 'green';
+                      const printWindow = window.open(`/cv-a4.html?color=${colorScheme}&lang=${lang}`, '_blank');
+                      if (printWindow) {
+                        printWindow.addEventListener('load', () => {
+                          setTimeout(() => printWindow.print(), 300);
+                        });
+                      }
+                    }}
                   >
-                    <a href="/cv-robert-stickler.pdf" download>
-                      <Download className="w-4 h-4 mr-2" />
-                      {t.contact.download}
-                    </a>
+                    <Download className="w-4 h-4 mr-2" />
+                    {t.contact.download}
                   </Button>
                 </motion.div>
 
