@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Menu, X, Settings } from 'lucide-react';
 import ThemeSwitcher from './ThemeSwitcher';
 import LanguageSwitcher from './LanguageSwitcher';
 import EasterEgg from './EasterEgg';
@@ -43,7 +48,7 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-background/95 backdrop-blur-md shadow-lg border-b border-border'
-          : 'bg-background/30 backdrop-blur-sm dark:bg-transparent'
+          : 'bg-transparent md:bg-background/30 md:backdrop-blur-sm'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -82,13 +87,36 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
           {/* Settings - Right */}
           <div className="hidden md:flex items-center gap-2 z-10">
             <LanguageSwitcher currentLang={lang} />
-            <ThemeSwitcher />
+            <ThemeSwitcher translations={t} />
           </div>
 
           {/* Mobile Menu */}
-          <div className="md:hidden flex items-center gap-2">
-            <LanguageSwitcher currentLang={lang} />
-            <ThemeSwitcher />
+          <div className="md:hidden flex items-center gap-1">
+            {/* Settings Dropdown for Mobile */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hover:bg-secondary"
+                  title="Settings"
+                >
+                  <Settings className="w-5 h-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="p-3 min-w-50">
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">{t.nav.settings.theme}</span>
+                    <ThemeSwitcher translations={t} />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">{t.nav.settings.language}</span>
+                    <LanguageSwitcher currentLang={lang} />
+                  </div>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <Button
               variant="ghost"
               size="icon"

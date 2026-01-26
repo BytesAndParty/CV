@@ -6,7 +6,12 @@
     "skills": "Skills",
     "projects": "Projekte",
     "education": "Ausbildung",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "settings": {
+      "theme": "Design",
+      "language": "Sprache",
+      "colorScheme": "Farbschema"
+    }
   },
   "hero": {
     "location": "Wien, Österreich",

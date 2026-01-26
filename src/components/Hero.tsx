@@ -19,15 +19,21 @@ function AnimatedPatternMask() {
   const spot2Y = useMotionValue(0);
   const spot2Scale = useMotionValue(1);
 
-  // Start animations synchronized with blob animations
+  // Check if mobile for smaller spotlight radius
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+  const baseRadius = isMobile ? 200 : 450;
+
+  // Start animations synchronized with blob animations (smaller movement on mobile)
   useEffect(() => {
+    const movementScale = isMobile ? 0.5 : 1;
+
     // Spotlight 1 - matches blob 1 animation (duration: 12s)
-    const animation1X = animate(spot1X, [0, 60, 20, 0], {
+    const animation1X = animate(spot1X, [0, 30 * movementScale, 10 * movementScale, 0], {
       duration: 12,
       repeat: Infinity,
       ease: 'easeInOut',
     });
-    const animation1Y = animate(spot1Y, [0, 40, -20, 0], {
+    const animation1Y = animate(spot1Y, [0, 20 * movementScale, -10 * movementScale, 0], {
       duration: 12,
       repeat: Infinity,
       ease: 'easeInOut',
@@ -39,12 +45,12 @@ function AnimatedPatternMask() {
     });
 
     // Spotlight 2 - matches blob 2 animation (duration: 15s)
-    const animation2X = animate(spot2X, [0, -70, -30, 0], {
+    const animation2X = animate(spot2X, [0, -35 * movementScale, -15 * movementScale, 0], {
       duration: 15,
       repeat: Infinity,
       ease: 'easeInOut',
     });
-    const animation2Y = animate(spot2Y, [0, -50, 20, 0], {
+    const animation2Y = animate(spot2Y, [0, -25 * movementScale, 10 * movementScale, 0], {
       duration: 15,
       repeat: Infinity,
       ease: 'easeInOut',
@@ -63,16 +69,16 @@ function AnimatedPatternMask() {
       animation2Y.stop();
       animation2Scale.stop();
     };
-  }, [spot1X, spot1Y, spot1Scale, spot2X, spot2Y, spot2Scale]);
+  }, [spot1X, spot1Y, spot1Scale, spot2X, spot2Y, spot2Scale, isMobile]);
 
   // Create dynamic mask image from motion values
   const maskImage = useTransform(
     [spot1X, spot1Y, spot1Scale, spot2X, spot2Y, spot2Scale],
     ([x1, y1, s1, x2, y2, s2]) => {
       // Base positions: 25% from edges for spot1, 75% for spot2
-      // Spotlight radius: 450px (larger than blob 384px/192px radius)
-      const radius1 = 450 * (s1 as number);
-      const radius2 = 450 * (s2 as number);
+      // Spotlight radius: responsive based on screen size
+      const radius1 = baseRadius * (s1 as number);
+      const radius2 = baseRadius * (s2 as number);
 
       // Calculate positions (percentage + pixel offset)
       const pos1X = `calc(25% + ${x1}px)`;
@@ -119,13 +125,13 @@ export default function Hero({ translations: t }: HeroProps) {
       {/* Morphing Gradient Background */}
       <div className="absolute inset-0 -z-10 morphing-gradient" />
 
-      {/* Animated Blobs */}
+      {/* Animated Blobs - smaller on mobile */}
       <div className="absolute inset-0 -z-10">
         <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 dark:bg-primary/30 rounded-full blur-3xl opacity-60 dark:opacity-100"
+          className="absolute top-1/4 left-1/4 w-48 h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 bg-primary/20 dark:bg-primary/30 rounded-full blur-2xl sm:blur-3xl opacity-60 dark:opacity-100"
           animate={{
-            x: [0, 60, 20, 0],
-            y: [0, 40, -20, 0],
+            x: [0, 30, 10, 0],
+            y: [0, 20, -10, 0],
             scale: [1, 1.2, 0.9, 1],
             rotate: [0, 90, 180, 360],
           }}
@@ -136,10 +142,10 @@ export default function Hero({ translations: t }: HeroProps) {
           }}
         />
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 dark:bg-accent/30 rounded-full blur-3xl opacity-60 dark:opacity-100"
+          className="absolute bottom-1/4 right-1/4 w-48 h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 bg-accent/20 dark:bg-accent/30 rounded-full blur-2xl sm:blur-3xl opacity-60 dark:opacity-100"
           animate={{
-            x: [0, -70, -30, 0],
-            y: [0, -50, 20, 0],
+            x: [0, -35, -15, 0],
+            y: [0, -25, 10, 0],
             scale: [1, 1.3, 0.85, 1],
             rotate: [0, -120, -240, -360],
           }}
@@ -149,9 +155,9 @@ export default function Hero({ translations: t }: HeroProps) {
             ease: 'easeInOut',
           }}
         />
-        {/* Third blob for more visual interest */}
+        {/* Third blob for more visual interest - hidden on mobile */}
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 rounded-full blur-3xl opacity-50 dark:opacity-80"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 md:w-125 md:h-125 bg-linear-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 rounded-full blur-2xl sm:blur-3xl opacity-50 dark:opacity-80"
           animate={{
             scale: [1, 1.15, 1, 0.9, 1],
             rotate: [0, 45, 90, 135, 180],

@@ -54,9 +54,9 @@ export default function About({ translations: t }: AboutProps) {
               </div>
             </div>
 
-            {/* Floating badges */}
+            {/* Floating badges - hidden on very small screens to prevent overflow */}
             <motion.div
-              className="absolute -top-4 -right-4 md:right-8"
+              className="absolute -top-4 right-0 sm:-right-4 md:right-8 hidden sm:block"
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 3, repeat: Infinity }}
             >
@@ -69,8 +69,8 @@ export default function About({ translations: t }: AboutProps) {
 
           {/* Bio */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <h3 className="text-2xl font-semibold text-foreground mb-4">
@@ -93,7 +93,7 @@ export default function About({ translations: t }: AboutProps) {
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4">
               {stats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
@@ -102,10 +102,10 @@ export default function About({ translations: t }: AboutProps) {
                   transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
                 >
                   <Card className="bg-card/50 border-border/50 hover:border-primary/50 transition-colors">
-                    <CardContent className="p-4 text-center">
-                      <stat.icon className="w-5 h-5 text-primary mx-auto mb-2" />
-                      <div className="text-2xl font-bold text-primary">{stat.value}</div>
-                      <div className="text-xs text-muted-foreground">{stat.label}</div>
+                    <CardContent className="p-2 sm:p-4 text-center">
+                      <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary mx-auto mb-1 sm:mb-2" />
+                      <div className="text-lg sm:text-2xl font-bold text-primary">{stat.value}</div>
+                      <div className="text-[10px] sm:text-xs text-muted-foreground leading-tight">{stat.label}</div>
                     </CardContent>
                   </Card>
                 </motion.div>

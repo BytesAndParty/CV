@@ -10,6 +10,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import type { Translations } from '../i18n/utils';
+
+interface ThemeSwitcherProps {
+  translations?: Translations;
+}
 
 type ColorScheme = 'green' | 'orange' | 'purple' | 'red' | 'blue';
 type ThemeMode = 'light' | 'dark';
@@ -60,7 +65,7 @@ const updateFavicon = (scheme: ColorScheme) => {
   }
 };
 
-export default function ThemeSwitcher() {
+export default function ThemeSwitcher({ translations }: ThemeSwitcherProps) {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('green');
   const [themeMode, setThemeMode] = useState<ThemeMode>('dark');
 
@@ -181,7 +186,7 @@ export default function ThemeSwitcher() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-48">
-          <DropdownMenuLabel>Farbschema</DropdownMenuLabel>
+          <DropdownMenuLabel>{translations?.nav.settings.colorScheme ?? 'Color Scheme'}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {Object.entries(colorSchemes).map(([key, { name, hue }]) => (
             <DropdownMenuItem

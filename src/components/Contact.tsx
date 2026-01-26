@@ -89,7 +89,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
   };
 
   return (
-    <section id="contact" className="py-24 relative grain-texture" ref={ref}>
+    <section id="contact" className="py-24 relative grain-texture overflow-x-hidden" ref={ref}>
       {/* Background Gradient */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-linear-to-t from-primary/5 to-transparent" />
@@ -232,8 +232,8 @@ export default function Contact({ lang, translations: t }: ContactProps) {
 
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <GlowCard className="bg-card/50">
