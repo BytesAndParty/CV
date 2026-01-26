@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/magnetic-button';
@@ -8,10 +8,45 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { Mail, Phone, MapPin, Linkedin, Instagram, Github, Download, Send, CheckCircle2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Instagram, Github, Download, Send, CheckCircle2, XCircle, X } from 'lucide-react';
 import { TextScramble } from './TextScramble';
 import type { Translations } from '../i18n/utils';
 import type { Language } from '../i18n/config';
+
+// Toast component
+interface ToastProps {
+  type: 'success' | 'error';
+  message: string;
+  onClose: () => void;
+}
+
+function Toast({ type, message, onClose }: ToastProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50, x: '-50%' }}
+      animate={{ opacity: 1, y: 0, x: '-50%' }}
+      exit={{ opacity: 0, y: 50, x: '-50%' }}
+      className={`fixed bottom-6 left-1/2 z-50 flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg border ${
+        type === 'success'
+          ? 'bg-green-500/10 border-green-500/30 text-green-500'
+          : 'bg-red-500/10 border-red-500/30 text-red-500'
+      }`}
+    >
+      {type === 'success' ? (
+        <CheckCircle2 className="w-5 h-5 shrink-0" />
+      ) : (
+        <XCircle className="w-5 h-5 shrink-0" />
+      )}
+      <span className="text-sm font-medium">{message}</span>
+      <button
+        onClick={onClose}
+        className="ml-2 p-1 hover:bg-white/10 rounded transition-colors"
+      >
+        <X className="w-4 h-4" />
+      </button>
+    </motion.div>
+  );
+}
 
 const socialLinks = [
   {
@@ -61,9 +96,22 @@ export default function Contact({ lang, translations: t }: ContactProps) {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasSubmittedOnce, setHasSubmittedOnce] = useState(false);
+  const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+
+  const showToast = (type: 'success' | 'error', message: string) => {
+    setToast({ type, message });
+    setTimeout(() => setToast(null), 5000);
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (hasSubmittedOnce) {
+      showToast('error', t.contact.error?.alreadySubmitted || 'You have already sent a message.');
+      return;
+    }
+
     setIsSubmitting(true);
 
     const form = e.currentTarget;
@@ -78,11 +126,15 @@ export default function Contact({ lang, translations: t }: ContactProps) {
 
       if (response.ok) {
         setIsSubmitted(true);
+        setHasSubmittedOnce(true);
         form.reset();
-        setTimeout(() => setIsSubmitted(false), 5000);
+        showToast('success', t.contact.success.message);
+      } else {
+        showToast('error', t.contact.error?.message || 'Something went wrong. Please try again.');
       }
     } catch (error) {
       console.error('Form submission error:', error);
+      showToast('error', t.contact.error?.message || 'Something went wrong. Please try again.');
     }
 
     setIsSubmitting(false);
@@ -362,6 +414,17 @@ export default function Contact({ lang, translations: t }: ContactProps) {
           </p>
         </motion.div>
       </div>
+
+      {/* Toast Notifications */}
+      <AnimatePresence>
+        {toast && (
+          <Toast
+            type={toast.type}
+            message={toast.message}
+            onClose={() => setToast(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }

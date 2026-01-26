@@ -252,6 +252,10 @@
       "title": "Message Sent!",
       "message": "Thank you for your message. I'll get back to you soon."
     },
+    "error": {
+      "message": "Something went wrong. Please try again.",
+      "alreadySubmitted": "You have already sent a message."
+    },
     "download": "Download CV as PDF",
     "downloadTooltip": "Color and language settings are applied from the current page",
     "followMe": "Follow me on",

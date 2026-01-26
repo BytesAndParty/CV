@@ -252,6 +252,10 @@
       "title": "Nachricht gesendet!",
       "message": "Danke für deine Nachricht. Ich melde mich bald bei dir."
     },
+    "error": {
+      "message": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+      "alreadySubmitted": "Du hast bereits eine Nachricht gesendet."
+    },
     "download": "CV als PDF herunterladen",
     "downloadTooltip": "Farbe und Sprache werden von der aktuellen Seite übernommen",
     "followMe": "Folge mir auf",
