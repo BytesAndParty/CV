@@ -14,12 +14,50 @@ import {
 type ColorScheme = 'green' | 'orange' | 'purple' | 'red' | 'blue';
 type ThemeMode = 'light' | 'dark';
 
-const colorSchemes: Record<ColorScheme, { name: string; hue: number }> = {
-  green: { name: 'Green/Mint', hue: 165 },
-  orange: { name: 'Orange/Amber', hue: 35 },
-  purple: { name: 'Purple/Pink', hue: 300 },
-  red: { name: 'Red/Rose', hue: 350 },
-  blue: { name: 'Indigo/Blue', hue: 240 },
+const colorSchemes: Record<ColorScheme, { name: string; hue: number; primary: string; accent: string }> = {
+  green: { name: 'Green/Mint', hue: 165, primary: '#10b981', accent: '#14b8a6' },
+  orange: { name: 'Orange/Amber', hue: 35, primary: '#f59e0b', accent: '#f97316' },
+  purple: { name: 'Purple/Pink', hue: 300, primary: '#a855f7', accent: '#e879f9' },
+  red: { name: 'Red/Rose', hue: 350, primary: '#ef4444', accent: '#f43f5e' },
+  blue: { name: 'Indigo/Blue', hue: 240, primary: '#6366f1', accent: '#3b82f6' },
+};
+
+// Generate favicon SVG with dynamic colors
+const generateFavicon = (primary: string, accent: string): string => {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:${primary}"/>
+      <stop offset="100%" style="stop-color:${accent}"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="6" fill="url(#grad)"/>
+  <text x="16" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="white" text-anchor="middle">RS</text>
+</svg>`;
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+};
+
+const updateFavicon = (scheme: ColorScheme) => {
+  const { primary, accent } = colorSchemes[scheme];
+  const faviconUrl = generateFavicon(primary, accent);
+
+  // Update existing favicon link or create new one
+  let link = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+  if (link) {
+    link.href = faviconUrl;
+  } else {
+    link = document.createElement('link');
+    link.rel = 'icon';
+    link.type = 'image/svg+xml';
+    link.href = faviconUrl;
+    document.head.appendChild(link);
+  }
+
+  // Also update apple-touch-icon
+  let appleLink = document.querySelector<HTMLLinkElement>('link[rel="apple-touch-icon"]');
+  if (appleLink) {
+    appleLink.href = faviconUrl;
+  }
 };
 
 export default function ThemeSwitcher() {
@@ -45,10 +83,8 @@ export default function ThemeSwitcher() {
       document.documentElement.classList.toggle('dark', defaultMode === 'dark');
     }
 
-    // Apply color scheme
-    if (savedColor) {
-      applyColorScheme(savedColor);
-    }
+    // Apply color scheme and update favicon
+    applyColorScheme(savedColor || 'green');
 
     // Listen for system theme changes (optional enhancement)
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -67,6 +103,7 @@ export default function ThemeSwitcher() {
 
   const applyColorScheme = (scheme: ColorScheme) => {
     document.documentElement.setAttribute('data-color-scheme', scheme);
+    updateFavicon(scheme);
   };
 
   const handleColorChange = (scheme: ColorScheme) => {
