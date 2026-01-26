@@ -1,0 +1,6 @@
+# Netlify Redirects
+# https://docs.netlify.com/routing/redirects/
+
+# Browser language detection (checked in order)
+/    /en/    302    Language=en
+/    /de/    302
