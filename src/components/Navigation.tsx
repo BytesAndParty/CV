@@ -46,18 +46,19 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="relative flex items-center justify-between h-16">
+          {/* Logo - Left */}
           <motion.a
             href="#hero"
-            className="text-xl font-bold bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
+            className="text-xl font-bold bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent z-10"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             RS
           </motion.a>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-2">
+          {/* Desktop Menu - Center */}
+          <div className="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2">
             <div className="flex items-center space-x-1">
               {navItems.map((item, index) => (
                 <motion.a
@@ -66,7 +67,7 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-secondary transition-colors"
+                  className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-secondary transition-colors whitespace-nowrap"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -74,6 +75,10 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
                 </motion.a>
               ))}
             </div>
+          </div>
+
+          {/* Settings - Right */}
+          <div className="hidden md:flex items-center gap-2 z-10">
             <LanguageSwitcher currentLang={lang} />
             <ThemeSwitcher />
           </div>
