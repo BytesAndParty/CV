@@ -1124,3 +1124,58 @@ html *::after {
     0 0 40px rgb(var(--theme-primary) / 0.15),
     inset 0 1px 0 rgb(255 255 255 / 0.05);
 }
+
+/* Mobile tooltip adjustments - flyover/bottom sheet style */
+@media (max-width: 640px) {
+  .skill-tooltip {
+    min-width: unset;
+    max-width: unset;
+    width: 100vw;
+    padding: 20px 24px 32px;
+    /* Position as bottom sheet */
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    transform: translateY(100%);
+    border-radius: 24px 24px 0 0;
+    border-bottom: none;
+    box-shadow:
+      0 -20px 40px -15px rgb(0 0 0 / 0.3),
+      0 0 40px rgb(var(--theme-primary) / 0.15);
+  }
+
+  .skill-tooltip-wrapper:hover .skill-tooltip,
+  .skill-tooltip-wrapper:focus-within .skill-tooltip {
+    transform: translateY(0);
+  }
+
+  /* Hide arrow on mobile since tooltip is now a bottom sheet */
+  .skill-tooltip::after {
+    display: none;
+  }
+
+  /* Add handle indicator at top of sheet */
+  .skill-tooltip::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: rgb(var(--theme-primary) / 0.3);
+    border-radius: 2px;
+  }
+
+  .skill-tooltip-title {
+    font-size: 1rem;
+    margin-top: 8px;
+  }
+
+  .skill-tooltip-desc {
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+}

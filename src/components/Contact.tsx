@@ -113,8 +113,8 @@ export default function Contact({ lang, translations: t }: ContactProps) {
         <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Contact Info & Social */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <GlowCard className="bg-card/50 h-full">
@@ -131,8 +131,8 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                   {contactInfo.map((info, index) => (
                     <motion.div
                       key={info.label}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={isInView ? { opacity: 1, x: 0 } : {}}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={isInView ? { opacity: 1, y: 0 } : {}}
                       transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                       className="flex items-center gap-4"
                     >
@@ -263,10 +263,14 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                     name="contact"
                     method="POST"
                     data-netlify="true"
+                    netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
                     className="space-y-5"
                   >
                     <input type="hidden" name="form-name" value="contact" />
+                    <p className="hidden">
+                      <label>Don't fill this out: <input name="bot-field" /></label>
+                    </p>
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="name">{t.contact.form.name} *</Label>

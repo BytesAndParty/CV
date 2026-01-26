@@ -147,7 +147,16 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
                   key={item.name}
                   href={item.href}
                   className="block px-4 py-2 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsMobileMenuOpen(false);
+                    const element = document.querySelector(item.href);
+                    if (element) {
+                      setTimeout(() => {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                      }, 100);
+                    }
+                  }}
                 >
                   {item.name}
                 </a>

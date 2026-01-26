@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/magnetic-button';
 import { Badge } from '@/components/ui/badge';
@@ -19,9 +19,14 @@ function AnimatedPatternMask() {
   const spot2Y = useMotionValue(0);
   const spot2Scale = useMotionValue(1);
 
-  // Check if mobile for smaller spotlight radius
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+  // Use state for isMobile to avoid hydration mismatch
+  const [isMobile, setIsMobile] = useState(false);
   const baseRadius = isMobile ? 200 : 450;
+
+  // Detect mobile on client side only
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 640);
+  }, []);
 
   // Start animations synchronized with blob animations (smaller movement on mobile)
   useEffect(() => {
@@ -189,7 +194,7 @@ export default function Hero({ translations: t }: HeroProps) {
           </motion.div>
 
           <motion.h1
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 blur-reveal"
+            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 blur-reveal whitespace-nowrap font-mono tracking-tighter"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}

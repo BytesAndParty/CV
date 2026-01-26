@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useInView } from 'framer-motion';
 
 const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*';
+const defaultPlaceholder = '0'; // Zero character for consistent initial display
 
 interface TextScrambleProps {
   text: string;
@@ -9,6 +10,15 @@ interface TextScrambleProps {
   delay?: number;
   speed?: number;
   onComplete?: () => void;
+  placeholder?: string; // Character to show before animation starts (default: █)
+}
+
+// Generate initial placeholder text (deterministic, no random)
+function generatePlaceholder(text: string, placeholderChar: string = defaultPlaceholder): string {
+  return text
+    .split('')
+    .map((char) => (char === ' ' ? ' ' : placeholderChar))
+    .join('');
 }
 
 export function TextScramble({
@@ -17,8 +27,10 @@ export function TextScramble({
   delay = 0,
   speed = 30,
   onComplete,
+  placeholder = defaultPlaceholder,
 }: TextScrambleProps) {
-  const [displayText, setDisplayText] = useState('');
+  // Use deterministic placeholder for SSR/hydration compatibility
+  const [displayText, setDisplayText] = useState(() => generatePlaceholder(text, placeholder));
   const [isComplete, setIsComplete] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
@@ -65,7 +77,7 @@ export function TextScramble({
       ref={ref}
       className={className}
     >
-      {displayText || text}
+      {displayText}
     </span>
   );
 }

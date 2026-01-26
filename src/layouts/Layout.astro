@@ -121,5 +121,12 @@ const jsonLd = {
 	</head>
 	<body class="bg-background text-foreground font-sans antialiased overflow-x-hidden">
 		<slot />
+		<!-- Hidden form for Netlify Forms detection (required for client-rendered forms) -->
+		<form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+			<input type="text" name="name" />
+			<input type="email" name="email" />
+			<input type="text" name="subject" />
+			<textarea name="message"></textarea>
+		</form>
 	</body>
 </html>
