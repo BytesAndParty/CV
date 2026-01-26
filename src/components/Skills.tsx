@@ -13,12 +13,12 @@ interface SkillsProps {
   translations: Translations;
 }
 
-function SkillBar({ name, level, delay, tooltip }: { name: string; level: number; delay: number; tooltip?: string }) {
+function SkillBar({ name, level, delay }: { name: string; level: number; delay: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
   return (
-    <div ref={ref} className={`mb-3 ${tooltip ? 'skill-tooltip-wrapper cursor-help' : ''}`}>
+    <div ref={ref} className="mb-3">
       <div className="flex justify-between mb-1">
         <span className="text-sm text-foreground font-medium">{name}</span>
         <span className="text-xs text-primary">{level}%</span>
@@ -31,12 +31,6 @@ function SkillBar({ name, level, delay, tooltip }: { name: string; level: number
           className="h-full bg-linear-to-r from-primary to-accent rounded-full"
         />
       </div>
-      {tooltip && (
-        <div className="skill-tooltip">
-          <div className="skill-tooltip-title">{name}</div>
-          <div className="skill-tooltip-desc">{tooltip}</div>
-        </div>
-      )}
     </div>
   );
 }
@@ -91,7 +85,6 @@ export default function Skills({ translations: t }: SkillsProps) {
                         name={skill.name}
                         level={skill.level}
                         delay={categoryIndex * 0.15 + skillIndex * 0.08}
-                        tooltip={(skill as { name: string; level: number; tooltip?: string }).tooltip}
                       />
                     ))}
                   </CardContent>
@@ -149,8 +142,8 @@ export default function Skills({ translations: t }: SkillsProps) {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.3, delay: 1 + index * 0.05 }}
-                  whileHover={{ scale: 1.05 }}
-                  className={item.tooltip ? 'skill-tooltip-wrapper' : ''}
+                  whileHover={{ scale: 1.05, zIndex: 50 }}
+                  className={item.tooltip ? 'skill-tooltip-wrapper relative' : ''}
                 >
                   <Badge
                     variant="outline"

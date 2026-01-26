@@ -599,10 +599,15 @@ html *::after {
     transparent 70%
   );
   /* Mask: nur der Border ist sichtbar, Inhalt wird ausgeschnitten */
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  /* Webkit (Chrome, Safari, Edge) - muss VOR der Standard-Syntax stehen */
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
+  /* Standard (Firefox) */
+  mask:
+    linear-gradient(#fff 0 0) content-box exclude,
+    linear-gradient(#fff 0 0);
   pointer-events: none;
   opacity: var(--glow-opacity, 0);
   transition: opacity 0.4s ease;
@@ -623,6 +628,14 @@ html *::after {
     rgb(var(--theme-accent) / 0.8) 40%,
     transparent 70%
   );
+  /* Mask muss auch im Dark Mode wiederholt werden für Konsistenz */
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box exclude,
+    linear-gradient(#fff 0 0);
 }
 
 /* ============================================
