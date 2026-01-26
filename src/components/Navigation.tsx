@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import ThemeSwitcher from './ThemeSwitcher';
 import LanguageSwitcher from './LanguageSwitcher';
+import EasterEgg from './EasterEgg';
 import type { Translations } from '../i18n/utils';
 import type { Language } from '../i18n/config';
 
@@ -47,15 +48,16 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
-          {/* Logo - Left */}
-          <motion.a
-            href="#hero"
-            className="text-xl font-bold bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent z-10"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            RS
-          </motion.a>
+          {/* Logo - Left (with Easter Egg) */}
+          <EasterEgg>
+            <motion.span
+              className="text-xl font-bold bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent z-10 select-none"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              RS
+            </motion.span>
+          </EasterEgg>
 
           {/* Desktop Menu - Center */}
           <div className="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2">
