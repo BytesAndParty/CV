@@ -4,12 +4,46 @@ import type { Language } from '../i18n/config';
 
 interface Props {
 	title: string;
-	description?: string;
 	lang?: Language;
 }
 
-const { title, description = "Personal CV & Portfolio", lang = "de" } = Astro.props;
+const { title, lang = "de" } = Astro.props;
 const currentPath = Astro.url.pathname.replace(`/${lang}`, '') || '/';
+
+// SEO Configuration
+const siteUrl = "https://robertstickler.dev";
+const ogImage = `${siteUrl}/profile.webp`;
+const authorName = "Robert Stickler";
+const jobTitle = "Software Engineer & Solution Architect";
+
+// Language-specific descriptions
+const seoDescription = lang === "de"
+	? "Robert Stickler - Software Engineer & Solution Architect bei Avanade Austria. Spezialisiert auf C#/.NET, Power Platform, TypeScript und Azure."
+	: "Robert Stickler - Software Engineer & Solution Architect at Avanade Austria. Specialized in C#/.NET, Power Platform, TypeScript and Azure.";
+
+// JSON-LD Schema
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	"name": authorName,
+	"jobTitle": jobTitle,
+	"url": siteUrl,
+	"image": ogImage,
+	"sameAs": [
+		"https://linkedin.com/in/robert-stickler",
+		"https://github.com/robert-stickler"
+	],
+	"worksFor": {
+		"@type": "Organization",
+		"name": "Avanade Austria"
+	},
+	"address": {
+		"@type": "PostalAddress",
+		"addressLocality": "Vienna",
+		"addressCountry": "Austria"
+	},
+	"knowsAbout": ["C#", ".NET", "Power Platform", "TypeScript", "Azure", "Dataverse", "Software Engineering", "Solution Architecture"]
+};
 ---
 
 <!doctype html>
@@ -17,15 +51,45 @@ const currentPath = Astro.url.pathname.replace(`/${lang}`, '') || '/';
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content={description} />
-		<link rel="alternate" hreflang="de" href={`/de${currentPath}`} />
-		<link rel="alternate" hreflang="en" href={`/en${currentPath}`} />
-		<link rel="alternate" hreflang="x-default" href={`/de${currentPath}`} />
-		<link rel="canonical" href={`/${lang}${currentPath}`} />
+		<meta name="description" content={seoDescription} />
+		<meta name="author" content={authorName} />
+		<meta name="robots" content="index, follow" />
+		<meta name="theme-color" content="#10b981" />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={`${siteUrl}/${lang}/`} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={seoDescription} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:locale" content={lang === "de" ? "de_AT" : "en_US"} />
+		<meta property="og:site_name" content={`${authorName} | Portfolio`} />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={`${siteUrl}/${lang}/`} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={seoDescription} />
+		<meta name="twitter:image" content={ogImage} />
+
+		<!-- JSON-LD Structured Data -->
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+		<!-- Alternate Languages -->
+		<link rel="alternate" hreflang="de" href={`${siteUrl}/de${currentPath}`} />
+		<link rel="alternate" hreflang="en" href={`${siteUrl}/en${currentPath}`} />
+		<link rel="alternate" hreflang="x-default" href={`${siteUrl}/de${currentPath}`} />
+		<link rel="canonical" href={`${siteUrl}/${lang}${currentPath}`} />
+
+		<!-- Favicon -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="apple-touch-icon" href="/favicon.svg" />
+
+		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<script is:inline>
