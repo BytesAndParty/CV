@@ -226,6 +226,24 @@
       }
     ]
   },
+  "easterEgg": {
+    "clicksRemaining": "{n} more clicks to unlock a secret...",
+    "moreClicks": "{n} more...",
+    "unlocked": "Snake unlocked!",
+    "gameOver": "Game Over!",
+    "score": "Score",
+    "best": "Best",
+    "newHighScore": "New High Score!",
+    "playAgain": "Play Again",
+    "controlsOr": "or",
+    "controlsClose": "to close",
+    "swipeOrButtons": "Swipe or use buttons",
+    "powerUp": {
+      "speedDown": "Slower!",
+      "speedUp": "Faster!",
+      "bonus": "+50 Points!"
+    }
+  },
   "contact": {
     "title": "Contact",
     "heading": "Let's Get in Touch",

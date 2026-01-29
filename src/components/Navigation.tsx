@@ -54,7 +54,7 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           {/* Logo - Left (with Easter Egg) */}
-          <EasterEgg>
+          <EasterEgg translations={t}>
             <motion.span
               className="text-xl font-bold bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent z-10 select-none"
               whileHover={{ scale: 1.05 }}

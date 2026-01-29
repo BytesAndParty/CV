@@ -26,7 +26,7 @@ function Toast({ type, message, onClose }: ToastProps) {
       initial={{ opacity: 0, y: 50, x: '-50%' }}
       animate={{ opacity: 1, y: 0, x: '-50%' }}
       exit={{ opacity: 0, y: 50, x: '-50%' }}
-      className={`fixed bottom-6 left-1/2 z-50 flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg border ${
+      className={`fixed bottom-20 left-1/2 z-50 flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg border ${
         type === 'success'
           ? 'bg-green-500/10 border-green-500/30 text-green-500'
           : 'bg-red-500/10 border-red-500/30 text-red-500'

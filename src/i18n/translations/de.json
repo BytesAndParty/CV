@@ -226,6 +226,24 @@
       }
     ]
   },
+  "easterEgg": {
+    "clicksRemaining": "Noch {n} Klicks um ein Geheimnis zu entdecken...",
+    "moreClicks": "Noch {n}...",
+    "unlocked": "Snake freigeschaltet!",
+    "gameOver": "Game Over!",
+    "score": "Punkte",
+    "best": "Best",
+    "newHighScore": "Neuer Highscore!",
+    "playAgain": "Nochmal spielen",
+    "controlsOr": "oder",
+    "controlsClose": "zum Schließen",
+    "swipeOrButtons": "Wischen oder Tasten nutzen",
+    "powerUp": {
+      "speedDown": "Langsamer!",
+      "speedUp": "Schneller!",
+      "bonus": "+50 Punkte!"
+    }
+  },
   "contact": {
     "title": "Kontakt",
     "heading": "Lass uns in Kontakt treten",
