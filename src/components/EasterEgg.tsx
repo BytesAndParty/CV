@@ -573,16 +573,16 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
               <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 rounded-3xl blur-2xl opacity-60" />
 
               {/* Main card */}
-              <div className="relative bg-card/90 backdrop-blur-xl rounded-2xl p-3 sm:p-6
+              <div className="relative bg-card backdrop-blur-xl rounded-2xl p-3 sm:p-6
                             border border-primary/20 shadow-2xl
                             shadow-[0_0_60px_rgb(var(--theme-primary)/0.15)]
                             max-h-[95dvh] overflow-y-auto">
                 {/* Animated gradient border */}
                 <div className="absolute inset-0 rounded-2xl p-[1px] overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary animate-[spin_4s_linear_infinite] blur-sm opacity-50"
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary animate-[spin_12s_linear_infinite] blur-sm opacity-50"
                        style={{ backgroundSize: '200% 200%' }} />
                 </div>
-                <div className="absolute inset-[1px] rounded-2xl bg-card/95" />
+                <div className="absolute inset-[1px] rounded-2xl bg-card" />
 
                 {/* Content */}
                 <div className="relative z-10">
