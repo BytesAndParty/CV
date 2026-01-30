@@ -74,6 +74,23 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
   const foodEatenRef = useRef<number>(0);
   const effectMultiplierRef = useRef<number>(1);
 
+  // Responsive cell size for mobile
+  const [cellSize, setCellSize] = useState(CELL_SIZE);
+  const cellSizeRef = useRef(CELL_SIZE);
+
+  useEffect(() => {
+    const updateCellSize = () => {
+      // Available width = screen - 2*16px margin - 2*12px card padding
+      const availableWidth = window.innerWidth - 56;
+      const newSize = Math.min(CELL_SIZE, Math.floor(availableWidth / GRID_SIZE));
+      setCellSize(newSize);
+      cellSizeRef.current = newSize;
+    };
+    updateCellSize();
+    window.addEventListener('resize', updateCellSize);
+    return () => window.removeEventListener('resize', updateCellSize);
+  }, []);
+
   // Calculate current tick speed based on elapsed time, food eaten, and power-up effects
   const calculateSpeed = (): number => {
     const elapsed = Date.now() - gameStartTimeRef.current;
@@ -134,8 +151,8 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
     for (let i = 0; i < 8; i++) {
       newParticles.push({
         id: particleIdRef.current++,
-        x: x * CELL_SIZE + CELL_SIZE / 2,
-        y: y * CELL_SIZE + CELL_SIZE / 2,
+        x: x * cellSizeRef.current + cellSizeRef.current / 2,
+        y: y * cellSizeRef.current + cellSizeRef.current / 2,
         color: colors[Math.floor(Math.random() * colors.length)],
       });
     }
@@ -567,7 +584,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="relative z-10"
+              className="relative z-10 mx-4"
             >
               {/* Outer glow */}
               <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 rounded-3xl blur-2xl opacity-60" />
@@ -645,7 +662,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                   {/* Game Board */}
                   <div
                     className="relative rounded-xl overflow-hidden touch-none"
-                    style={{ width: GRID_SIZE * CELL_SIZE, height: GRID_SIZE * CELL_SIZE }}
+                    style={{ width: GRID_SIZE * cellSize, height: GRID_SIZE * cellSize }}
                     onTouchStart={handleTouchStart}
                     onTouchEnd={handleTouchEnd}
                   >
@@ -657,7 +674,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                              linear-gradient(to right, rgb(var(--theme-primary) / 0.1) 1px, transparent 1px),
                              linear-gradient(to bottom, rgb(var(--theme-primary) / 0.1) 1px, transparent 1px)
                            `,
-                           backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`
+                           backgroundSize: `${cellSize}px ${cellSize}px`
                          }} />
 
                     {/* Inner glow */}
@@ -674,10 +691,10 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                           animate={{ scale: 1, opacity: 1 }}
                           className="absolute"
                           style={{
-                            width: CELL_SIZE - 2,
-                            height: CELL_SIZE - 2,
-                            left: segment.x * CELL_SIZE + 1,
-                            top: segment.y * CELL_SIZE + 1,
+                            width: cellSize - 2,
+                            height: cellSize - 2,
+                            left: segment.x * cellSize + 1,
+                            top: segment.y * cellSize + 1,
                           }}
                         >
                           {/* Segment glow */}
@@ -709,10 +726,10 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                       }}
                       className="absolute"
                       style={{
-                        width: CELL_SIZE - 2,
-                        height: CELL_SIZE - 2,
-                        left: food.x * CELL_SIZE + 1,
-                        top: food.y * CELL_SIZE + 1,
+                        width: cellSize - 2,
+                        height: cellSize - 2,
+                        left: food.x * cellSize + 1,
+                        top: food.y * cellSize + 1,
                       }}
                     >
                       {/* Food glow */}
@@ -740,10 +757,10 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                           }}
                           className="absolute"
                           style={{
-                            width: CELL_SIZE - 2,
-                            height: CELL_SIZE - 2,
-                            left: powerUp.position.x * CELL_SIZE + 1,
-                            top: powerUp.position.y * CELL_SIZE + 1,
+                            width: cellSize - 2,
+                            height: cellSize - 2,
+                            left: powerUp.position.x * cellSize + 1,
+                            top: powerUp.position.y * cellSize + 1,
                           }}
                         >
                           {/* Same glow as food */}
