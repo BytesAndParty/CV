@@ -1,5 +1,5 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GlowCard } from '@/components/ui/glow-card';
 import { Badge } from '@/components/ui/badge';
@@ -38,6 +38,33 @@ function SkillBar({ name, level, delay }: { name: string; level: number; delay: 
 export default function Skills({ translations: t }: SkillsProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  // Dismiss mobile hobby bottom-sheet flyouts on scroll
+  useEffect(() => {
+    let scrollTimer: ReturnType<typeof setTimeout>;
+    const handleScroll = () => {
+      // Blur any focused tooltip wrapper to dismiss bottom sheet
+      if (document.activeElement instanceof HTMLElement && document.activeElement.closest('.skill-tooltip-wrapper')) {
+        document.activeElement.blur();
+      }
+      // Suppress hover-triggered tooltips while scrolling
+      document.querySelectorAll('.skill-tooltip-wrapper').forEach(el => {
+        el.classList.add('scroll-dismiss');
+      });
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        document.querySelectorAll('.skill-tooltip-wrapper').forEach(el => {
+          el.classList.remove('scroll-dismiss');
+        });
+      }, 150);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(scrollTimer);
+    };
+  }, []);
 
   return (
     <section id="skills" className="py-24" ref={ref}>

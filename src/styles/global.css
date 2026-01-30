@@ -1178,4 +1178,10 @@ html *::after {
     font-size: 0.9rem;
     line-height: 1.7;
   }
+
+  /* Dismiss bottom sheet when user scrolls */
+  .skill-tooltip-wrapper.scroll-dismiss .skill-tooltip {
+    transform: translateY(100%) !important;
+    pointer-events: none !important;
+  }
 }
