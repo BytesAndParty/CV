@@ -20,6 +20,10 @@ type ActiveEffect = { type: 'speed_down' | 'speed_up'; remaining: number };
 const GRID_SIZE = 20;
 const CELL_SIZE = 18;
 const INITIAL_SPEED = 120;
+const SLOW_START_SPEED = 280; // very slow tick for first few seconds
+const SLOW_START_DURATION = 5000; // 5 seconds grace period
+const MIN_SPEED = 55; // fastest possible tick
+const SPEED_DECREASE_PER_FOOD = 2; // ms faster per food eaten
 const POWER_UP_SPAWN_INTERVAL = 8000; // ms between spawn attempts
 const POWER_UP_LIFETIME = 6000; // ms before power-up disappears
 const SPEED_EFFECT_DURATION = 10; // seconds
@@ -61,10 +65,34 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
   const [powerUp, setPowerUp] = useState<PowerUp | null>(null);
   const [activeEffect, setActiveEffect] = useState<ActiveEffect | null>(null);
   const [powerUpMessage, setPowerUpMessage] = useState<string | null>(null);
-  const speedRef = useRef<number>(INITIAL_SPEED);
   const powerUpSpawnRef = useRef<NodeJS.Timeout | null>(null);
   const powerUpLifetimeRef = useRef<NodeJS.Timeout | null>(null);
   const effectTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Progressive speed state
+  const gameStartTimeRef = useRef<number>(0);
+  const foodEatenRef = useRef<number>(0);
+  const effectMultiplierRef = useRef<number>(1);
+
+  // Calculate current tick speed based on elapsed time, food eaten, and power-up effects
+  const calculateSpeed = (): number => {
+    const elapsed = Date.now() - gameStartTimeRef.current;
+    // Base speed gets faster with each food eaten
+    const baseSpeed = Math.max(INITIAL_SPEED - foodEatenRef.current * SPEED_DECREASE_PER_FOOD, MIN_SPEED);
+
+    let speed: number;
+    if (elapsed < SLOW_START_DURATION) {
+      // Lerp from slow start speed to base speed over the grace period
+      const progress = elapsed / SLOW_START_DURATION;
+      speed = SLOW_START_SPEED + (baseSpeed - SLOW_START_SPEED) * progress;
+    } else {
+      speed = baseSpeed;
+    }
+
+    // Apply power-up multiplier
+    speed = Math.round(speed * effectMultiplierRef.current);
+    return Math.max(speed, MIN_SPEED);
+  };
 
   // Load high score
   useEffect(() => {
@@ -175,8 +203,11 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
     setPowerUp(null);
     setActiveEffect(null);
     setPowerUpMessage(null);
-    speedRef.current = INITIAL_SPEED;
     clearPowerUpTimers();
+    // Reset progressive speed state
+    foodEatenRef.current = 0;
+    effectMultiplierRef.current = 1;
+    gameStartTimeRef.current = 0;
   }, [generateFood, clearPowerUpTimers]);
 
   // Countdown effect
@@ -190,6 +221,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
       // Countdown finished, start game
       const timer = setTimeout(() => {
         setCountdown(null);
+        gameStartTimeRef.current = Date.now();
         setIsPlaying(true);
       }, 500);
       return () => clearTimeout(timer);
@@ -204,15 +236,14 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
     // Clear any existing effect timer
     if (effectTimerRef.current) clearInterval(effectTimerRef.current);
 
-    const multiplier = type === 'speed_down' ? 1.25 : 0.75; // higher interval = slower
-    speedRef.current = Math.round(INITIAL_SPEED * multiplier);
+    effectMultiplierRef.current = type === 'speed_down' ? 1.25 : 0.75;
     setActiveEffect({ type, remaining: SPEED_EFFECT_DURATION });
 
     // Countdown the effect timer — speed resets automatically when it expires
     effectTimerRef.current = setInterval(() => {
       setActiveEffect(prev => {
         if (!prev || prev.remaining <= 1) {
-          speedRef.current = INITIAL_SPEED;
+          effectMultiplierRef.current = 1;
           if (effectTimerRef.current) clearInterval(effectTimerRef.current);
           return null;
         }
@@ -312,6 +343,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
         // Check food collision
         if (head.x === food.x && head.y === food.y) {
           spawnParticles(food.x, food.y);
+          foodEatenRef.current++;
           setScore(prev => {
             const newScore = prev + 10;
             if (newScore > highScore) {
@@ -365,11 +397,11 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
         return newSnake;
       });
 
-      // Re-schedule with current speed (allows dynamic speed changes)
-      gameLoopRef.current = setTimeout(moveSnake, speedRef.current);
+      // Re-schedule with dynamic speed (gets faster over time and with score)
+      gameLoopRef.current = setTimeout(moveSnake, calculateSpeed());
     };
 
-    gameLoopRef.current = setTimeout(moveSnake, speedRef.current);
+    gameLoopRef.current = setTimeout(moveSnake, calculateSpeed());
     return () => {
       if (gameLoopRef.current) clearTimeout(gameLoopRef.current);
     };
@@ -384,7 +416,9 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
     setPowerUp(null);
     setActiveEffect(null);
     setPowerUpMessage(null);
-    speedRef.current = INITIAL_SPEED;
+    foodEatenRef.current = 0;
+    effectMultiplierRef.current = 1;
+    gameStartTimeRef.current = 0;
     directionQueueRef.current = [];
   };
 
@@ -482,35 +516,39 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
         {children}
       </div>
 
-      {/* Toast */}
-      <AnimatePresence>
-        {showToast && (
-          <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            className="fixed bottom-20 left-1/2 -translate-x-1/2 z-[100]"
-          >
-            <div className="relative px-5 py-3 rounded-xl text-sm font-medium text-foreground
-                          bg-card/80 backdrop-blur-xl border border-primary/20
-                          shadow-[0_0_30px_rgb(var(--theme-primary)/0.2),0_10px_40px_-10px_rgb(0_0_0/0.3)]">
-              {/* Glow effect */}
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 blur-xl -z-10" />
-              {/* Gradient border */}
-              <div className="absolute inset-0 rounded-xl p-[1px] bg-gradient-to-r from-primary/50 via-accent/50 to-primary/50 -z-10">
-                <div className="w-full h-full rounded-xl bg-card/90" />
+      {/* Toast — portaled to body to escape nav transform stacking context */}
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {showToast && (
+            <motion.div
+              initial={{ opacity: 0, y: -50, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.9 }}
+              className="fixed top-6 left-1/2 -translate-x-1/2 z-[100]"
+            >
+              <div className="relative px-5 py-3 rounded-xl text-sm font-medium text-foreground
+                            bg-card/80 backdrop-blur-xl border border-primary/20
+                            shadow-[0_0_30px_rgb(var(--theme-primary)/0.2),0_10px_40px_-10px_rgb(0_0_0/0.3)]">
+                {/* Glow effect */}
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 blur-xl -z-10" />
+                {/* Gradient border */}
+                <div className="absolute inset-0 rounded-xl p-[1px] bg-gradient-to-r from-primary/50 via-accent/50 to-primary/50 -z-10">
+                  <div className="w-full h-full rounded-xl bg-card/90" />
+                </div>
+                <span className="flex items-center gap-2">
+                  <Gamepad2 className="w-4 h-4 text-primary" />
+                  {toastMessage}
+                </span>
               </div>
-              <span className="flex items-center gap-2">
-                <Gamepad2 className="w-4 h-4 text-primary" />
-                {toastMessage}
-              </span>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
 
-      {/* Snake Game Modal */}
-      <AnimatePresence>
+      {/* Snake Game Modal — portaled to body to escape nav transform stacking context */}
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
         {showGame && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -900,7 +938,9 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+        document.body
+      )}
     </>
   );
 }
