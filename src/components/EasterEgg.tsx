@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Trophy, Gamepad2, ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -52,6 +53,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
   const [isPlaying, setIsPlaying] = useState(false);
   const gameLoopRef = useRef<NodeJS.Timeout | null>(null);
   const directionRef = useRef<Direction>('RIGHT');
+  const directionQueueRef = useRef<Direction[]>([]);
   const particleIdRef = useRef(0);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
@@ -156,15 +158,6 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
     if (effectTimerRef.current) clearInterval(effectTimerRef.current);
   }, []);
 
-  // Restore speed to normal
-  const restoreSpeed = useCallback(() => {
-    speedRef.current = INITIAL_SPEED;
-    setActiveEffect(null);
-    if (effectTimerRef.current) clearInterval(effectTimerRef.current);
-    // Restart game loop with normal speed
-    if (gameLoopRef.current) clearInterval(gameLoopRef.current);
-  }, []);
-
   // Start countdown then game
   const startCountdown = useCallback(() => {
     const initialSnake = [{ x: 10, y: 10 }];
@@ -172,6 +165,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
     setFood(generateFood(initialSnake));
     setDirection('RIGHT');
     directionRef.current = 'RIGHT';
+    directionQueueRef.current = [];
     setScore(0);
     setGameOver(false);
     setIsPlaying(false);
@@ -214,18 +208,12 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
     speedRef.current = Math.round(INITIAL_SPEED * multiplier);
     setActiveEffect({ type, remaining: SPEED_EFFECT_DURATION });
 
-    // Restart game loop with new speed
-    if (gameLoopRef.current) clearInterval(gameLoopRef.current);
-
-    // Countdown the effect timer
+    // Countdown the effect timer — speed resets automatically when it expires
     effectTimerRef.current = setInterval(() => {
       setActiveEffect(prev => {
         if (!prev || prev.remaining <= 1) {
-          // Effect expired
           speedRef.current = INITIAL_SPEED;
           if (effectTimerRef.current) clearInterval(effectTimerRef.current);
-          // Restart game loop at normal speed
-          if (gameLoopRef.current) clearInterval(gameLoopRef.current);
           return null;
         }
         return { ...prev, remaining: prev.remaining - 1 };
@@ -291,6 +279,11 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
     const moveSnake = () => {
       setSnake(prevSnake => {
         const head = { ...prevSnake[0] };
+
+        // Consume next direction from queue (safe against 180° reversals)
+        if (directionQueueRef.current.length > 0) {
+          directionRef.current = directionQueueRef.current.shift()!;
+        }
         const currentDirection = directionRef.current;
 
         switch (currentDirection) {
@@ -382,60 +375,6 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
     };
   }, [isPlaying, gameOver, food, generateFood, highScore, applySpeedEffect, showPowerUpMessage, t]);
 
-  // Keyboard controls
-  useEffect(() => {
-    if (!showGame) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd'].includes(e.key)) {
-        e.preventDefault();
-      }
-
-      const currentDir = directionRef.current;
-
-      switch (e.key) {
-        case 'ArrowUp':
-        case 'w':
-        case 'W':
-          if (currentDir !== 'DOWN') {
-            setDirection('UP');
-            directionRef.current = 'UP';
-          }
-          break;
-        case 'ArrowDown':
-        case 's':
-        case 'S':
-          if (currentDir !== 'UP') {
-            setDirection('DOWN');
-            directionRef.current = 'DOWN';
-          }
-          break;
-        case 'ArrowLeft':
-        case 'a':
-        case 'A':
-          if (currentDir !== 'RIGHT') {
-            setDirection('LEFT');
-            directionRef.current = 'LEFT';
-          }
-          break;
-        case 'ArrowRight':
-        case 'd':
-        case 'D':
-          if (currentDir !== 'LEFT') {
-            setDirection('RIGHT');
-            directionRef.current = 'RIGHT';
-          }
-          break;
-        case 'Escape':
-          closeGame();
-          break;
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [showGame]);
-
   const closeGame = () => {
     setShowGame(false);
     setIsPlaying(false);
@@ -446,21 +385,70 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
     setActiveEffect(null);
     setPowerUpMessage(null);
     speedRef.current = INITIAL_SPEED;
+    directionQueueRef.current = [];
   };
 
-  // Shared direction change function
+  // Shared direction change function — queues inputs to prevent 180° reversal between ticks
   const changeDirection = useCallback((newDir: Direction) => {
-    const currentDir = directionRef.current;
-    if (
-      (newDir === 'UP' && currentDir !== 'DOWN') ||
-      (newDir === 'DOWN' && currentDir !== 'UP') ||
-      (newDir === 'LEFT' && currentDir !== 'RIGHT') ||
-      (newDir === 'RIGHT' && currentDir !== 'LEFT')
-    ) {
+    // Check against the last queued direction (or current if queue is empty)
+    const lastDir = directionQueueRef.current.length > 0
+      ? directionQueueRef.current[directionQueueRef.current.length - 1]
+      : directionRef.current;
+
+    const isOpposite =
+      (newDir === 'UP' && lastDir === 'DOWN') ||
+      (newDir === 'DOWN' && lastDir === 'UP') ||
+      (newDir === 'LEFT' && lastDir === 'RIGHT') ||
+      (newDir === 'RIGHT' && lastDir === 'LEFT');
+
+    if (!isOpposite && newDir !== lastDir) {
+      // Max 2 queued inputs to stay responsive without overflow
+      if (directionQueueRef.current.length < 2) {
+        directionQueueRef.current.push(newDir);
+      }
       setDirection(newDir);
-      directionRef.current = newDir;
     }
   }, []);
+
+  // Keyboard controls
+  useEffect(() => {
+    if (!showGame) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd'].includes(e.key)) {
+        e.preventDefault();
+      }
+
+      switch (e.key) {
+        case 'ArrowUp':
+        case 'w':
+        case 'W':
+          changeDirection('UP');
+          break;
+        case 'ArrowDown':
+        case 's':
+        case 'S':
+          changeDirection('DOWN');
+          break;
+        case 'ArrowLeft':
+        case 'a':
+        case 'A':
+          changeDirection('LEFT');
+          break;
+        case 'ArrowRight':
+        case 'd':
+        case 'D':
+          changeDirection('RIGHT');
+          break;
+        case 'Escape':
+          closeGame();
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showGame, changeDirection]);
 
   // Touch handlers for swipe
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -698,21 +686,21 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                            style={{ height: '40%' }} />
                     </motion.div>
 
-                    {/* Power-Up */}
+                    {/* Power-Up (looks identical to food — surprise on pickup) */}
                     <AnimatePresence>
                       {powerUp && (
                         <motion.div
-                          initial={{ scale: 0, rotate: -180 }}
+                          initial={{ scale: 0 }}
                           animate={{
-                            scale: [1, 1.2, 1],
-                            rotate: [0, 10, -10, 0],
+                            scale: [1, 1.1, 1],
+                            rotate: [0, 5, -5, 0]
                           }}
-                          exit={{ scale: 0, rotate: 180, opacity: 0 }}
+                          exit={{ scale: 0, opacity: 0 }}
                           transition={{
-                            scale: { duration: 1, repeat: Infinity },
-                            rotate: { duration: 0.8, repeat: Infinity },
+                            scale: { duration: 0.8, repeat: Infinity },
+                            rotate: { duration: 0.5, repeat: Infinity }
                           }}
-                          className="absolute z-10"
+                          className="absolute"
                           style={{
                             width: CELL_SIZE - 2,
                             height: CELL_SIZE - 2,
@@ -720,25 +708,13 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                             top: powerUp.position.y * CELL_SIZE + 1,
                           }}
                         >
-                          {/* Power-up glow */}
-                          <div
-                            className="absolute inset-0 rounded-lg blur-md opacity-80"
-                            style={{ backgroundColor: getComplementaryColor() }}
-                          />
-                          {/* Power-up body - diamond shape */}
-                          <div
-                            className="absolute inset-0 rounded-sm"
-                            style={{
-                              backgroundColor: getComplementaryColor(),
-                              transform: 'rotate(45deg) scale(0.75)',
-                            }}
-                          />
-                          {/* Power-up icon */}
-                          <div className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white drop-shadow-md">
-                            {powerUp.type === 'speed_down' && '🐢'}
-                            {powerUp.type === 'speed_up' && '⚡'}
-                            {powerUp.type === 'bonus' && '💎'}
-                          </div>
+                          {/* Same glow as food */}
+                          <div className="absolute inset-0 bg-accent rounded-full blur-md opacity-70" />
+                          {/* Same body as food */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-accent to-primary rounded-full" />
+                          {/* Same shine as food */}
+                          <div className="absolute inset-1 bg-gradient-to-br from-white/40 to-transparent rounded-full"
+                               style={{ height: '40%' }} />
                         </motion.div>
                       )}
                     </AnimatePresence>
