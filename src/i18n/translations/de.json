@@ -82,39 +82,39 @@
       {
         "name": "Programmierung & Frameworks",
         "skills": [
-          { "name": "C# / .NET", "level": 90, "tooltip": "Backend-Entwicklung, Dataverse Plugins, Azure WebJobs, REST APIs und Unit-Tests mit xUnit/NUnit" },
-          { "name": "TypeScript", "level": 85, "tooltip": "Frontend-Logik in Power Apps (PCF Controls), React-Komponenten und typsichere API-Integration" },
-          { "name": "JavaScript", "level": 85, "tooltip": "Frontend-Entwicklung, DOM-Manipulation und schnelle Prototypen" },
-          { "name": "Next.js", "level": 75, "tooltip": "Full-Stack Web-Apps wie meine KI-Lernplattform (Masterarbeit) mit SSR und API Routes" },
-          { "name": "Astro", "level": 70, "tooltip": "Statische Websites wie diese Portfolio-Seite – schnell, modern und SEO-optimiert" },
-          { "name": "Power Platform", "level": 90, "tooltip": "Model-Driven Apps, Canvas Apps, Power Automate Flows und Custom Connectors für Geschäftsprozesse" }
+          { "name": "C# / .NET", "level": 85, "tooltip": "Backend-Entwicklung, Dataverse Plugins, Azure WebJobs, REST APIs und Unit-Tests mit xUnit/NUnit" },
+          { "name": "TypeScript", "level": 75, "tooltip": "Frontend-Logik in Power Apps (PCF Controls), React-Komponenten und typsichere API-Integration" },
+          { "name": "JavaScript", "level": 75, "tooltip": "Frontend-Entwicklung, DOM-Manipulation und schnelle Prototypen" },
+          { "name": "Next.js", "level": 65, "tooltip": "Full-Stack Web-Apps wie meine KI-Lernplattform (Masterarbeit) mit SSR und API Routes" },
+          { "name": "Astro", "level": 60, "tooltip": "Statische Websites wie diese Portfolio-Seite – schnell, modern und SEO-optimiert" },
+          { "name": "Power Platform", "level": 85, "tooltip": "Model-Driven Apps, Canvas Apps, Power Automate Flows und Custom Connectors für Geschäftsprozesse" }
         ]
       },
       {
         "name": "Datenbanken & Cloud",
         "skills": [
-          { "name": "Dataverse", "level": 90, "tooltip": "Datenmodellierung, Plugins, Custom APIs und komplexe Abfragen mit FetchXML" },
-          { "name": "SQL Server", "level": 85, "tooltip": "Datenbankdesign, Stored Procedures, Performance-Optimierung und Reporting" },
-          { "name": "Firebase", "level": 75, "tooltip": "Realtime Database, Authentication und Cloud Functions für schnelle Prototypen" },
-          { "name": "Azure Web Jobs", "level": 80, "tooltip": "Hintergrund-Jobs für Daten-Synchronisation und automatisierte Prozesse" }
+          { "name": "Dataverse", "level": 88, "tooltip": "Datenmodellierung, Plugins, Custom APIs und komplexe Abfragen mit FetchXML" },
+          { "name": "SQL Server", "level": 75, "tooltip": "Datenbankdesign, Stored Procedures, Performance-Optimierung und Reporting" },
+          { "name": "Firebase", "level": 65, "tooltip": "Realtime Database, Authentication und Cloud Functions für schnelle Prototypen" },
+          { "name": "Azure Web Jobs", "level": 70, "tooltip": "Hintergrund-Jobs für Daten-Synchronisation und automatisierte Prozesse" }
         ]
       },
       {
         "name": "Tools & Methoden",
         "skills": [
-          { "name": "Git", "level": 90, "tooltip": "Versionskontrolle, Branching-Strategien, Pull Requests und Code Reviews" },
+          { "name": "Git", "level": 85, "tooltip": "Versionskontrolle, Branching-Strategien, Pull Requests und Code Reviews" },
           { "name": "Azure DevOps", "level": 85, "tooltip": "Pipelines, Repos, Work Items und Release Management" },
           { "name": "Agile / Scrum", "level": 80, "tooltip": "Sprint Planning, Daily Standups, Retrospektiven und kontinuierliche Verbesserung" },
-          { "name": "CI/CD", "level": 75, "tooltip": "Automatisierte Builds, Tests und Deployments für schnellere Releases" }
+          { "name": "CI/CD", "level": 65, "tooltip": "Automatisierte Builds, Tests und Deployments für schnellere Releases" }
         ]
       },
       {
         "name": "Business Skills",
         "skills": [
-          { "name": "Solution Design", "level": 85, "tooltip": "Architektur-Entscheidungen, Tech-Stack Auswahl und Lösungskonzepte für Kundenanforderungen" },
-          { "name": "Requirements Engineering", "level": 90, "tooltip": "Anforderungsanalyse, User Stories, Akzeptanzkriterien und Stakeholder-Kommunikation" },
-          { "name": "Pre-Sales", "level": 80, "tooltip": "Machbarkeitsanalysen, Demos und technische Beratung für potenzielle Projekte" },
-          { "name": "Aufwandsschätzung", "level": 85, "tooltip": "Realistische Schätzungen basierend auf Erfahrung und strukturierter Analyse" }
+          { "name": "Solution Design", "level": 88, "tooltip": "Architektur-Entscheidungen, Tech-Stack Auswahl und Lösungskonzepte für Kundenanforderungen" },
+          { "name": "Requirements Engineering", "level": 75, "tooltip": "Anforderungsanalyse, User Stories, Akzeptanzkriterien und Stakeholder-Kommunikation" },
+          { "name": "Pre-Sales", "level": 65, "tooltip": "Machbarkeitsanalysen, Demos und technische Beratung für potenzielle Projekte" },
+          { "name": "Aufwandsschätzung", "level": 75, "tooltip": "Realistische Schätzungen basierend auf Erfahrung und strukturierter Analyse" }
         ]
       }
     ],

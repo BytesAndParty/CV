@@ -120,6 +120,18 @@ const jsonLd = {
 		</script>
 	</head>
 	<body class="bg-background text-foreground font-sans antialiased overflow-x-hidden">
+		<script is:inline>
+			// Restore scroll position after language switch
+			(function() {
+				try {
+					var pos = sessionStorage.getItem('scrollPos');
+					if (pos) {
+						sessionStorage.removeItem('scrollPos');
+						window.scrollTo(0, parseInt(pos));
+					}
+				} catch (e) {}
+			})();
+		</script>
 		<slot />
 		<!-- Hidden form for Netlify Forms detection (required for client-rendered forms) -->
 		<form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>

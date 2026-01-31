@@ -37,6 +37,7 @@ export default function LanguageSwitcher({ currentLang }: LanguageSwitcherProps)
             <DropdownMenuItem key={code} asChild className="cursor-pointer">
               <a
                 href={getNewPath(code)}
+                onClick={() => sessionStorage.setItem('scrollPos', String(window.scrollY))}
                 className="flex items-center gap-2 w-full"
               >
                 <span>{flag}</span>
