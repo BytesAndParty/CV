@@ -18,7 +18,7 @@ const t = getTranslations(lang);
 <Layout title="Robert Stickler | Software Engineer & Solution Architect" lang={lang}>
 	<Navigation client:load lang={lang} translations={t} />
 	<main>
-		<Hero client:load translations={t} />
+		<Hero client:load lang={lang} translations={t} />
 		<About client:visible translations={t} />
 		<Experience client:visible translations={t} />
 		<Skills client:visible translations={t} />

@@ -19,7 +19,8 @@
     "title": "Software Engineer & Solution Architect",
     "description": "Ich löse gerne komplexe Probleme – beruflich wie privat. Als Software Engineer bei Avanade Austria entwickle ich Lösungen, die Prozesse automatisieren und Teams produktiver machen.",
     "cta": "Kontakt aufnehmen",
-    "learnMore": "Mehr erfahren"
+    "learnMore": "Mehr erfahren",
+    "downloadCV": "CV herunterladen"
   },
   "about": {
     "title": "Über mich",
@@ -150,7 +151,7 @@
           "Selbst gehostete Web-Applikation",
           "Nutzungsmetriken und Analytics"
         ],
-        "technologies": ["Next.js", "OpenAI API", "Tailwind", "Netlify"]
+        "technologies": ["Next.js", "TypeScript", "OpenAI API", "Tailwind", "Netlify"]
       },
       {
         "title": "Honorarnoten-System",
@@ -161,7 +162,7 @@
           "Umfangreiche Test-Suite in TypeScript und C#",
           "Von Excel zu strukturierter Datenbank migriert"
         ],
-        "technologies": ["Power Platform", "C#/.NET", "SQL Server", "Azure"]
+        "technologies": ["Power Apps Portal", "Power Automate", "Dataverse", "Dataflows", "C#/.NET"]
       },
       {
         "title": "Mailjet-Dynamics Integration",
@@ -174,14 +175,14 @@
         "technologies": ["C#/.NET", "Azure WebJobs", "Dynamics 365", "Dataverse", "Mailjet API"]
       },
       {
-        "title": "Censhare-Integration",
-        "description": "Schnittstellen-Entwicklung zwischen Censhare CMS und internen Systemen. Automatisierte Content-Synchronisation und Datenabgleich.",
+        "title": "Banking CRM Prototyp",
+        "description": "Pre-Sales Prototyp für eine Bank zur Verwaltung von Kundendaten. Klassisches CRM-Projekt mit TypeScript-Anpassungen für spezifische Geschäftsanforderungen.",
         "highlights": [
-          "REST API Schnittstelle zu Censhare CMS",
-          "Automatisierte Content-Synchronisation",
-          "Datenabgleich zwischen verschiedenen Systemen"
+          "Kundendaten-Management für Bankensektor",
+          "TypeScript-basierte Frontend-Anpassungen",
+          "Schnelle Prototyp-Entwicklung für Pre-Sales Demo"
         ],
-        "technologies": ["C#/.NET", "REST API", "Azure", "Censhare"]
+        "technologies": ["Dynamics 365", "TypeScript", "Power Platform"]
       }
     ]
   },

@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/magnetic-button';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, Mail } from 'lucide-react';
+import { MapPin, Mail, Download } from 'lucide-react';
 import { TextScramble } from './TextScramble';
 import type { Translations } from '../i18n/utils';
+import type { Language } from '../i18n/config';
 
 // Animated Pattern Mask Component - creates spotlight effect synchronized with blobs
 function AnimatedPatternMask() {
@@ -112,10 +113,11 @@ function AnimatedPatternMask() {
 }
 
 interface HeroProps {
+  lang: Language;
   translations: Translations;
 }
 
-export default function Hero({ translations: t }: HeroProps) {
+export default function Hero({ lang, translations: t }: HeroProps) {
   return (
     <section
       id="hero"
@@ -250,12 +252,35 @@ export default function Hero({ translations: t }: HeroProps) {
           >
             <MagneticButton
               size="lg"
-              className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity"
+              className="bg-linear-to-r from-primary to-accent hover:opacity-90 transition-opacity"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
               <Mail className="w-4 h-4 mr-2" />
               {t.hero.cta}
             </MagneticButton>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="border-primary/50 hover:bg-primary/10"
+            >
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  const colorScheme = document.documentElement.getAttribute('data-color-scheme') || 'green';
+                  const printWindow = window.open(`/cv-a4.html?color=${colorScheme}&lang=${lang}`, '_blank');
+                  if (printWindow) {
+                    printWindow.addEventListener('load', () => {
+                      setTimeout(() => printWindow.print(), 300);
+                    });
+                  }
+                }}
+              >
+                <Download className="w-4 h-4 mr-2" />
+                {t.hero.downloadCV}
+              </motion.button>
+            </Button>
             <Button
               asChild
               variant="outline"
