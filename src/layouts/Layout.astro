@@ -108,8 +108,10 @@ const jsonLd = {
 						html.classList.add('dark');
 					}
 
-					// Apply color scheme
-					if (savedColor) {
+					// Apply color scheme (validated - a stale value from an older
+					// site version would match no CSS rule and break all colors)
+					var validSchemes = ['green', 'orange', 'purple', 'red', 'blue'];
+					if (savedColor && validSchemes.indexOf(savedColor) !== -1) {
 						html.setAttribute('data-color-scheme', savedColor);
 					}
 				} catch (e) {

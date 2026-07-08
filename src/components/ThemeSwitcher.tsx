@@ -27,6 +27,16 @@ const colorSchemes: Record<ColorScheme, { name: string; hue: number; primary: st
   blue: { name: 'Indigo/Blue', hue: 240, primary: '#6366f1', accent: '#3b82f6' },
 };
 
+// localStorage can hold values from older site versions (e.g. removed schemes) -
+// validate before use, otherwise colorSchemes[scheme] blows up
+function isColorScheme(value: string | null): value is ColorScheme {
+  return value !== null && value in colorSchemes;
+}
+
+function isThemeMode(value: string | null): value is ThemeMode {
+  return value === 'light' || value === 'dark';
+}
+
 // Generate favicon SVG with dynamic colors
 const generateFavicon = (primary: string, accent: string): string => {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
@@ -70,26 +80,24 @@ export default function ThemeSwitcher({ translations }: ThemeSwitcherProps) {
   const [themeMode, setThemeMode] = useState<ThemeMode>('dark');
 
   useEffect(() => {
-    // Detect system preference
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Load saved preferences (validated - stale values from older versions crash otherwise)
+    const savedColor = localStorage.getItem('colorScheme');
+    const savedMode = localStorage.getItem('themeMode');
 
-    // Load saved preferences
-    const savedColor = localStorage.getItem('colorScheme') as ColorScheme;
-    const savedMode = localStorage.getItem('themeMode') as ThemeMode;
+    const color = isColorScheme(savedColor) ? savedColor : 'green';
+    setColorScheme(color);
 
-    if (savedColor) setColorScheme(savedColor);
-    if (savedMode) {
+    if (isThemeMode(savedMode)) {
       setThemeMode(savedMode);
       document.documentElement.classList.toggle('dark', savedMode === 'dark');
     } else {
-      // Use system preference or default to dark mode
-      const defaultMode: ThemeMode = systemPrefersDark ? 'dark' : 'dark'; // Always default to dark as requested
-      setThemeMode(defaultMode);
-      document.documentElement.classList.toggle('dark', defaultMode === 'dark');
+      // Always default to dark as requested
+      setThemeMode('dark');
+      document.documentElement.classList.add('dark');
     }
 
     // Apply color scheme and update favicon
-    applyColorScheme(savedColor || 'green');
+    applyColorScheme(color);
 
     // Listen for system theme changes (optional enhancement)
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
