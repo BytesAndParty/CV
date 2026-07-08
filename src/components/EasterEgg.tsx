@@ -50,10 +50,9 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
   const [particles, setParticles] = useState<Particle[]>([]);
   const [countdown, setCountdown] = useState<number | null>(null);
 
-  // Snake game state
+  // Snake game state (direction lives in refs only - it must not re-render the board)
   const [snake, setSnake] = useState<Position[]>([{ x: 10, y: 10 }]);
   const [food, setFood] = useState<Position>({ x: 15, y: 15 });
-  const [direction, setDirection] = useState<Direction>('RIGHT');
   const [isPlaying, setIsPlaying] = useState(false);
   const gameLoopRef = useRef<NodeJS.Timeout | null>(null);
   const directionRef = useRef<Direction>('RIGHT');
@@ -211,7 +210,6 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
     const initialSnake = [{ x: 10, y: 10 }];
     setSnake(initialSnake);
     setFood(generateFood(initialSnake));
-    setDirection('RIGHT');
     directionRef.current = 'RIGHT';
     directionQueueRef.current = [];
     setScore(0);
@@ -463,7 +461,6 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
       if (directionQueueRef.current.length < 2) {
         directionQueueRef.current.push(newDir);
       }
-      setDirection(newDir);
     }
   }, []);
 
