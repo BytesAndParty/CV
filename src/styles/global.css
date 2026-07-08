@@ -12,7 +12,8 @@
 
 /* Base theme with dynamic color support */
 @theme {
-  --font-sans: 'Inter', system-ui, sans-serif;
+  /* Self-hosted via @fontsource-variable/inter (imported in Layout.astro) */
+  --font-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
 
   /* Dynamic colors - controlled by data-color-scheme attribute */
   --color-primary-500: rgb(var(--theme-primary));
