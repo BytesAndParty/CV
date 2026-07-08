@@ -36,19 +36,11 @@ Jede Skill-Karte und Content-Card verwendet einen Cursor-folgenden Border-Glow-E
 
 ---
 
-## 3. Animated Gradient Border
+## 3. Animated Gradient Border (Snake-Modal)
 
-Rotierende Gradient-Borders mit CSS `@property` für animierbare Custom Properties:
-
-```css
-@property --gradient-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-```
-
-Durch `@property` kann der `--gradient-angle` Wert von `0deg` auf `360deg` animiert werden, was mit normalen CSS Custom Properties nicht möglich wäre (da der Browser den Typ nicht kennt). Das Ergebnis ist ein smooth rotierender Gradient-Border.
+Das Snake-Game-Modal nutzt einen rotierenden Gradient-Border: ein absolut positionierter
+Gradient-Layer mit `animate-[spin_12s_linear_infinite]` + `blur-sm` hinter einer
+`inset-px`-Karte, sodass nur der 1px-Rand des Gradients sichtbar bleibt.
 
 ---
 
@@ -131,17 +123,14 @@ Ein subtiler Film-Grain-Effekt über dem gesamten Content:
 Elemente erscheinen mit einem Blur-to-Sharp Effekt:
 - Start: `filter: blur(12px)`, `opacity: 0`, `translateY(20px)`
 - End: `filter: blur(0)`, `opacity: 1`, `translateY(0)`
-- Gestaffelte Variante für Kind-Elemente (100ms Versatz pro Element)
 - Kombiniert Unschärfe + Fade + Slide für einen Premium-Eindruck
 
 ---
 
 ## 12. Stagger Children Animations
 
-Kinder-Elemente animieren nacheinander ein:
-- `fade-in-up` Keyframe Animation
-- `animation-delay` in 100ms-Schritten pro `:nth-child`
-- Beide Varianten: CSS-only (`.stagger-children`) und Framer Motion (mit `delay` Props)
+Kinder-Elemente animieren nacheinander ein - via Framer Motion mit gestaffelten
+`delay`-Props (`index * 0.1` bis `index * 0.3` je Section).
 
 ---
 
@@ -164,30 +153,7 @@ Die Hobby-Badges zeigen detaillierte Tooltips:
 
 ---
 
-## 14. Neon Text Effect
-
-Mehrschichtiger Text-Glow für Überschriften:
-```css
-text-shadow:
-  0 0 5px  (50% opacity),
-  0 0 10px (30% opacity),
-  0 0 20px (20% opacity),
-  0 0 40px (10% opacity);
-```
-Vier Shadow-Layer mit abnehmender Opacity erzeugen einen realistischen Neon-Leuchteffekt.
-
----
-
-## 15. Pulse Ring
-
-Ein pulsierender Ring-Effekt um interaktive Elemente:
-- `::before` Pseudo-Element mit `border` und `border-radius: inherit`
-- `scale(1) → scale(1.1)` + `opacity(1) → opacity(0)` Animation
-- 2 Sekunden Loop, zieht Aufmerksamkeit ohne zu stören
-
----
-
-## 16. Custom Scrollbar
+## 14. Custom Scrollbar
 
 Theme-aware Scrollbar:
 - 8px Breite
@@ -197,7 +163,7 @@ Theme-aware Scrollbar:
 
 ---
 
-## 17. Hero Network/Circuit Pattern
+## 15. Hero Network/Circuit Pattern
 
 Rein CSS-basiertes Netzwerk-Pattern ohne SVG oder Bilder:
 - 5 Layer aus `linear-gradient` und `radial-gradient`
@@ -209,7 +175,7 @@ Rein CSS-basiertes Netzwerk-Pattern ohne SVG oder Bilder:
 
 ---
 
-## 18. Smooth Theme Transitions (FOUC Prevention)
+## 16. Smooth Theme Transitions (FOUC Prevention)
 
 Beim Laden der Seite wird im `<head>` ein Inline-Script ausgeführt, das:
 - Dark Mode Präferenz aus `localStorage` liest
@@ -220,7 +186,7 @@ Dadurch gibt es kein Flash of Unstyled Content (FOUC) - die Seite rendert direkt
 
 ---
 
-## 19. Easter Egg: Snake Game
+## 17. Easter Egg: Snake Game
 
 Verstecktes Snake-Spiel, aktivierbar durch 10-maliges Klicken auf das Logo:
 - Countdown-Animation (5...4...3...2...1...GO!) mit 3D Flip-Transitions

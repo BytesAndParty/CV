@@ -4,7 +4,7 @@ Modern, responsive CV website built with Astro, React, Tailwind CSS, and shadcn/
 
 ## 🎨 Features
 
-- **Dynamic Theme System**: Switch between 6 color schemes and light/dark mode
+- **Dynamic Theme System**: Switch between 5 color schemes and light/dark mode
 - **Smooth Animations**: Powered by Framer Motion
 - **Fully Responsive**: Mobile-first design
 - **Modern Stack**: Built with Astro 5, React 19, and Tailwind v4
@@ -19,7 +19,6 @@ The website includes a dynamic theme switcher in the navigation bar with:
 - 🟣 Purple/Pink
 - 🔴 Red/Rose
 - 🔵 Indigo/Blue
-- ⚫ Slate/Neutral
 
 **Theme Modes:**
 - ☀️ Light Mode
