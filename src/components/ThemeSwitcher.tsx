@@ -69,10 +69,19 @@ const updateFavicon = (scheme: ColorScheme) => {
   }
 
   // Also update apple-touch-icon
-  let appleLink = document.querySelector<HTMLLinkElement>('link[rel="apple-touch-icon"]');
+  const appleLink = document.querySelector<HTMLLinkElement>('link[rel="apple-touch-icon"]');
   if (appleLink) {
     appleLink.href = faviconUrl;
   }
+};
+
+const applyColorScheme = (scheme: ColorScheme) => {
+  document.documentElement.setAttribute('data-color-scheme', scheme);
+  updateFavicon(scheme);
+  // Keep the browser UI color in sync (meta is hardcoded to green in Layout)
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute('content', colorSchemes[scheme].primary);
 };
 
 export default function ThemeSwitcher({ translations }: ThemeSwitcherProps) {
@@ -113,15 +122,6 @@ export default function ThemeSwitcher({ translations }: ThemeSwitcherProps) {
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
-
-  const applyColorScheme = (scheme: ColorScheme) => {
-    document.documentElement.setAttribute('data-color-scheme', scheme);
-    updateFavicon(scheme);
-    // Keep the browser UI color in sync (meta is hardcoded to green in Layout)
-    document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', colorSchemes[scheme].primary);
-  };
 
   const handleColorChange = (scheme: ColorScheme) => {
     setColorScheme(scheme);

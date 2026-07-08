@@ -4,10 +4,9 @@ import { cn } from '@/lib/utils';
 
 interface GlowCardProps extends React.ComponentProps<typeof Card> {
   children: React.ReactNode;
-  glowColor?: string;
 }
 
-export function GlowCard({ children, className, glowColor, ...props }: GlowCardProps) {
+export function GlowCard({ children, className, ...props }: GlowCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);

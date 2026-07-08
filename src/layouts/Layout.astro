@@ -110,11 +110,11 @@ const jsonLd = {
 
 					// Apply color scheme (validated - a stale value from an older
 					// site version would match no CSS rule and break all colors)
-					var validSchemes = ['green', 'orange', 'purple', 'red', 'blue'];
+					const validSchemes = ['green', 'orange', 'purple', 'red', 'blue'];
 					if (savedColor && validSchemes.indexOf(savedColor) !== -1) {
 						html.setAttribute('data-color-scheme', savedColor);
 					}
-				} catch (e) {
+				} catch {
 					// Fallback to dark mode if localStorage is not available
 					document.documentElement.classList.add('dark');
 				}
@@ -126,12 +126,14 @@ const jsonLd = {
 			// Restore scroll position after language switch
 			(function() {
 				try {
-					var pos = parseInt(sessionStorage.getItem('scrollPos') || '', 10);
+					const pos = parseInt(sessionStorage.getItem('scrollPos') || '', 10);
 					sessionStorage.removeItem('scrollPos');
 					if (!isNaN(pos)) {
 						window.scrollTo(0, pos);
 					}
-				} catch (e) {}
+				} catch {
+					// sessionStorage unavailable - nothing to restore
+				}
 			})();
 		</script>
 		<slot />

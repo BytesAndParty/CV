@@ -12,7 +12,7 @@ interface EasterEggProps {
 
 type Direction = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
 type Position = { x: number; y: number };
-type Particle = { id: number; x: number; y: number; color: string };
+type Particle = { id: number; x: number; y: number; dx: number; dy: number; color: string };
 type PowerUpType = 'speed_down' | 'speed_up' | 'bonus';
 type PowerUp = { position: Position; type: PowerUpType };
 type ActiveEffect = { type: 'speed_down' | 'speed_up'; remaining: number };
@@ -127,8 +127,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
   };
 
   // Handle logo click
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleClick = () => {
     const newCount = clickCount + 1;
     setClickCount(newCount);
 
@@ -155,6 +154,9 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
         id: particleIdRef.current++,
         x: x * cellSizeRef.current + cellSizeRef.current / 2,
         y: y * cellSizeRef.current + cellSizeRef.current / 2,
+        // Random scatter target precomputed here - render must stay pure
+        dx: (Math.random() - 0.5) * 60,
+        dy: (Math.random() - 0.5) * 60,
         color: colors[Math.floor(Math.random() * colors.length)],
       });
     }
@@ -359,7 +361,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
           return prevSnake;
         }
 
-        let newSnake = [head, ...prevSnake];
+        const newSnake = [head, ...prevSnake];
 
         // Check food collision
         if (head.x === food.x && head.y === food.y) {
@@ -428,7 +430,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
     };
   }, [isPlaying, gameOver, food, generateFood, highScore, applySpeedEffect, showPowerUpMessage, t]);
 
-  const closeGame = () => {
+  const closeGame = useCallback(() => {
     setShowGame(false);
     setIsPlaying(false);
     setGameOver(false);
@@ -441,7 +443,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
     effectMultiplierRef.current = 1;
     gameStartTimeRef.current = 0;
     directionQueueRef.current = [];
-  };
+  }, [clearPowerUpTimers]);
 
   // Shared direction change function — queues inputs to prevent 180° reversal between ticks
   const changeDirection = useCallback((newDir: Direction) => {
@@ -502,7 +504,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [showGame, changeDirection]);
+  }, [showGame, changeDirection, closeGame]);
 
   // Touch handlers for swipe
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -531,8 +533,23 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
 
   return (
     <>
-      {/* Clickable wrapper */}
-      <div onClick={handleClick} className="cursor-pointer">
+      {/* Clickable wrapper - keyboard accessible so the easter egg works without a mouse */}
+      <div
+        onClick={(e) => {
+          e.preventDefault();
+          handleClick();
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleClick();
+          }
+        }}
+        role="button"
+        tabIndex={0}
+        aria-label="RS"
+        className="cursor-pointer"
+      >
         {children}
       </div>
 
@@ -804,8 +821,8 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                             opacity: 1
                           }}
                           animate={{
-                            x: particle.x + (Math.random() - 0.5) * 60,
-                            y: particle.y + (Math.random() - 0.5) * 60,
+                            x: particle.x + particle.dx,
+                            y: particle.y + particle.dy,
                             scale: 0,
                             opacity: 0
                           }}
