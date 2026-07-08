@@ -288,44 +288,37 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
     };
   }, []);
 
-  // Spawn power-up periodically
+  // Mirror latest state into refs so spawn timers can read it directly
+  // (state updaters must stay pure - no side effects inside them)
+  const snakeRef = useRef(snake);
+  const foodRef = useRef(food);
+  const powerUpRef = useRef(powerUp);
+  useEffect(() => { snakeRef.current = snake; }, [snake]);
+  useEffect(() => { foodRef.current = food; }, [food]);
+  useEffect(() => { powerUpRef.current = powerUp; }, [powerUp]);
+
+  // Spawn power-up periodically - a single timer chain, so there is always
+  // at most one pending spawn timer (the old nested-updater version rescheduled
+  // twice when the field was occupied, growing timer chains exponentially)
   useEffect(() => {
     if (!isPlaying || gameOver) return;
 
-    const scheduleSpawn = () => {
-      powerUpSpawnRef.current = setTimeout(() => {
-        // Only spawn if no power-up currently on field
-        setPowerUp(current => {
-          if (current) {
-            // Already a power-up, try again later
-            scheduleSpawn();
-            return current;
-          }
-          return null; // Will be set below
-        });
+    const trySpawn = () => {
+      // Only spawn if no power-up currently on field
+      if (!powerUpRef.current) {
+        const pos = generatePowerUpPosition(snakeRef.current, foodRef.current);
+        const type = POWER_UP_TYPES[Math.floor(Math.random() * POWER_UP_TYPES.length)];
+        setPowerUp({ position: pos, type });
 
-        // Spawn new power-up
-        setSnake(prevSnake => {
-          setFood(currentFood => {
-            const pos = generatePowerUpPosition(prevSnake, currentFood);
-            const type = POWER_UP_TYPES[Math.floor(Math.random() * POWER_UP_TYPES.length)];
-            setPowerUp({ position: pos, type });
-
-            // Auto-remove after lifetime
-            powerUpLifetimeRef.current = setTimeout(() => {
-              setPowerUp(null);
-            }, POWER_UP_LIFETIME);
-
-            return currentFood;
-          });
-          return prevSnake;
-        });
-
-        scheduleSpawn();
-      }, POWER_UP_SPAWN_INTERVAL);
+        // Auto-remove after lifetime
+        powerUpLifetimeRef.current = setTimeout(() => {
+          setPowerUp(null);
+        }, POWER_UP_LIFETIME);
+      }
+      powerUpSpawnRef.current = setTimeout(trySpawn, POWER_UP_SPAWN_INTERVAL);
     };
 
-    scheduleSpawn();
+    powerUpSpawnRef.current = setTimeout(trySpawn, POWER_UP_SPAWN_INTERVAL);
 
     return () => {
       if (powerUpSpawnRef.current) clearTimeout(powerUpSpawnRef.current);
