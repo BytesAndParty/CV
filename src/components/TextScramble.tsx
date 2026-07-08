@@ -31,7 +31,6 @@ export function TextScramble({
 }: TextScrambleProps) {
   // Use deterministic placeholder for SSR/hydration compatibility
   const [displayText, setDisplayText] = useState(() => generatePlaceholder(text, placeholder));
-  const [isComplete, setIsComplete] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const hasStarted = useRef(false);
@@ -40,11 +39,15 @@ export function TextScramble({
     if (!isInView || hasStarted.current) return;
     hasStarted.current = true;
 
+    // Interval handle must live in the effect scope: a cleanup returned from
+    // the setTimeout callback is ignored, leaking the interval on unmount
+    let interval: ReturnType<typeof setInterval> | undefined;
+
     const timeout = setTimeout(() => {
       let iteration = 0;
       const maxIterations = text.length;
 
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         setDisplayText(
           text
             .split('')
@@ -59,17 +62,17 @@ export function TextScramble({
         if (iteration >= maxIterations) {
           clearInterval(interval);
           setDisplayText(text);
-          setIsComplete(true);
           onComplete?.();
         }
 
         iteration += 1 / 3;
       }, speed);
-
-      return () => clearInterval(interval);
     }, delay);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      if (interval) clearInterval(interval);
+    };
   }, [isInView, text, delay, speed, onComplete]);
 
   return (
