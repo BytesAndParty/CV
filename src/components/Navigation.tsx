@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -41,6 +41,7 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
   }, []);
 
   return (
+    <MotionConfig reducedMotion="user">
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -166,5 +167,6 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
         )}
       </AnimatePresence>
     </motion.nav>
+    </MotionConfig>
   );
 }

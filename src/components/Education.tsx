@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, MotionConfig } from 'framer-motion';
 import { useRef } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -17,6 +17,7 @@ export default function Education({ translations: t }: EducationProps) {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
+    <MotionConfig reducedMotion="user">
     <section id="education" className="py-24 bg-secondary/30 dark:bg-secondary/30 overflow-x-hidden" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading title={t.education.title} isInView={isInView} />
@@ -114,5 +115,6 @@ export default function Education({ translations: t }: EducationProps) {
         </div>
       </div>
     </section>
+    </MotionConfig>
   );
 }

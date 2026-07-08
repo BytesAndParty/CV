@@ -1,4 +1,4 @@
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView, AnimatePresence, MotionConfig } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/magnetic-button';
@@ -176,6 +176,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
   };
 
   return (
+    <MotionConfig reducedMotion="user">
     <section id="contact" className="py-24 relative grain-texture overflow-x-hidden" ref={ref}>
       {/* Background Gradient */}
       <div className="absolute inset-0 -z-10">
@@ -466,5 +467,6 @@ export default function Contact({ lang, translations: t }: ContactProps) {
         )}
       </AnimatePresence>
     </section>
+    </MotionConfig>
   );
 }

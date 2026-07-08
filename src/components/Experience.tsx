@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, MotionConfig } from 'framer-motion';
 import { useRef } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +15,7 @@ export default function Experience({ translations: t }: ExperienceProps) {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
+    <MotionConfig reducedMotion="user">
     <section id="experience" className="py-24 bg-secondary/30 dark:bg-secondary/30" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading title={t.experience.title} isInView={isInView} />
@@ -86,5 +87,6 @@ export default function Experience({ translations: t }: ExperienceProps) {
         </div>
       </div>
     </section>
+    </MotionConfig>
   );
 }

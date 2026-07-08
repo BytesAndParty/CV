@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, MotionConfig } from 'framer-motion';
 import { useRef } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +15,7 @@ export default function Projects({ translations: t }: ProjectsProps) {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
+    <MotionConfig reducedMotion="user">
     <section id="projects" className="py-24" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading title={t.projects.title} isInView={isInView} />
@@ -69,5 +70,6 @@ export default function Projects({ translations: t }: ProjectsProps) {
         </div>
       </div>
     </section>
+    </MotionConfig>
   );
 }

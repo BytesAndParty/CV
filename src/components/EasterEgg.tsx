@@ -288,6 +288,12 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
     };
   }, []);
 
+  // Move focus into the dialog when it opens (screen reader / keyboard users)
+  const modalRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (showGame) modalRef.current?.focus();
+  }, [showGame]);
+
   // Mirror latest state into refs so spawn timers can read it directly
   // (state updaters must stay pure - no side effects inside them)
   const snakeRef = useRef(snake);
@@ -588,10 +594,15 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
         <AnimatePresence>
         {showGame && (
           <motion.div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Snake"
+            tabIndex={-1}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center min-h-screen w-screen"
+            className="fixed inset-0 z-[100] flex items-center justify-center min-h-screen w-screen outline-none"
             style={{ top: 0, left: 0, right: 0, bottom: 0 }}
             onClick={(e) => e.target === e.currentTarget && closeGame()}
           >

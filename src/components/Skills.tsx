@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, MotionConfig } from 'framer-motion';
 import { useRef, useEffect } from 'react';
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GlowCard } from '@/components/ui/glow-card';
@@ -68,6 +68,7 @@ export default function Skills({ translations: t }: SkillsProps) {
   }, []);
 
   return (
+    <MotionConfig reducedMotion="user">
     <section id="skills" className="py-24" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading title={t.skills.title} isInView={isInView} />
@@ -181,5 +182,6 @@ export default function Skills({ translations: t }: SkillsProps) {
         </motion.div>
       </div>
     </section>
+    </MotionConfig>
   );
 }

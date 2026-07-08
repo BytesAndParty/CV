@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate, MotionConfig } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/magnetic-button';
@@ -120,6 +120,7 @@ interface HeroProps {
 
 export default function Hero({ lang, translations: t }: HeroProps) {
   return (
+    <MotionConfig reducedMotion="user">
     <section
       id="hero"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
@@ -312,5 +313,6 @@ export default function Hero({ lang, translations: t }: HeroProps) {
         </motion.div>
       </div>
     </section>
+    </MotionConfig>
   );
 }
