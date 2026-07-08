@@ -118,10 +118,13 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
   }, []);
 
   // Toast helper
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const showToastMessage = (message: string) => {
     setToastMessage(message);
     setShowToast(true);
-    setTimeout(() => setShowToast(false), 2500);
+    // Clear a pending timer so a rapid follow-up toast is not dismissed early
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    toastTimerRef.current = setTimeout(() => setShowToast(false), 2500);
   };
 
   // Handle logo click
@@ -270,9 +273,19 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
   }, []);
 
   // Show power-up pickup message
+  const powerUpMessageTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const showPowerUpMessage = useCallback((msg: string) => {
     setPowerUpMessage(msg);
-    setTimeout(() => setPowerUpMessage(null), 1500);
+    if (powerUpMessageTimerRef.current) clearTimeout(powerUpMessageTimerRef.current);
+    powerUpMessageTimerRef.current = setTimeout(() => setPowerUpMessage(null), 1500);
+  }, []);
+
+  // Clear message timers on unmount
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+      if (powerUpMessageTimerRef.current) clearTimeout(powerUpMessageTimerRef.current);
+    };
   }, []);
 
   // Spawn power-up periodically
