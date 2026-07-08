@@ -117,6 +117,10 @@ export default function ThemeSwitcher({ translations }: ThemeSwitcherProps) {
   const applyColorScheme = (scheme: ColorScheme) => {
     document.documentElement.setAttribute('data-color-scheme', scheme);
     updateFavicon(scheme);
+    // Keep the browser UI color in sync (meta is hardcoded to green in Layout)
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', colorSchemes[scheme].primary);
   };
 
   const handleColorChange = (scheme: ColorScheme) => {
