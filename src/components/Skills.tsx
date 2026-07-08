@@ -5,6 +5,7 @@ import { GlowCard } from '@/components/ui/glow-card';
 import { Badge } from '@/components/ui/badge';
 import { Code2, Database, Wrench, Brain } from 'lucide-react';
 import TechMarquee from './TechMarquee';
+import { SectionHeading } from './SectionHeading';
 import type { Translations } from '../i18n/utils';
 
 const categoryIcons = [Code2, Database, Wrench, Brain];
@@ -69,19 +70,7 @@ export default function Skills({ translations: t }: SkillsProps) {
   return (
     <section id="skills" className="py-24" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              {t.skills.title}
-            </span>
-          </h2>
-          <div className="w-24 h-1 bg-linear-to-r from-primary via-accent to-primary mx-auto rounded-full" />
-        </motion.div>
+        <SectionHeading title={t.skills.title} isInView={isInView} />
 
         {/* Tech Stack Marquee */}
         <TechMarquee title="Tech Stack" />

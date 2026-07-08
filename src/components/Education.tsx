@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { GraduationCap, Award, MapPin, Calendar } from 'lucide-react';
+import { SectionHeading } from './SectionHeading';
 import type { Translations } from '../i18n/utils';
 
 const certIcons = ['🔷', '🔷', '☁️', '⚡'];
@@ -18,19 +19,7 @@ export default function Education({ translations: t }: EducationProps) {
   return (
     <section id="education" className="py-24 bg-secondary/30 dark:bg-secondary/30 overflow-x-hidden" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              {t.education.title}
-            </span>
-          </h2>
-          <div className="w-24 h-1 bg-linear-to-r from-primary via-accent to-primary mx-auto rounded-full" />
-        </motion.div>
+        <SectionHeading title={t.education.title} isInView={isInView} />
 
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
           {/* Education */}

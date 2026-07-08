@@ -11,6 +11,7 @@ import { Separator } from '@/components/ui/separator';
 import { Mail, Phone, MapPin, Linkedin, Instagram, Github, Download, Send, CheckCircle2, XCircle, X } from 'lucide-react';
 import { TextScramble } from './TextScramble';
 import { downloadCV } from '@/lib/download-cv';
+import { SectionHeading } from './SectionHeading';
 import type { Translations } from '../i18n/utils';
 import type { Language } from '../i18n/config';
 
@@ -158,19 +159,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              {t.contact.title}
-            </span>
-          </h2>
-          <div className="w-24 h-1 bg-linear-to-r from-primary via-accent to-primary mx-auto rounded-full" />
-        </motion.div>
+        <SectionHeading title={t.contact.title} isInView={isInView} />
 
         <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Contact Info & Social */}
