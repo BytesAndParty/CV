@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Mail, Phone, MapPin, Linkedin, Instagram, Github, Download, Send, CheckCircle2, XCircle, X } from 'lucide-react';
 import { TextScramble } from './TextScramble';
+import { downloadCV } from '@/lib/download-cv';
 import type { Translations } from '../i18n/utils';
 import type { Language } from '../i18n/config';
 
@@ -239,15 +240,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                   <Button
                     variant="outline"
                     className="w-full cursor-help"
-                    onClick={() => {
-                      const colorScheme = document.documentElement.getAttribute('data-color-scheme') || 'green';
-                      const printWindow = window.open(`/cv-a4.html?color=${colorScheme}&lang=${lang}`, '_blank');
-                      if (printWindow) {
-                        printWindow.addEventListener('load', () => {
-                          setTimeout(() => printWindow.print(), 300);
-                        });
-                      }
-                    }}
+                    onClick={() => downloadCV(lang)}
                   >
                     <Download className="w-4 h-4 mr-2" />
                     {t.contact.download}

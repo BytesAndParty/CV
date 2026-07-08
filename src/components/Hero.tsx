@@ -5,6 +5,7 @@ import { MagneticButton } from '@/components/ui/magnetic-button';
 import { Badge } from '@/components/ui/badge';
 import { MapPin, Mail, Download } from 'lucide-react';
 import { TextScramble } from './TextScramble';
+import { downloadCV } from '@/lib/download-cv';
 import type { Translations } from '../i18n/utils';
 import type { Language } from '../i18n/config';
 
@@ -267,15 +268,7 @@ export default function Hero({ lang, translations: t }: HeroProps) {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => {
-                  const colorScheme = document.documentElement.getAttribute('data-color-scheme') || 'green';
-                  const printWindow = window.open(`/cv-a4.html?color=${colorScheme}&lang=${lang}`, '_blank');
-                  if (printWindow) {
-                    printWindow.addEventListener('load', () => {
-                      setTimeout(() => printWindow.print(), 300);
-                    });
-                  }
-                }}
+                onClick={() => downloadCV(lang)}
               >
                 <Download className="w-4 h-4 mr-2" />
                 {t.hero.downloadCV}
