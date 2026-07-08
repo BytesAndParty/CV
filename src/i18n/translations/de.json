@@ -61,7 +61,13 @@
           "Knowledge Sharing: interne Schulungen und technische Dokumentation",
           "Pre-Sales Support: Machbarkeitsanalysen und Aufwandsschätzungen für Kundenanfragen"
         ],
-        "technologies": ["C#/.NET", "Power Platform", "TypeScript", "Dataverse", "Azure"]
+        "technologies": [
+          "C#/.NET",
+          "Power Platform",
+          "TypeScript",
+          "Dataverse",
+          "Azure"
+        ]
       },
       {
         "title": "Maschinenbauingenieur / Projektkoordinator",
@@ -73,7 +79,11 @@
           "Koordination zwischen verschiedenen Abteilungen",
           "Technische Dokumentation und Projektplanung"
         ],
-        "technologies": ["CAD", "Projektmanagement", "Technische Dokumentation"]
+        "technologies": [
+          "CAD",
+          "Projektmanagement",
+          "Technische Dokumentation"
+        ]
       }
     ]
   },
@@ -83,59 +93,158 @@
       {
         "name": "Programmierung & Frameworks",
         "skills": [
-          { "name": "C# / .NET", "level": 85, "tooltip": "Backend-Entwicklung, Dataverse Plugins, Azure WebJobs, REST APIs und Unit-Tests mit xUnit/NUnit" },
-          { "name": "TypeScript", "level": 75, "tooltip": "Frontend-Logik in Power Apps (PCF Controls), React-Komponenten und typsichere API-Integration" },
-          { "name": "JavaScript", "level": 75, "tooltip": "Frontend-Entwicklung, DOM-Manipulation und schnelle Prototypen" },
-          { "name": "Next.js", "level": 65, "tooltip": "Full-Stack Web-Apps wie meine KI-Lernplattform (Masterarbeit) mit SSR und API Routes" },
-          { "name": "Astro", "level": 60, "tooltip": "Statische Websites wie diese Portfolio-Seite – schnell, modern und SEO-optimiert" },
-          { "name": "Power Platform", "level": 85, "tooltip": "Model-Driven Apps, Canvas Apps, Power Automate Flows und Custom Connectors für Geschäftsprozesse" }
+          {
+            "name": "C# / .NET",
+            "level": 85,
+            "tooltip": "Backend-Entwicklung, Dataverse Plugins, Azure WebJobs, REST APIs und Unit-Tests mit xUnit/NUnit"
+          },
+          {
+            "name": "TypeScript",
+            "level": 75,
+            "tooltip": "Frontend-Logik in Power Apps (PCF Controls), React-Komponenten und typsichere API-Integration"
+          },
+          {
+            "name": "JavaScript",
+            "level": 75,
+            "tooltip": "Frontend-Entwicklung, DOM-Manipulation und schnelle Prototypen"
+          },
+          {
+            "name": "Next.js",
+            "level": 65,
+            "tooltip": "Full-Stack Web-Apps wie meine KI-Lernplattform (Masterarbeit) mit SSR und API Routes"
+          },
+          {
+            "name": "Astro",
+            "level": 60,
+            "tooltip": "Statische Websites wie diese Portfolio-Seite – schnell, modern und SEO-optimiert"
+          },
+          {
+            "name": "Power Platform",
+            "level": 85,
+            "tooltip": "Model-Driven Apps, Canvas Apps, Power Automate Flows und Custom Connectors für Geschäftsprozesse"
+          }
         ]
       },
       {
         "name": "Datenbanken & Cloud",
         "skills": [
-          { "name": "Dataverse", "level": 88, "tooltip": "Datenmodellierung, Plugins, Custom APIs und komplexe Abfragen mit FetchXML" },
-          { "name": "SQL Server", "level": 75, "tooltip": "Datenbankdesign, Stored Procedures, Performance-Optimierung und Reporting" },
-          { "name": "Firebase", "level": 65, "tooltip": "Realtime Database, Authentication und Cloud Functions für schnelle Prototypen" },
-          { "name": "Azure Web Jobs", "level": 70, "tooltip": "Hintergrund-Jobs für Daten-Synchronisation und automatisierte Prozesse" }
+          {
+            "name": "Dataverse",
+            "level": 88,
+            "tooltip": "Datenmodellierung, Plugins, Custom APIs und komplexe Abfragen mit FetchXML"
+          },
+          {
+            "name": "SQL Server",
+            "level": 75,
+            "tooltip": "Datenbankdesign, Stored Procedures, Performance-Optimierung und Reporting"
+          },
+          {
+            "name": "Firebase",
+            "level": 65,
+            "tooltip": "Realtime Database, Authentication und Cloud Functions für schnelle Prototypen"
+          },
+          {
+            "name": "Azure Web Jobs",
+            "level": 70,
+            "tooltip": "Hintergrund-Jobs für Daten-Synchronisation und automatisierte Prozesse"
+          }
         ]
       },
       {
         "name": "Tools & Methoden",
         "skills": [
-          { "name": "Git", "level": 85, "tooltip": "Versionskontrolle, Branching-Strategien, Pull Requests und Code Reviews" },
-          { "name": "Azure DevOps", "level": 85, "tooltip": "Pipelines, Repos, Work Items und Release Management" },
-          { "name": "Agile / Scrum", "level": 80, "tooltip": "Sprint Planning, Daily Standups, Retrospektiven und kontinuierliche Verbesserung" },
-          { "name": "CI/CD", "level": 65, "tooltip": "Automatisierte Builds, Tests und Deployments für schnellere Releases" }
+          {
+            "name": "Git",
+            "level": 85,
+            "tooltip": "Versionskontrolle, Branching-Strategien, Pull Requests und Code Reviews"
+          },
+          {
+            "name": "Azure DevOps",
+            "level": 85,
+            "tooltip": "Pipelines, Repos, Work Items und Release Management"
+          },
+          {
+            "name": "Agile / Scrum",
+            "level": 80,
+            "tooltip": "Sprint Planning, Daily Standups, Retrospektiven und kontinuierliche Verbesserung"
+          },
+          {
+            "name": "CI/CD",
+            "level": 65,
+            "tooltip": "Automatisierte Builds, Tests und Deployments für schnellere Releases"
+          }
         ]
       },
       {
         "name": "Business Skills",
         "skills": [
-          { "name": "Solution Design", "level": 88, "tooltip": "Architektur-Entscheidungen, Tech-Stack Auswahl und Lösungskonzepte für Kundenanforderungen" },
-          { "name": "Requirements Engineering", "level": 75, "tooltip": "Anforderungsanalyse, User Stories, Akzeptanzkriterien und Stakeholder-Kommunikation" },
-          { "name": "Pre-Sales", "level": 65, "tooltip": "Machbarkeitsanalysen, Demos und technische Beratung für potenzielle Projekte" },
-          { "name": "Aufwandsschätzung", "level": 75, "tooltip": "Realistische Schätzungen basierend auf Erfahrung und strukturierter Analyse" }
+          {
+            "name": "Solution Design",
+            "level": 88,
+            "tooltip": "Architektur-Entscheidungen, Tech-Stack Auswahl und Lösungskonzepte für Kundenanforderungen"
+          },
+          {
+            "name": "Requirements Engineering",
+            "level": 75,
+            "tooltip": "Anforderungsanalyse, User Stories, Akzeptanzkriterien und Stakeholder-Kommunikation"
+          },
+          {
+            "name": "Pre-Sales",
+            "level": 65,
+            "tooltip": "Machbarkeitsanalysen, Demos und technische Beratung für potenzielle Projekte"
+          },
+          {
+            "name": "Aufwandsschätzung",
+            "level": 75,
+            "tooltip": "Realistische Schätzungen basierend auf Erfahrung und strukturierter Analyse"
+          }
         ]
       }
     ],
     "languages": {
       "title": "Sprachen",
       "items": [
-        { "name": "Deutsch", "level": "Muttersprache" },
-        { "name": "Englisch", "level": "Fließend" }
+        {
+          "name": "Deutsch",
+          "level": "Muttersprache"
+        },
+        {
+          "name": "Englisch",
+          "level": "Fließend"
+        }
       ]
     },
     "interests": {
       "title": "Interessen",
       "items": [
-        { "name": "Bouldern", "tooltip": "7a+ / V7 ist der aktuelle Highscore. Stärke: Coordination. Schwäche: Compression (und Höhenangst – Seilklettern war nur einmal im Auslandssemester 😅)" },
-        { "name": "Volleyball", "tooltip": "Sommersport mit Arbeitskollegen! Beach > Halle. Früher Hobbyturniere, USI-Kurs 6v6 absolviert." },
-        { "name": "Skifahren", "tooltip": "Einmal im Jahr, weil teuer – aber ich lieb's. Pistenrekord: 81km an einem Tag. Die 100km kommen noch! 🎿" },
-        { "name": "Bauen & Basteln", "tooltip": "Code, Holz, egal – Hauptsache selbst gemacht. Aktuell: Obsidian Plugins entwickeln." },
-        { "name": "Lesen", "tooltip": "Top Picks: Unsichtbare Frauen, Gerechtigkeit (Sandel), Utopien für Realisten (Bregman), Not Quite Dead Yet" },
-        { "name": "Laufen", "tooltip": "5km in 23min – Intervalltraining im Sommer, um schneller zu werden." },
-        { "name": "Gym", "tooltip": "Krafttraining als Ausgleich zum Sitzen. Bouldern braucht auch Muskeln!" }
+        {
+          "name": "Bouldern",
+          "tooltip": "7a+ / V7 ist der aktuelle Highscore. Stärke: Coordination. Schwäche: Compression (und Höhenangst – Seilklettern war nur einmal im Auslandssemester 😅)"
+        },
+        {
+          "name": "Volleyball",
+          "tooltip": "Sommersport mit Arbeitskollegen! Beach > Halle. Früher Hobbyturniere, USI-Kurs 6v6 absolviert."
+        },
+        {
+          "name": "Skifahren",
+          "tooltip": "Einmal im Jahr, weil teuer – aber ich lieb's. Pistenrekord: 81km an einem Tag. Die 100km kommen noch! 🎿"
+        },
+        {
+          "name": "Bauen & Basteln",
+          "tooltip": "Code, Holz, egal – Hauptsache selbst gemacht. Aktuell: Obsidian Plugins entwickeln."
+        },
+        {
+          "name": "Lesen",
+          "tooltip": "Top Picks: Unsichtbare Frauen, Gerechtigkeit (Sandel), Utopien für Realisten (Bregman), Not Quite Dead Yet"
+        },
+        {
+          "name": "Laufen",
+          "tooltip": "5km in 23min – Intervalltraining im Sommer, um schneller zu werden."
+        },
+        {
+          "name": "Gym",
+          "tooltip": "Krafttraining als Ausgleich zum Sitzen. Bouldern braucht auch Muskeln!"
+        }
       ]
     }
   },
@@ -151,7 +260,13 @@
           "Selbst gehostete Web-Applikation",
           "Nutzungsmetriken und Analytics"
         ],
-        "technologies": ["Next.js", "TypeScript", "OpenAI API", "Tailwind", "Netlify"]
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "OpenAI API",
+          "Tailwind",
+          "Netlify"
+        ]
       },
       {
         "title": "Honorarnoten-System",
@@ -162,7 +277,13 @@
           "Umfangreiche Test-Suite in TypeScript und C#",
           "Von Excel zu strukturierter Datenbank migriert"
         ],
-        "technologies": ["Power Apps Portal", "Power Automate", "Dataverse", "Dataflows", "C#/.NET"]
+        "technologies": [
+          "Power Apps Portal",
+          "Power Automate",
+          "Dataverse",
+          "Dataflows",
+          "C#/.NET"
+        ]
       },
       {
         "title": "Mailjet-Dynamics Integration",
@@ -172,7 +293,13 @@
           "Automatisierte Kampagnen-Steuerung aus dem CRM",
           "Event-basierte Verarbeitung über Azure WebJobs"
         ],
-        "technologies": ["C#/.NET", "Azure WebJobs", "Dynamics 365", "Dataverse", "Mailjet API"]
+        "technologies": [
+          "C#/.NET",
+          "Azure WebJobs",
+          "Dynamics 365",
+          "Dataverse",
+          "Mailjet API"
+        ]
       },
       {
         "title": "Banking CRM Prototyp",
@@ -182,7 +309,11 @@
           "TypeScript-basierte Frontend-Anpassungen",
           "Schnelle Prototyp-Entwicklung für Pre-Sales Demo"
         ],
-        "technologies": ["Dynamics 365", "TypeScript", "Power Platform"]
+        "technologies": [
+          "Dynamics 365",
+          "TypeScript",
+          "Power Platform"
+        ]
       }
     ]
   },
@@ -265,7 +396,12 @@
       "messagePlaceholder": "Deine Nachricht...",
       "submit": "Nachricht senden",
       "submitting": "Wird gesendet...",
-      "required": "* Pflichtfelder. Deine Daten werden vertraulich behandelt."
+      "required": "* Pflichtfelder. Deine Daten werden vertraulich behandelt.",
+      "errors": {
+        "name": "Bitte gib deinen Namen an (mindestens 2 Zeichen).",
+        "email": "Bitte gib eine gültige E-Mail-Adresse an.",
+        "message": "Bitte schreib eine Nachricht (mindestens 10 Zeichen)."
+      }
     },
     "success": {
       "title": "Nachricht gesendet!",

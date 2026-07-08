@@ -100,6 +100,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasSubmittedOnce, setHasSubmittedOnce] = useState(false);
   const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<'name' | 'email' | 'message', string>>>({});
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const showToast = (type: 'success' | 'error', message: string) => {
@@ -115,6 +116,23 @@ export default function Contact({ lang, translations: t }: ContactProps) {
     };
   }, []);
 
+  const validate = (formData: FormData) => {
+    const errors: typeof fieldErrors = {};
+    const name = String(formData.get('name') ?? '').trim();
+    const email = String(formData.get('email') ?? '').trim();
+    const message = String(formData.get('message') ?? '').trim();
+
+    if (name.length < 2) errors.name = t.contact.form.errors.name;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = t.contact.form.errors.email;
+    if (message.length < 10) errors.message = t.contact.form.errors.message;
+
+    return errors;
+  };
+
+  const clearFieldError = (field: keyof typeof fieldErrors) => {
+    setFieldErrors(prev => (prev[field] ? { ...prev, [field]: undefined } : prev));
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -123,10 +141,16 @@ export default function Contact({ lang, translations: t }: ContactProps) {
       return;
     }
 
-    setIsSubmitting(true);
-
     const form = e.currentTarget;
     const formData = new FormData(form);
+
+    const errors = validate(formData);
+    setFieldErrors(errors);
+    if (Object.values(errors).some(Boolean)) {
+      return;
+    }
+
+    setIsSubmitting(true);
 
     try {
       const response = await fetch('/', {
@@ -309,6 +333,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                     netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
                     className="space-y-5"
+                    noValidate
                   >
                     <input type="hidden" name="form-name" value="contact" />
                     <p className="hidden">
@@ -322,8 +347,16 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                           name="name"
                           placeholder={t.contact.form.namePlaceholder}
                           required
+                          aria-invalid={!!fieldErrors.name}
+                          aria-describedby={fieldErrors.name ? 'name-error' : undefined}
+                          onChange={() => clearFieldError('name')}
                           className="bg-secondary/50"
                         />
+                        {fieldErrors.name && (
+                          <p id="name-error" className="text-xs text-destructive" role="alert">
+                            {fieldErrors.name}
+                          </p>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="email">{t.contact.form.email} *</Label>
@@ -333,8 +366,16 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                           type="email"
                           placeholder={t.contact.form.emailPlaceholder}
                           required
+                          aria-invalid={!!fieldErrors.email}
+                          aria-describedby={fieldErrors.email ? 'email-error' : undefined}
+                          onChange={() => clearFieldError('email')}
                           className="bg-secondary/50"
                         />
+                        {fieldErrors.email && (
+                          <p id="email-error" className="text-xs text-destructive" role="alert">
+                            {fieldErrors.email}
+                          </p>
+                        )}
                       </div>
                     </div>
 
@@ -356,8 +397,16 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                         placeholder={t.contact.form.messagePlaceholder}
                         rows={5}
                         required
+                        aria-invalid={!!fieldErrors.message}
+                        aria-describedby={fieldErrors.message ? 'message-error' : undefined}
+                        onChange={() => clearFieldError('message')}
                         className="bg-secondary/50 resize-none"
                       />
+                      {fieldErrors.message && (
+                        <p id="message-error" className="text-xs text-destructive" role="alert">
+                          {fieldErrors.message}
+                        </p>
+                      )}
                     </div>
 
                     <MagneticButton
