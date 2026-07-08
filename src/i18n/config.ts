@@ -6,4 +6,3 @@ export const LANGUAGES = {
 export type Language = keyof typeof LANGUAGES;
 
 export const DEFAULT_LANG: Language = 'de';
-export const SUPPORTED_LANGS = Object.keys(LANGUAGES) as Language[];
