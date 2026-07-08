@@ -132,19 +132,6 @@ export default function ThemeSwitcher({ translations }: ThemeSwitcherProps) {
     document.documentElement.classList.toggle('dark', newMode === 'dark');
   };
 
-  // Keyboard shortcut: Ctrl+Shift+T (or Cmd+Shift+T on Mac)
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'T') {
-        e.preventDefault();
-        handleThemeModeToggle();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [themeMode]);
-
   return (
     <div className="flex items-center gap-2">
       {/* Theme Mode Toggle */}
@@ -153,7 +140,7 @@ export default function ThemeSwitcher({ translations }: ThemeSwitcherProps) {
         size="icon"
         onClick={handleThemeModeToggle}
         className="hover:bg-secondary relative overflow-hidden"
-        title={`${themeMode === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'} (Ctrl+Shift+T)`}
+        title={themeMode === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
         aria-label={`Currently in ${themeMode} mode. Click to switch to ${themeMode === 'dark' ? 'light' : 'dark'} mode`}
       >
         <AnimatePresence mode="wait" initial={false}>
