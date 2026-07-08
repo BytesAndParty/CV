@@ -88,7 +88,8 @@ export default function Skills({ translations: t }: SkillsProps) {
 
         <div className="grid md:grid-cols-2 gap-6 mt-8">
           {t.skills.categories.map((category, categoryIndex) => {
-            const Icon = categoryIcons[categoryIndex];
+            // Translations define the category count - never crash on a fifth one
+            const Icon = categoryIcons[categoryIndex] ?? Code2;
             return (
               <motion.div
                 key={category.name}

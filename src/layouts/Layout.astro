@@ -126,10 +126,10 @@ const jsonLd = {
 			// Restore scroll position after language switch
 			(function() {
 				try {
-					var pos = sessionStorage.getItem('scrollPos');
-					if (pos) {
-						sessionStorage.removeItem('scrollPos');
-						window.scrollTo(0, parseInt(pos));
+					var pos = parseInt(sessionStorage.getItem('scrollPos') || '', 10);
+					sessionStorage.removeItem('scrollPos');
+					if (!isNaN(pos)) {
+						window.scrollTo(0, pos);
 					}
 				} catch (e) {}
 			})();

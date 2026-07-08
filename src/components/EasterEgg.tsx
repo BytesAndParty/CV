@@ -113,8 +113,8 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
 
   // Load high score
   useEffect(() => {
-    const saved = localStorage.getItem('snakeHighScore');
-    if (saved) setHighScore(parseInt(saved));
+    const saved = parseInt(localStorage.getItem('snakeHighScore') ?? '', 10);
+    if (!Number.isNaN(saved)) setHighScore(saved);
   }, []);
 
   // Toast helper
