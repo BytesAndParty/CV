@@ -416,7 +416,9 @@
     "followMe": "Folge mir auf",
     "footer": {
       "copyright": "© {year} Robert Stickler. Alle Rechte vorbehalten.",
-      "madeWith": "Erstellt mit Astro, React, Tailwind CSS & shadcn/ui"
+      "madeWith": "Erstellt mit Astro, React, Tailwind CSS & shadcn/ui",
+      "imprint": "Impressum",
+      "privacy": "Datenschutz"
     }
   }
 }

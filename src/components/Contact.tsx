@@ -453,6 +453,21 @@ export default function Contact({ lang, translations: t }: ContactProps) {
           <p className="text-muted-foreground/60 text-xs mt-2">
             {t.contact.footer.madeWith}
           </p>
+          <div className="flex justify-center gap-3 mt-4 text-xs">
+            <a
+              href={`/${lang}/impressum`}
+              className="text-muted-foreground/70 hover:text-primary transition-colors hover:underline underline-offset-4"
+            >
+              {t.contact.footer.imprint}
+            </a>
+            <span className="text-muted-foreground/40" aria-hidden="true">·</span>
+            <a
+              href={`/${lang}/datenschutz`}
+              className="text-muted-foreground/70 hover:text-primary transition-colors hover:underline underline-offset-4"
+            >
+              {t.contact.footer.privacy}
+            </a>
+          </div>
         </motion.div>
       </div>
 
