@@ -16,6 +16,7 @@ export default function About({ translations: t }: AboutProps) {
     { value: '4', label: t.about.stats.certificates, icon: Award },
     { value: 'Master', label: t.about.stats.degree, icon: GraduationCap },
   ];
+  // fallow-ignore-next-line code-duplication -- Section-Boilerplate (Ref/InView), bewusst je Section dupliziert
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 

@@ -11,6 +11,7 @@ interface ProjectsProps {
 }
 
 export default function Projects({ translations: t }: ProjectsProps) {
+  // fallow-ignore-next-line code-duplication -- Section-Boilerplate (Ref/InView), bewusst je Section dupliziert
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 

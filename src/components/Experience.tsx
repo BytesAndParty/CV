@@ -11,6 +11,7 @@ interface ExperienceProps {
 }
 
 export default function Experience({ translations: t }: ExperienceProps) {
+  // fallow-ignore-next-line code-duplication -- Section-Boilerplate (Ref/InView), bewusst je Section dupliziert
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 

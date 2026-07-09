@@ -67,6 +67,7 @@ export default function Skills({ translations: t }: SkillsProps) {
     };
   }, []);
 
+  // fallow-ignore-next-line code-duplication -- Section-Boilerplate (Ref/InView), bewusst je Section dupliziert
   return (
     <MotionConfig reducedMotion="user">
     <section id="skills" className="py-24" ref={ref}>
