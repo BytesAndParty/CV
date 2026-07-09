@@ -17,12 +17,10 @@ Details und Begründungen zu allen Punkten: siehe [REFACTOR-PLAN.md](REFACTOR-PL
 - [x] **404-Seite** - Zweisprachig
 - [x] **Accessibility-Basis** - prefers-reduced-motion, Dialog-Semantik im Snake-Modal, Tastatur-Zugang zum Easter Egg
 - [x] **Fonts self-hosted** - @fontsource statt Google-Fonts-CDN (DSGVO + Performance)
+- [x] **E-Mail-Adresse verifiziert** - `rstickler98@gmail.com` ist korrekt (bestätigt 09.07.2026)
+- [x] **Impressum + Datenschutzerklärung** - DE/EN unter `/{lang}/impressum` und `/{lang}/datenschutz`, im Footer verlinkt
 
 ## Offen
-
-### Dringend
-- [ ] **E-Mail-Adresse verifizieren** - Site nutzt `rstickler98@gmail.com`, Account läuft auf `rstickler87@gmail.com` (Contact.tsx + cv-a4.html). Tippfehler?
-- [ ] **Impressum + Datenschutzerklärung** - rechtlich erforderlich (§ 5 ECG, DSGVO; Kontaktformular!)
 
 ### Refactoring (aus Fallow-Analyse)
 - [ ] **EasterEgg.tsx umbauen** - 964 LOC, useReducer für Game-Loop (fixt Side-Effects in Updatern), React.lazy fürs Modal (Navigation-Bundle -X kB)
@@ -53,4 +51,4 @@ Details und Begründungen zu allen Punkten: siehe [REFACTOR-PLAN.md](REFACTOR-PL
 
 ---
 
-*Zuletzt aktualisiert: 08.07.2026*
+*Zuletzt aktualisiert: 09.07.2026*
