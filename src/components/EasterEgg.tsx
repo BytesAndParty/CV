@@ -567,15 +567,15 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
               initial={{ opacity: 0, y: -50, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.9 }}
-              className="fixed top-6 left-1/2 -translate-x-1/2 z-[100]"
+              className="fixed top-6 left-1/2 -translate-x-1/2 z-100"
             >
               <div className="relative px-5 py-3 rounded-xl text-sm font-medium text-foreground
                             bg-card/80 backdrop-blur-xl border border-primary/20
                             shadow-[0_0_30px_rgb(var(--theme-primary)/0.2),0_10px_40px_-10px_rgb(0_0_0/0.3)]">
                 {/* Glow effect */}
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 blur-xl -z-10" />
+                <div className="absolute inset-0 rounded-xl bg-linear-to-r from-primary/10 via-accent/10 to-primary/10 blur-xl -z-10" />
                 {/* Gradient border */}
-                <div className="absolute inset-0 rounded-xl p-[1px] bg-gradient-to-r from-primary/50 via-accent/50 to-primary/50 -z-10">
+                <div className="absolute inset-0 rounded-xl p-px bg-linear-to-r from-primary/50 via-accent/50 to-primary/50 -z-10">
                   <div className="w-full h-full rounded-xl bg-card/90" />
                 </div>
                 <span className="flex items-center gap-2">
@@ -602,7 +602,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center min-h-screen w-screen outline-none"
+            className="fixed inset-0 z-100 flex items-center justify-center min-h-screen w-screen outline-none"
             style={{ top: 0, left: 0, right: 0, bottom: 0 }}
             onClick={(e) => e.target === e.currentTarget && closeGame()}
           >
@@ -618,19 +618,19 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
               className="relative z-10 mx-4"
             >
               {/* Outer glow */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 rounded-3xl blur-2xl opacity-60" />
+              <div className="absolute -inset-4 bg-linear-to-r from-primary/20 via-accent/20 to-primary/20 rounded-3xl blur-2xl opacity-60" />
 
               {/* Main card */}
               <div className="relative bg-card backdrop-blur-xl rounded-2xl p-3 sm:p-6
-                            border border-primary/20 shadow-2xl
-                            shadow-[0_0_60px_rgb(var(--theme-primary)/0.15)]
+                            border border-primary/20
+                            shadow-[0_25px_50px_-12px_rgb(0_0_0/0.25),0_0_60px_rgb(var(--theme-primary)/0.15)]
                             max-h-[95dvh] overflow-y-auto">
                 {/* Animated gradient border */}
-                <div className="absolute inset-0 rounded-2xl p-[1px] overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary animate-[spin_12s_linear_infinite] blur-sm opacity-50"
+                <div className="absolute inset-0 rounded-2xl p-px overflow-hidden">
+                  <div className="absolute inset-0 bg-linear-to-r from-primary via-accent to-primary animate-[spin_12s_linear_infinite] blur-sm opacity-50"
                        style={{ backgroundSize: '200% 200%' }} />
                 </div>
-                <div className="absolute inset-[1px] rounded-2xl bg-card" />
+                <div className="absolute inset-px rounded-2xl bg-card" />
 
                 {/* Content */}
                 <div className="relative z-10">
@@ -638,7 +638,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                   <div className="flex items-center justify-between mb-3 sm:mb-5">
                     <h2 className="text-xl sm:text-2xl font-bold flex items-center gap-2 sm:gap-3">
                       <span className="text-2xl sm:text-3xl">🐍</span>
-                      <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+                      <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
                         Snake
                       </span>
                     </h2>
@@ -734,11 +734,11 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                           )}
                           {/* Segment body */}
                           <div
-                            className={`absolute inset-0 rounded-md ${isHead ? 'bg-gradient-to-br from-primary to-accent' : 'bg-primary'}`}
+                            className={`absolute inset-0 rounded-md ${isHead ? 'bg-linear-to-br from-primary to-accent' : 'bg-primary'}`}
                             style={{ opacity }}
                           />
                           {/* Segment shine */}
-                          <div className="absolute inset-0 rounded-md bg-gradient-to-br from-white/30 to-transparent"
+                          <div className="absolute inset-0 rounded-md bg-linear-to-br from-white/30 to-transparent"
                                style={{ height: '50%' }} />
                         </motion.div>
                       );
@@ -766,9 +766,9 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                       {/* Food glow */}
                       <div className="absolute inset-0 bg-accent rounded-full blur-md opacity-70" />
                       {/* Food body */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-accent to-primary rounded-full" />
+                      <div className="absolute inset-0 bg-linear-to-br from-accent to-primary rounded-full" />
                       {/* Food shine */}
-                      <div className="absolute inset-1 bg-gradient-to-br from-white/40 to-transparent rounded-full"
+                      <div className="absolute inset-1 bg-linear-to-br from-white/40 to-transparent rounded-full"
                            style={{ height: '40%' }} />
                     </motion.div>
 
@@ -797,9 +797,9 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                           {/* Same glow as food */}
                           <div className="absolute inset-0 bg-accent rounded-full blur-md opacity-70" />
                           {/* Same body as food */}
-                          <div className="absolute inset-0 bg-gradient-to-br from-accent to-primary rounded-full" />
+                          <div className="absolute inset-0 bg-linear-to-br from-accent to-primary rounded-full" />
                           {/* Same shine as food */}
-                          <div className="absolute inset-1 bg-gradient-to-br from-white/40 to-transparent rounded-full"
+                          <div className="absolute inset-1 bg-linear-to-br from-white/40 to-transparent rounded-full"
                                style={{ height: '40%' }} />
                         </motion.div>
                       )}
@@ -908,7 +908,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                             animate={{ scale: 1, y: 0 }}
                             className="text-center"
                           >
-                            <p className="text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                            <p className="text-3xl font-bold mb-2 bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">
                               {t.easterEgg.gameOver}
                             </p>
                             <p className="text-muted-foreground mb-1">{t.easterEgg.score}: <span className="text-primary font-bold">{score}</span></p>
@@ -923,7 +923,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                             )}
                             <Button
                               onClick={startGame}
-                              className="mt-2 bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white border-0"
+                              className="mt-2 bg-linear-to-r from-primary to-accent hover:opacity-90 text-white border-0"
                             >
                               {t.easterEgg.playAgain}
                             </Button>
