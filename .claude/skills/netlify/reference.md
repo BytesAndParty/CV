@@ -30,6 +30,12 @@ for x in json.load(sys.stdin)[:5]:
     print(x['created_at'][:16], x['state'], x['context'], x['branch'], (x.get('commit_ref') or '')[:7], (x.get('error_message') or '')[:80])"
 git rev-parse --short origin/main      # Production-Branch einsetzen; ungleich = Live-Seite veraltet
 
+# 3b. Formulare: erkennt Netlify das Formular? (Name, bisherige Einsendungen)
+netlify api listSiteForms --data "{\"site_id\":\"$SID\"}" | python3 -c "
+import json,sys
+for x in json.load(sys.stdin): print(x['name'], 'Einsendungen:', x.get('submission_count'), 'seit', x['created_at'][:10])"
+grep -o '<form[^>]*>' dist/de/index.html    # was steht im gebauten HTML (nach bun run build)?
+
 # 4. Env-Variablen: NUR Namen, Werte nur für Node/Bun
 netlify env:list --json | python3 -c "
 import json,sys
@@ -75,6 +81,10 @@ Prüfen, ob Netlify die Datei wirklich benutzt: `netlify build --offline` führt
 - **Build-Log nicht per API abrufbar:** `getSiteBuild` liefert nur `done`, `error`, `sha`, `deploy_id`, `deploy_state`; `listSiteDeploys` und
   `getDeploy` enthalten keine Logzeilen, nur `summary.messages` (Upload-Zähler, Redirect-Regeln). `updateSiteBuildLog` ist ein Schreib-Endpunkt für
   Build-Plugins. Ob `bun install` lief, steht deshalb nur im Deploy-Log der Netlify-UI. Die CLI ist dafür nicht geprüft.
+- **Formular-Erkennung bei Astro-Inseln (Projekt CV, 2026-11-18):** React-Inseln mit `client:*` rendert Astro beim Build serverseitig, das Formular steht deshalb im
+  statischen HTML (`grep '<form' dist/de/index.html`: zwei Treffer, das echte aus `Contact.tsx` und das versteckte aus `Layout.astro`, beide `name="contact"` mit
+  `data-netlify="true"`). Netlify führt `contact` trotzdem als **ein** Formular (`listSiteForms`). Das versteckte Duplikat ist vermutlich unnötig (nicht getestet,
+  nicht entfernt). `submission_count` 0 heißt nur, dass nie jemand abgeschickt hat, nicht dass der Absendeweg geprüft ist; das belegt erst eine echte Einsendung.
 - **Doku-Drift:** Die Projekt-`CLAUDE.md` nannte `bun build` (Buns Bundler, braucht einen Entry), in der UI stand `bun run build`.
 - **Node-Pin vorher nicht vorhanden:** kein `.nvmrc`, kein `NODE_VERSION`, keine `netlify.toml`. Es galt der Image-Standard 24.
 - **`.netlify` in `.gitignore`:** `netlify link` ergänzt sie selbst; trotzdem vor dem Commit `git status` ansehen.

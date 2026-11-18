@@ -154,7 +154,7 @@ Erledigt: E-Mail-Adresse verifiziert (`rstickler98` korrekt, 09.07.2026), Impres
 ## Netlify Deployment
 
 - Site `robertstickler-cv`, per `netlify link` verknüpft (`.netlify/` ist gitignored), Production-Branch `main`
-- Forms: Automatisch via `netlify` Attribut im Contact-Formular
+- Forms: `data-netlify="true"` im Contact-Formular (Astro rendert die Insel serverseitig, das Formular steht im statischen HTML) plus verstecktes Duplikat in `Layout.astro`; Netlify führt `contact` als ein Formular, bisher 0 Einsendungen (Stand 2026-11-18)
 - Build Command `bun run build` und Publish Directory `dist/` stehen in `netlify.toml` (deckt sich mit der Netlify-UI, geprüft 2026-11-18)
 - Node: `.nvmrc`; in Netlify sind weder `NODE_VERSION` noch `BUN_VERSION` gesetzt
 - Stand 2026-11-18: letzter Production-Deploy vom 2026-11-18 10:31 (`a783d8b` = `origin/main`, Live-Seite aktuell); der Refactor-Branch `refactor/analysis-fixes-2026-07` ist gemergt, Branch-Deploys sind aus
