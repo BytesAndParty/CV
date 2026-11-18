@@ -19,6 +19,7 @@ Details und Begründungen zu allen Punkten: siehe [REFACTOR-PLAN.md](REFACTOR-PL
 - [x] **Fonts self-hosted** - @fontsource statt Google-Fonts-CDN (DSGVO + Performance)
 - [x] **E-Mail-Adresse verifiziert** - `rstickler98@gmail.com` ist korrekt (bestätigt 09.07.2026)
 - [x] **Impressum + Datenschutzerklärung** - DE/EN unter `/{lang}/impressum` und `/{lang}/datenschutz`, im Footer verlinkt
+- [x] **Lucide 1.x** - Brand-Icons (Linkedin/Github/Instagram) liegen lokal in `BrandIcons.tsx` (Glyphen aus lucide-react 0.562)
 
 ## Offen
 
@@ -37,7 +38,6 @@ Details und Begründungen zu allen Punkten: siehe [REFACTOR-PLAN.md](REFACTOR-PL
 - [ ] System-Theme-Präferenz als Default statt erzwungenem Dark
 
 ### Technisch
-- [ ] Lucide Brand-Icons (Linkedin/Github/Instagram) deprecated → simple-icons/Inline-SVG
 - [ ] cv-a4.html lädt noch Google Fonts (Print-Seite)
 - [ ] Profilbild über astro:assets optimieren
 - [ ] Vollständiger a11y-Audit (Screenreader, Kontraste)
