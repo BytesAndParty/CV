@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { useInView } from 'framer-motion';
+import { useInView } from 'motion/react';
 
 const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*';
 const defaultPlaceholder = '0'; // Zero character for consistent initial display

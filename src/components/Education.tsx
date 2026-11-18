@@ -1,4 +1,4 @@
-import { motion, useInView, MotionConfig } from 'framer-motion';
+import { motion, useInView, MotionConfig } from 'motion/react';
 import { useRef } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';

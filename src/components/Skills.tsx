@@ -1,4 +1,4 @@
-import { motion, useInView, MotionConfig } from 'framer-motion';
+import { motion, useInView, MotionConfig } from 'motion/react';
 import { useRef, useEffect } from 'react';
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GlowCard } from '@/components/ui/glow-card';

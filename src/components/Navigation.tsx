@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
+import { motion, AnimatePresence, MotionConfig } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,

@@ -79,7 +79,7 @@ Der Hero-Titel verwendet einen "Hacker-Style" Text-Scramble-Effekt:
 
 Der Hero-Hintergrund zeigt ein Netzwerk/Circuit-Pattern, das durch animierte Spotlight-Masken sichtbar gemacht wird:
 
-- Zwei Framer Motion Spotlights bewegen sich unabhängig (12s und 15s Zyklen)
+- Zwei Motion Spotlights bewegen sich unabhängig (12s und 15s Zyklen)
 - Die Bewegung wird über `useMotionValue` + `useTransform` in einen dynamischen `mask-image` String umgewandelt
 - Zwei `radial-gradient` Kreise "beleuchten" das Pattern
 - Das Pattern selbst besteht aus CSS-only Layered Backgrounds: Grid-Linien, Diagonale Verbindungen und Radial-Gradient Nodes
@@ -129,7 +129,7 @@ Elemente erscheinen mit einem Blur-to-Sharp Effekt:
 
 ## 12. Stagger Children Animations
 
-Kinder-Elemente animieren nacheinander ein - via Framer Motion mit gestaffelten
+Kinder-Elemente animieren nacheinander ein - via Motion mit gestaffelten
 `delay`-Props (`index * 0.1` bis `index * 0.3` je Section).
 
 ---
@@ -209,7 +209,7 @@ Verstecktes Snake-Spiel, aktivierbar durch 10-maliges Klicken auf das Logo:
 
 3. **Physikalisch inspirierte Animationen** - Magnetic Buttons, Spring-Transitions (`damping: 25, stiffness: 300`), cubic-bezier Kurven - alles fühlt sich natürlich und responsiv an.
 
-4. **Progressive Enhancement** - CSS-only Effekte (Patterns, Gradients, Scrollbar) funktionieren ohne JavaScript. Framer Motion und React-Komponenten fügen interaktive Layer hinzu.
+4. **Progressive Enhancement** - CSS-only Effekte (Patterns, Gradients, Scrollbar) funktionieren ohne JavaScript. Motion und React-Komponenten fügen interaktive Layer hinzu.
 
 5. **Performance** - GPU-beschleunigte Properties (`transform`, `opacity`, `filter`), `will-change` wo nötig, `pointer-events: none` auf dekorativen Elementen. Keine Layout-Shifts durch Animationen.
 

@@ -5,7 +5,7 @@ Modern, responsive CV website built with Astro, React, Tailwind CSS, and shadcn/
 ## 🎨 Features
 
 - **Dynamic Theme System**: Switch between 5 color schemes and light/dark mode
-- **Smooth Animations**: Powered by Framer Motion
+- **Smooth Animations**: Powered by Motion
 - **Fully Responsive**: Mobile-first design
 - **Modern Stack**: Built with Astro 7, React 19, and Tailwind v4
 
@@ -43,7 +43,7 @@ All commands use **Bun** as the package manager:
 - **UI Library**: [React](https://react.dev) 19
 - **Styling**: [Tailwind CSS](https://tailwindcss.com) v4
 - **Components**: [shadcn/ui](https://ui.shadcn.com)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Animations**: [Motion](https://motion.dev)
 - **Icons**: [Lucide React](https://lucide.dev)
 - **Package Manager**: [Bun](https://bun.sh)
 

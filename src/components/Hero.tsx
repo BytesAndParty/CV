@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useTransform, animate, MotionConfig } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate, MotionConfig } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/magnetic-button';
