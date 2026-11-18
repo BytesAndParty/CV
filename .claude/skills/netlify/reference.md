@@ -87,6 +87,13 @@ Prüfen, ob Netlify die Datei wirklich benutzt: `netlify build --offline` führt
   statischen HTML (`grep '<form' dist/de/index.html`: zwei Treffer, das echte aus `Contact.tsx` und das versteckte aus `Layout.astro`, beide `name="contact"` mit
   `data-netlify="true"`). Netlify führt `contact` trotzdem als **ein** Formular (`listSiteForms`). Das versteckte Duplikat ist vermutlich unnötig (nicht getestet,
   nicht entfernt). `submission_count` 0 heißt nur, dass nie jemand abgeschickt hat, nicht dass der Absendeweg geprüft ist; das belegt erst eine echte Einsendung.
+- **Netlify schreibt das Formular-HTML beim Deploy um (Projekt CV, 2026-11-18):** Im ausgelieferten HTML fehlen `data-netlify` und `netlify-honeypot`
+  (`dist`: je 2 Treffer, live: je 0, gleicher Commit). Dafür steht ein von Netlify eingefügtes `<input type='hidden' name='form-name' value='contact' />` mit
+  einfachen Anführungszeichen, das Honeypot-Feld `bot-field` bleibt. Das ist die Formularverarbeitung beim Deploy, keine Änderung im Repo und kein Fehler;
+  beim Vergleich `dist` gegen die Live-Seite sieht es nur wie ein entferntes Attribut aus. Laut Doku
+  (https://docs.netlify.com/manage/forms/setup/) sind `data-netlify="true"` und `netlify` gleichwertig. Für JS-/SSR-Formulare verlangt sie entweder ein
+  statisches HTML-Formular mit gleichnamigen Feldern oder ein verstecktes `form-name`-Feld im JS-Formular; hier sind beide Wege vorhanden. Die Doku rät außerdem,
+  mehreren Formularen verschiedene Namen zu geben; die zwei gleichnamigen `contact`-Formulare führt Netlify als eines, die Folgen sind nicht belegt.
 - **Doku-Drift:** Die Projekt-`CLAUDE.md` nannte `bun build` (Buns Bundler, braucht einen Entry), in der UI stand `bun run build`.
 - **Node-Pin vorher nicht vorhanden:** kein `.nvmrc`, kein `NODE_VERSION`, keine `netlify.toml`. Es galt der Image-Standard 24.
 - **`.netlify` in `.gitignore`:** `netlify link` ergänzt sie selbst; trotzdem vor dem Commit `git status` ansehen.
