@@ -7,7 +7,7 @@ Personal CV & Portfolio website for Robert Stickler - Software Engineer & Soluti
 - **Framework:** Astro 7.x mit React Integration
 - **Styling:** Tailwind CSS 4.x + tw-animate-css
 - **UI Components:** Radix UI (Dropdown, Label, Separator, Slot)
-- **Animations:** Framer Motion
+- **Animations:** Motion (`motion/react`, Nachfolger von framer-motion)
 - **Icons:** Lucide React
 - **Package Manager:** Bun
 - **Node:** 24 (`.nvmrc`, Netlify liest sie ebenfalls); Astro 7 braucht mindestens 22.23.4
@@ -151,6 +151,9 @@ Erledigt: E-Mail-Adresse verifiziert (`rstickler98` korrekt, 09.07.2026), Impres
 
 ## Netlify Deployment
 
+- Site `robertstickler-cv`, per `netlify link` verknüpft (`.netlify/` ist gitignored), Production-Branch `main`
 - Forms: Automatisch via `netlify` Attribut im Contact-Formular
-- Build Command: `bun build`
-- Publish Directory: `dist/`
+- Build Command `bun run build` und Publish Directory `dist/` stehen in `netlify.toml` (deckt sich mit der Netlify-UI, geprüft 2026-11-18)
+- Node: `.nvmrc`; in Netlify sind weder `NODE_VERSION` noch `BUN_VERSION` gesetzt
+- Stand 2026-11-18: letzter Production-Deploy vom 2026-02-10 (`8d14292` = `main`); der Refactor-Branch ist nicht gemergt, Branch-Deploys sind aus
+- Netlify-MCP ist lokal registriert (Login über `/mcp` nötig); Rezepte zum Prüfen der Site: Skill `netlify`
