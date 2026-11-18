@@ -63,9 +63,11 @@ CV/
 ├── public/
 │   ├── favicon.svg           # RS Favicon
 │   ├── profile.webp          # Profilbild
-│   ├── cv-a4.html            # HTML-Version des CV
-│   ├── CV-RobertStickler-DE.pdf  # PDF Fallback (DE)
-│   ├── CV-RobertStickler-EN.pdf  # PDF Fallback (EN)
+│   ├── cv-a4.html            # HTML-Version des CV (Print-Quelle, ?lang=de|en&color=green|...)
+│   ├── cv-photo.jpg          # Kleines Foto (480 px) für den CV, hält das PDF klein
+│   ├── fonts/                # Lokales Inter (latin) für cv-a4.html
+│   ├── CV-RobertStickler-DE.pdf  # PDF Fallback (DE), aus cv-a4.html erzeugt
+│   ├── CV-RobertStickler-EN.pdf  # PDF Fallback (EN), aus cv-a4.html erzeugt
 │   ├── robots.txt            # SEO robots.txt
 │   └── sitemap.xml           # SEO Sitemap
 │
@@ -85,6 +87,11 @@ bun preview   # Production Build previewen
 bun lint      # ESLint (Flat Config: typescript-eslint, react-hooks, astro, jsx-a11y)
 bun check     # astro check (Typen)
 bunx fallow   # Codebase-Analyse (dead code, dupes, health) - Gate: 0 dead files/exports
+
+# CV-PDFs nach Änderungen an public/cv-a4.html neu erzeugen (macOS, Chrome)
+CH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+"$CH" --headless=new --disable-gpu --no-pdf-header-footer --print-to-pdf=public/CV-RobertStickler-DE.pdf "file://$PWD/public/cv-a4.html?lang=de&color=green"
+"$CH" --headless=new --disable-gpu --no-pdf-header-footer --print-to-pdf=public/CV-RobertStickler-EN.pdf "file://$PWD/public/cv-a4.html?lang=en&color=green"
 ```
 
 ## Theming System

@@ -19,9 +19,13 @@ Details und Begründungen zu allen Punkten: siehe [REFACTOR-PLAN.md](REFACTOR-PL
 - [x] **Fonts self-hosted** - @fontsource statt Google-Fonts-CDN (DSGVO + Performance)
 - [x] **E-Mail-Adresse verifiziert** - `rstickler98@gmail.com` ist korrekt (bestätigt 09.07.2026)
 - [x] **Impressum + Datenschutzerklärung** - DE/EN unter `/{lang}/impressum` und `/{lang}/datenschutz`, im Footer verlinkt
+- [x] **CV neu gestaltet (18.11.2026)** - `cv-a4.html` modern, einseitig DE/EN, lokales Inter statt Google Fonts, Akzentfarben ≥ 4,5:1 Kontrast, Consultant-Stand + AI-Skills + AI-901; PDFs neu erzeugt (je 3,2 MB → 0,4 MB), Befehl in CLAUDE.md
 - [x] **Lucide 1.x** - Brand-Icons (Linkedin/Github/Instagram) liegen lokal in `BrandIcons.tsx` (Glyphen aus lucide-react 0.562)
 
 ## Offen
+
+### Inhalte (CV + Website aktualisieren)
+- [ ] **Beförderung zum Consultant: genaues Datum klären** - offiziell ca. Juni 2026 (Jahr angenommen). Bis es feststeht, als Range/„ab Juni 2026" führen, in `de.json`/`en.json` (hero, about, experience) und im CV
 
 ### Refactoring (aus Fallow-Analyse)
 - [ ] **EasterEgg.tsx umbauen** - 964 LOC, useReducer für Game-Loop (fixt Side-Effects in Updatern), React.lazy fürs Modal (Navigation-Bundle -X kB)
@@ -38,7 +42,6 @@ Details und Begründungen zu allen Punkten: siehe [REFACTOR-PLAN.md](REFACTOR-PL
 - [ ] System-Theme-Präferenz als Default statt erzwungenem Dark
 
 ### Technisch
-- [ ] cv-a4.html lädt noch Google Fonts (Print-Seite)
 - [ ] Profilbild über astro:assets optimieren
 - [ ] Vollständiger a11y-Audit (Screenreader, Kontraste)
 - [ ] Test-Setup (Vitest; zuerst Game-Logik + Form-Validierung)
@@ -51,4 +54,4 @@ Details und Begründungen zu allen Punkten: siehe [REFACTOR-PLAN.md](REFACTOR-PL
 
 ---
 
-*Zuletzt aktualisiert: 09.07.2026*
+*Zuletzt aktualisiert: 18.11.2026*
