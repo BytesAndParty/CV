@@ -24,7 +24,7 @@ Geprüft ist die Auswertung erst, wenn Build-Befehl, Production-Branch und Deplo
 Stand 2026-11-18, Quellen in [reference.md](reference.md):
 
 - **Node:** Standard im Build-Image ist `24`. `.nvmrc`, `.node-version` oder die Env-Variable `NODE_VERSION` überschreiben die UI-Einstellung; Major (`24`) oder exakte Version sind erlaubt. Frameworks mit Node-Untergrenze (Astro 7: ≥ 22.23.4) deshalb mit `.nvmrc` absichern.
-- **Bun:** Ist vorinstalliert („1.x", exakte Version steht nirgends), mit `BUN_VERSION` pinnbar. Netlify führt `bun install` aus, wenn eine Lockfile erkannt wird. Die Doku nennt nur `bun.lockb`; das Text-Lockfile `bun.lock` (Bun ≥ 1.2, Standard) wird laut Netlify-Forum ebenfalls erkannt — **Sekundärquelle, in keinem Build selbst belegt**. Im Deploy-Log nachsehen, ob `bun install` lief, sonst fällt Netlify auf `npm install` ohne Lockfile zurück (andere Versionen als lokal getestet).
+- **Bun:** Ist vorinstalliert („1.x", exakte Version steht nirgends), mit `BUN_VERSION` pinnbar. Netlify führt `bun install` aus, wenn eine Lockfile erkannt wird. Die Doku nennt nur `bun.lockb`; das Text-Lockfile `bun.lock` (Bun ≥ 1.2, Standard) wird laut Netlify-Forum ebenfalls erkannt — **Sekundärquelle, in keinem Build selbst belegt**. Im Deploy-Log der Netlify-UI nachsehen, ob `bun install` lief (über die API ist der Build-Log nicht abrufbar, siehe [reference.md](reference.md)), sonst fällt Netlify auf `npm install` ohne Lockfile zurück (andere Versionen als lokal getestet).
 - **Build-Befehl und Publish-Verzeichnis** sind getrennt von der Installation. Sie gehören in eine versionierte `netlify.toml` (`[build] command`, `publish`), damit sie nicht nur in der UI leben.
 
 ## MCP-Server

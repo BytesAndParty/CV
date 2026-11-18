@@ -72,6 +72,9 @@ Prüfen, ob Netlify die Datei wirklich benutzt: `netlify build --offline` führt
 - **Veraltete Live-Seite:** Der einzige Production-Deploy war von 2026-02-10, Commit `8d14292` = Kopf von `main`; der Arbeitsbranch lag 38 Commits davor
   (u. a. Impressum, Datenschutz, Sprach-Redirects). Ein Push auf den Arbeitsbranch löste keinen Deploy aus (keine Branch-Deploys). Erst der Vergleich
   `commit_ref` ↔ `origin/main` hat das gezeigt; das Repo allein sah aktuell aus.
+- **Build-Log nicht per API abrufbar:** `getSiteBuild` liefert nur `done`, `error`, `sha`, `deploy_id`, `deploy_state`; `listSiteDeploys` und
+  `getDeploy` enthalten keine Logzeilen, nur `summary.messages` (Upload-Zähler, Redirect-Regeln). `updateSiteBuildLog` ist ein Schreib-Endpunkt für
+  Build-Plugins. Ob `bun install` lief, steht deshalb nur im Deploy-Log der Netlify-UI. Die CLI ist dafür nicht geprüft.
 - **Doku-Drift:** Die Projekt-`CLAUDE.md` nannte `bun build` (Buns Bundler, braucht einen Entry), in der UI stand `bun run build`.
 - **Node-Pin vorher nicht vorhanden:** kein `.nvmrc`, kein `NODE_VERSION`, keine `netlify.toml`. Es galt der Image-Standard 24.
 - **`.netlify` in `.gitignore`:** `netlify link` ergänzt sie selbst; trotzdem vor dem Commit `git status` ansehen.
