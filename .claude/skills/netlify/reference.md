@@ -3,6 +3,8 @@
 Alle Rezepte sind am 2026-11-18 mit `netlify-cli` 26.2.0 unter Node 24.22.3 gelaufen (Projekt CV, Site `robertstickler-cv`).
 Sie sind **lesend**. Python filtert die JSON-Antworten, damit keine Env-Werte im Terminal landen.
 
+**Plattform:** Geprüft nur auf macOS mit zsh und `python3`. Auf Windows ungeprüft: Die Python-Teile laufen plattformunabhängig, aber `SID=$(…)`, `"$SID"` und die `\"`-Maskierung in `--data "{…}"` sind Shell-Syntax und müssen in PowerShell angepasst werden (Variable per `$SID = …`, JSON-Argument in einfachen Anführungszeichen). Solche Anpassungen erst auf der Windows-Maschine ausführen, bevor sie hier als geprüft eingetragen werden.
+
 ## Rezepte
 
 ```bash
