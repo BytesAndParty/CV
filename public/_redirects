@@ -2,7 +2,7 @@
 # https://docs.netlify.com/routing/redirects/
 
 # Browser language detection (checked in order)
-# 302! (forced) is required: Astro emits a static /index.html (meta refresh to /de/)
+# 302! (forced) is required: Astro emits a static /index.html (language fallback page, see src/pages/index.astro)
 # which would otherwise shadow these rules and break language detection
 /    /en/    302!    Language=en
 /    /de/    302!
