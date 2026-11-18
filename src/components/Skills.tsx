@@ -4,7 +4,7 @@ import { useRef, useEffect } from 'react';
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GlowCard } from '@/components/ui/glow-card';
 import { Badge } from '@/components/ui/badge';
-import { Code2, Database, Wrench, Brain } from 'lucide-react';
+import { Code2, Database, Wrench, Brain, Sparkles } from 'lucide-react';
 import TechMarquee from './TechMarquee';
 import { SectionHeading } from './SectionHeading';
 import type { Translations } from '../i18n/utils';
@@ -113,6 +113,34 @@ export default function Skills({ translations: t }: SkillsProps) {
             );
           })}
         </div>
+
+        {/* AI Development - plain chips, no level bars */}
+        <m.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: t.skills.categories.length * 0.15 }}
+          className="mt-6"
+        >
+          <GlowCard className="bg-card/50">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3 text-lg">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <Sparkles className="w-5 h-5 text-primary" />
+                </div>
+                {t.skills.ai.name}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-2">
+                {t.skills.ai.items.map((item) => (
+                  <Badge key={item} variant="outline" className="px-3 py-1.5 border-primary/30 text-foreground">
+                    {item}
+                  </Badge>
+                ))}
+              </div>
+            </CardContent>
+          </GlowCard>
+        </m.div>
 
         {/* Languages */}
         <m.div

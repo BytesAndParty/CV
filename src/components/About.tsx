@@ -13,8 +13,8 @@ interface AboutProps {
 
 export default function About({ translations: t }: AboutProps) {
   const stats = [
-    { value: '3+', label: t.about.stats.experience, icon: Briefcase },
-    { value: '4', label: t.about.stats.certificates, icon: Award },
+    { value: '4+', label: t.about.stats.experience, icon: Briefcase },
+    { value: '5', label: t.about.stats.certificates, icon: Award },
     { value: 'Master', label: t.about.stats.degree, icon: GraduationCap },
   ];
   // fallow-ignore-next-line code-duplication -- Section-Boilerplate (Ref/InView), bewusst je Section dupliziert

@@ -17,7 +17,7 @@
     "location": "Vienna, Austria",
     "name": "Robert Stickler",
     "title": "Software Engineer & Solution Architect",
-    "description": "I enjoy solving complex problems – both professionally and in my spare time. As a Software Engineer at Avanade Austria, I build solutions that automate processes and make teams more productive.",
+    "description": "I enjoy solving complex problems – both professionally and in my spare time. As a Consultant at Avanade Austria, I build solutions that automate processes and make teams more productive.",
     "cta": "Get in Touch",
     "learnMore": "Learn More",
     "downloadCV": "Download CV"
@@ -48,11 +48,15 @@
     "present": "Present",
     "jobs": [
       {
-        "title": "Software Engineer",
+        "title": "Consultant",
         "company": "Avanade Austria",
         "location": "Vienna",
         "period": "Feb 2022 – Present",
         "highlights": [
+          "Consultant since approx. June 2026, previously Software Engineer (from Feb 2022)",
+          "Increasingly working with a junior colleague",
+          "Topic Owner Community & Culture (additional Plus One role): looking after the team, especially new joiners",
+          "Covered for senior consultant colleagues for two months",
           "Independent management of multiple clients simultaneously – from requirements to implementation",
           "End-to-end project ownership: requirements, cost estimation, solution design, and development",
           "Full-stack development: Power Apps, TypeScript (frontend logic), C#/.NET (backend)",
@@ -66,7 +70,8 @@
           "Power Platform",
           "TypeScript",
           "Dataverse",
-          "Azure"
+          "Azure",
+          "AI Development"
         ]
       },
       {
@@ -201,6 +206,18 @@
         ]
       }
     ],
+    "ai": {
+      "name": "AI Development",
+      "items": [
+        "Agentic AI & multi-agent orchestration",
+        "Model Context Protocol (MCP)",
+        "Context engineering",
+        "Dataverse MCP Server",
+        "Function calling & structured outputs",
+        "Prompt engineering",
+        "Agentic coding"
+      ]
+    },
     "languages": {
       "title": "Languages",
       "items": [
@@ -275,7 +292,8 @@
           "~500 fee notes processed automatically per week",
           "50 active users in the self-service portal",
           "Comprehensive test suite in TypeScript and C#",
-          "Migrated from Excel to structured database"
+          "Migrated from Excel to structured database",
+          "AI-assisted development and process automation for more efficient workflows"
         ],
         "technologies": [
           "Power Apps Portal",
@@ -291,7 +309,8 @@
         "highlights": [
           "Bidirectional synchronization Dynamics ↔ Mailjet",
           "Automated campaign control from CRM",
-          "Event-based processing via Azure WebJobs"
+          "Event-based processing via Azure WebJobs",
+          "AI-assisted development for more efficient workflows"
         ],
         "technologies": [
           "C#/.NET",
@@ -307,7 +326,7 @@
         "highlights": [
           "Customer data management for banking sector",
           "TypeScript-based frontend customizations",
-          "Rapid prototype development for pre-sales demo"
+          "Rapid, AI-assisted prototype development for pre-sales demo"
         ],
         "technologies": [
           "Dynamics 365",
@@ -354,6 +373,10 @@
       },
       {
         "name": "Power Platform Fundamentals",
+        "issuer": "Microsoft"
+      },
+      {
+        "name": "Azure AI Fundamentals",
         "issuer": "Microsoft"
       }
     ]
