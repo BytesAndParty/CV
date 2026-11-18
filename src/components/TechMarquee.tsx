@@ -85,7 +85,7 @@ export default function TechMarquee({ title = "Tech Stack" }: TechMarqueeProps) 
         className="marquee marquee-reverse"
       >
         <div className="marquee-content">
-          {[...duplicatedTech].reverse().map((tech, index) => (
+          {duplicatedTech.toReversed().map((tech, index) => (
             <Badge
               key={`${tech.name}-reverse-${index}`}
               variant="outline"
