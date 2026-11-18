@@ -43,11 +43,8 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
 
   return (
     <MotionProvider>
-    <m.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <nav
+      className={`animate-in slide-in-from-top-[100px] animation-duration-500 fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-background/95 backdrop-blur-md shadow-lg border-b border-border'
           : 'bg-transparent md:bg-background/30 md:backdrop-blur-sm'
@@ -69,14 +66,11 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
           {/* Desktop Menu - Center */}
           <div className="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2">
             <div className="flex items-center space-x-1">
-              {navItems.map((item, index) => (
+              {navItems.map((item) => (
                 <m.a
                   key={item.name}
                   href={item.href}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-secondary transition-colors whitespace-nowrap"
+                  className="animate-in fade-in slide-in-from-top-[20px] animation-duration-400 px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-secondary transition-colors whitespace-nowrap"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -167,7 +161,7 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
           </m.div>
         )}
       </AnimatePresence>
-    </m.nav>
+    </nav>
     </MotionProvider>
   );
 }

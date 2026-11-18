@@ -180,79 +180,48 @@ export default function Hero({ lang, translations: t }: HeroProps) {
         />
       </div>
 
+      {/* Text scrim - dims the glow behind the text block so the text keeps its contrast */}
+      <div className="absolute inset-0 -z-10 hero-text-scrim" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <m.div
-            className="flex justify-center gap-2 mb-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
+        {/* CSS-only entrance: content stays visible in the SSR HTML and without JS */}
+        <div className="animate-in fade-in slide-in-from-bottom-[20px] animation-duration-400">
+          <div className="flex justify-center gap-2 mb-6">
             <Badge variant="secondary" className="text-sm px-3 py-1">
               <MapPin className="w-3 h-3 mr-1" />
               {t.hero.location}
             </Badge>
-          </m.div>
+          </div>
 
-          <m.h1
-            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 blur-reveal whitespace-nowrap font-mono tracking-tighter"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 blur-reveal whitespace-nowrap font-mono tracking-tighter">
             <span className="text-foreground">
-              <TextScramble text={t.hero.name} delay={400} speed={40} />
+              <TextScramble text={t.hero.name} speed={40} skipAfter={1500} />
             </span>
-          </m.h1>
+          </h1>
 
-          <m.h2
-            className="text-2xl md:text-3xl lg:text-4xl mb-8 blur-reveal"
-            style={{ animationDelay: '0.2s' }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
+          <h2 className="text-2xl md:text-3xl lg:text-4xl mb-8 blur-reveal">
             <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent font-semibold">
               {t.hero.title}
             </span>
-          </m.h2>
+          </h2>
 
-          <m.p
-            className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-          >
+          <p className="text-muted-foreground dark:text-foreground/75 text-lg md:text-xl max-w-3xl mx-auto mb-8">
             {t.hero.description}
-          </m.p>
+          </p>
 
-          <m.div
-            className="flex flex-wrap justify-center gap-3 mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.55 }}
-          >
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
             {['Power Platform', 'Dynamics 365', 'C# / .NET', 'Azure', 'TypeScript'].map((tech) => (
               <Badge
                 key={tech}
                 variant="outline"
-                className="text-sm border-primary/30 text-primary"
+                className="text-sm border-primary/30 text-primary bg-background"
               >
                 {tech}
               </Badge>
             ))}
-          </m.div>
+          </div>
 
-          <m.div
-            className="flex flex-wrap justify-center gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-          >
+          <div className="flex flex-wrap justify-center gap-4">
             <MagneticButton
               size="lg"
               className="bg-linear-to-r from-primary to-accent hover:opacity-90 transition-opacity"
@@ -290,16 +259,11 @@ export default function Hero({ lang, translations: t }: HeroProps) {
                 {t.hero.learnMore}
               </m.a>
             </Button>
-          </m.div>
-        </m.div>
+          </div>
+        </div>
 
         {/* Scroll Indicator */}
-        <m.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
           <m.div
             className="w-6 h-10 border-2 border-muted-foreground/30 rounded-full flex justify-center"
             animate={{ y: [0, 5, 0] }}
@@ -311,7 +275,7 @@ export default function Hero({ lang, translations: t }: HeroProps) {
               transition={{ duration: 2, repeat: Infinity }}
             />
           </m.div>
-        </m.div>
+        </div>
       </div>
     </section>
     </MotionProvider>

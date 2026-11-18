@@ -403,8 +403,9 @@ html *::after {
    BLUR REVEAL ANIMATION
    ============================================ */
 
+/* Kept at 0.4s: the hero name/title must be readable right after first paint */
 .blur-reveal {
-  animation: blur-reveal 0.8s ease-out forwards;
+  animation: blur-reveal 0.4s ease-out forwards;
 }
 
 @keyframes blur-reveal {
@@ -522,6 +523,23 @@ html *::after {
     radial-gradient(circle at center, rgb(var(--theme-primary) / 0.15) 2px, transparent 2px);
   background-size: 80px 80px, 80px 80px, 80px 80px, 80px 80px, 80px 80px;
   background-position: 0 0, 0 0, 0 0, 0 0, 40px 40px;
+}
+
+/* ============================================
+   HERO TEXT SCRIM
+   Dims the glow (blobs, gradient, pattern) directly behind the hero
+   text block towards --background so title, intro and pills keep
+   WCAG AA contrast; the glow stays visible around the text.
+   ============================================ */
+
+.hero-text-scrim {
+  --hero-scrim: color-mix(in oklab, var(--background) 50%, transparent);
+  background: radial-gradient(
+    ellipse max(45vw, 280px) 40% at 50% 50%,
+    var(--hero-scrim) 0%,
+    var(--hero-scrim) 50%,
+    transparent 100%
+  );
 }
 
 /* ============================================

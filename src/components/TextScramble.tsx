@@ -1,71 +1,57 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useInView } from 'motion/react';
 
 const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*';
-const defaultPlaceholder = '0'; // Zero character for consistent initial display
 
 interface TextScrambleProps {
   text: string;
   className?: string;
+  /** Delay in ms between the element entering the viewport and the first scramble frame */
   delay?: number;
+  /** Time in ms between two frames; one more character resolves per frame */
   speed?: number;
-  onComplete?: () => void;
-  placeholder?: string; // Character to show before animation starts (default: █)
+  /** Skip the effect when it would start later than this many ms after page load (slow devices) */
+  skipAfter?: number;
 }
 
-// Generate initial placeholder text (deterministic, no random)
-function generatePlaceholder(text: string, placeholderChar: string = defaultPlaceholder): string {
-  return text
-    .split('')
-    .map((char) => (char === ' ' ? ' ' : placeholderChar))
-    .join('');
-}
-
-export function TextScramble({
-  text,
-  className = '',
-  delay = 0,
-  speed = 30,
-  onComplete,
-  placeholder = defaultPlaceholder,
-}: TextScrambleProps) {
-  // Use deterministic placeholder for SSR/hydration compatibility
-  const [displayText, setDisplayText] = useState(() => generatePlaceholder(text, placeholder));
-  const ref = useRef(null);
+/**
+ * The real text is always the SSR / first-paint state, so crawlers, no-JS visitors
+ * and reduced-motion users get the content untouched. After hydration a short
+ * left-to-right scramble plays once. The real text stays in the flow (transparent,
+ * selectable, read by screen readers) and the random characters are an absolutely
+ * positioned overlay, so the box never changes size and copying yields the real text.
+ */
+export function TextScramble({ text, className = '', delay = 0, speed = 35, skipAfter }: TextScrambleProps) {
+  const [scrambled, setScrambled] = useState<string | null>(null);
+  const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
-  const hasStarted = useRef(false);
 
   useEffect(() => {
-    if (!isInView || hasStarted.current) return;
-    hasStarted.current = true;
+    if (!isInView || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (skipAfter !== undefined && performance.now() > skipAfter) return;
 
-    // Interval handle must live in the effect scope: a cleanup returned from
-    // the setTimeout callback is ignored, leaking the interval on unmount
+    // Interval handle lives in the effect scope so the cleanup can clear both timers
     let interval: ReturnType<typeof setInterval> | undefined;
 
     const timeout = setTimeout(() => {
-      let iteration = 0;
-      const maxIterations = text.length;
+      let revealed = 0;
 
       interval = setInterval(() => {
-        setDisplayText(
-          text
-            .split('')
-            .map((char, index) => {
-              if (char === ' ') return ' ';
-              if (index < iteration) return text[index];
-              return chars[Math.floor(Math.random() * chars.length)];
-            })
-            .join('')
-        );
-
-        if (iteration >= maxIterations) {
+        if (revealed >= text.length) {
           clearInterval(interval);
-          setDisplayText(text);
-          onComplete?.();
+          setScrambled(null);
+          return;
         }
 
-        iteration += 1 / 3;
+        setScrambled(
+          text
+            .split('')
+            .map((char, index) =>
+              char === ' ' || index < revealed ? char : chars[Math.floor(Math.random() * chars.length)]
+            )
+            .join('')
+        );
+        revealed += 1;
       }, speed);
     }, delay);
 
@@ -73,14 +59,20 @@ export function TextScramble({
       clearTimeout(timeout);
       if (interval) clearInterval(interval);
     };
-  }, [isInView, text, delay, speed, onComplete]);
+  }, [isInView, text, delay, speed, skipAfter]);
 
   return (
-    <span
-      ref={ref}
-      className={className}
-    >
-      {displayText}
+    <span ref={ref} className={className}>
+      {scrambled === null ? (
+        text
+      ) : (
+        <span className="relative inline-block">
+          <span className="text-transparent">{text}</span>
+          <span aria-hidden="true" className="absolute inset-0 select-none overflow-hidden whitespace-nowrap">
+            {scrambled}
+          </span>
+        </span>
+      )}
     </span>
   );
 }

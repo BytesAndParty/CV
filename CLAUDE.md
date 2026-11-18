@@ -125,6 +125,7 @@ Nur tatsächlich verwendete Klassen (Details in DESIGN.md):
 - `.blur-reveal` - Blur-to-Sharp Einblendung (Hero)
 - `.morphing-gradient` - Bewegter Gradient-Hintergrund (Hero)
 - `.hero-pattern` / `.hero-decorative-pattern` - CSS-Patterns im Hero
+- `.hero-text-scrim` - Dämpft den Glow hinter dem Hero-Text (Kontrast WCAG AA)
 - `.grain-texture` - Film-Grain Overlay
 - `.skill-tooltip` / `.skill-tooltip-wrapper` - Tooltips bzw. Mobile Bottom Sheets
 
