@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'motion/react';
+import { m, AnimatePresence } from 'motion/react';
 import { X, Trophy, Gamepad2, ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { Translations } from '../i18n/utils';
@@ -563,7 +563,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
       {typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
           {showToast && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: -50, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.9 }}
@@ -583,7 +583,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                   {toastMessage}
                 </span>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>,
         document.body
@@ -593,7 +593,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
       {typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
         {showGame && (
-          <motion.div
+          <m.div
             ref={modalRef}
             role="dialog"
             aria-modal="true"
@@ -610,7 +610,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
             <div className="absolute inset-0 bg-background/80 backdrop-blur-md" />
             <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-accent/5" />
 
-            <motion.div
+            <m.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -656,20 +656,20 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                   <div className="flex justify-between items-center mb-3 sm:mb-5 px-1">
                     <div className="flex flex-col">
                       <span className="text-xs text-muted-foreground uppercase tracking-wider">{t.easterEgg.score}</span>
-                      <motion.span
+                      <m.span
                         key={score}
                         initial={{ scale: 1.5, color: 'rgb(var(--theme-primary))' }}
                         animate={{ scale: 1, color: 'inherit' }}
                         className="text-xl sm:text-2xl font-bold text-foreground"
                       >
                         {score}
-                      </motion.span>
+                      </m.span>
                     </div>
 
                     {/* Active effect indicator */}
                     <AnimatePresence>
                       {activeEffect && (
-                        <motion.div
+                        <m.div
                           initial={{ opacity: 0, scale: 0.5 }}
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0.5 }}
@@ -678,7 +678,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                         >
                           <span>{activeEffect.type === 'speed_down' ? '🐢' : '⚡'}</span>
                           <span>{activeEffect.remaining}s</span>
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
 
@@ -716,7 +716,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                       const isHead = index === 0;
                       const opacity = 1 - (index * 0.03);
                       return (
-                        <motion.div
+                        <m.div
                           key={index}
                           initial={{ scale: 0, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
@@ -740,12 +740,12 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                           {/* Segment shine */}
                           <div className="absolute inset-0 rounded-md bg-linear-to-br from-white/30 to-transparent"
                                style={{ height: '50%' }} />
-                        </motion.div>
+                        </m.div>
                       );
                     })}
 
                     {/* Food */}
-                    <motion.div
+                    <m.div
                       initial={{ scale: 0 }}
                       animate={{
                         scale: [1, 1.1, 1],
@@ -770,12 +770,12 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                       {/* Food shine */}
                       <div className="absolute inset-1 bg-linear-to-br from-white/40 to-transparent rounded-full"
                            style={{ height: '40%' }} />
-                    </motion.div>
+                    </m.div>
 
                     {/* Power-Up (looks identical to food — surprise on pickup) */}
                     <AnimatePresence>
                       {powerUp && (
-                        <motion.div
+                        <m.div
                           initial={{ scale: 0 }}
                           animate={{
                             scale: [1, 1.1, 1],
@@ -801,14 +801,14 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                           {/* Same shine as food */}
                           <div className="absolute inset-1 bg-linear-to-br from-white/40 to-transparent rounded-full"
                                style={{ height: '40%' }} />
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
 
                     {/* Power-Up pickup message */}
                     <AnimatePresence>
                       {powerUpMessage && (
-                        <motion.div
+                        <m.div
                           initial={{ opacity: 0, y: 10, scale: 0.8 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: -20, scale: 0.8 }}
@@ -816,14 +816,14 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                           style={{ backgroundColor: getComplementaryColor() }}
                         >
                           {powerUpMessage}
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
 
                     {/* Particles */}
                     <AnimatePresence>
                       {particles.map((particle) => (
-                        <motion.div
+                        <m.div
                           key={particle.id}
                           initial={{
                             x: particle.x,
@@ -850,14 +850,14 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                     {/* Countdown Overlay */}
                     <AnimatePresence>
                       {countdown !== null && (
-                        <motion.div
+                        <m.div
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
                           className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-20"
                         >
                           <AnimatePresence mode="wait">
-                            <motion.div
+                            <m.div
                               key={countdown}
                               initial={{ scale: 0.5, opacity: 0, rotateY: -90 }}
                               animate={{ scale: 1, opacity: 1, rotateY: 0 }}
@@ -888,22 +888,22 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                                   </span>
                                 </>
                               )}
-                            </motion.div>
+                            </m.div>
                           </AnimatePresence>
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
 
                     {/* Game Over Overlay */}
                     <AnimatePresence>
                       {gameOver && (
-                        <motion.div
+                        <m.div
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
                           className="absolute inset-0 flex flex-col items-center justify-center bg-background/90 backdrop-blur-sm"
                         >
-                          <motion.div
+                          <m.div
                             initial={{ scale: 0.8, y: 20 }}
                             animate={{ scale: 1, y: 0 }}
                             className="text-center"
@@ -913,13 +913,13 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                             </p>
                             <p className="text-muted-foreground mb-1">{t.easterEgg.score}: <span className="text-primary font-bold">{score}</span></p>
                             {score >= highScore && score > 0 && (
-                              <motion.p
+                              <m.p
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
                                 className="text-yellow-500 text-sm font-medium mb-4 flex items-center justify-center gap-1"
                               >
                                 <Trophy className="w-4 h-4" /> {t.easterEgg.newHighScore}
-                              </motion.p>
+                              </m.p>
                             )}
                             <Button
                               onClick={startGame}
@@ -927,8 +927,8 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                             >
                               {t.easterEgg.playAgain}
                             </Button>
-                          </motion.div>
-                        </motion.div>
+                          </m.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
                   </div>
@@ -983,8 +983,8 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
                   </div>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>,
         document.body

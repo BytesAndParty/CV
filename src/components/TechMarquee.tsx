@@ -1,4 +1,4 @@
-import { motion, useInView } from 'motion/react';
+import { m, useInView } from 'motion/react';
 import { useRef } from 'react';
 import { Badge } from '@/components/ui/badge';
 
@@ -48,17 +48,17 @@ export default function TechMarquee({ title = "Tech Stack" }: TechMarqueeProps) 
 
   return (
     <div ref={ref} className="py-12 overflow-hidden">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
         className="text-center mb-8"
       >
         <h3 className="text-lg text-muted-foreground">{title}</h3>
-      </motion.div>
+      </m.div>
 
       {/* First row - normal direction */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
         transition={{ duration: 0.6, delay: 0.2 }}
@@ -75,10 +75,10 @@ export default function TechMarquee({ title = "Tech Stack" }: TechMarqueeProps) 
             </Badge>
           ))}
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Second row - reverse direction */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
         transition={{ duration: 0.6, delay: 0.4 }}
@@ -95,7 +95,7 @@ export default function TechMarquee({ title = "Tech Stack" }: TechMarqueeProps) 
             </Badge>
           ))}
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

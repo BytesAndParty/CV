@@ -1,4 +1,5 @@
-import { motion, useInView, MotionConfig } from 'motion/react';
+import { m, useInView } from 'motion/react';
+import { MotionProvider } from './MotionProvider';
 import { useRef, useEffect } from 'react';
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GlowCard } from '@/components/ui/glow-card';
@@ -25,7 +26,7 @@ function SkillBar({ name, level, delay }: { name: string; level: number; delay: 
         <span className="text-xs text-primary">{level}%</span>
       </div>
       <div className="h-1.5 bg-secondary rounded-full overflow-hidden">
-        <motion.div
+        <m.div
           initial={{ width: 0 }}
           animate={isInView ? { width: `${level}%` } : {}}
           transition={{ duration: 1, delay, ease: 'easeOut' }}
@@ -69,7 +70,7 @@ export default function Skills({ translations: t }: SkillsProps) {
 
   // fallow-ignore-next-line code-duplication -- Section-Boilerplate (Ref/InView), bewusst je Section dupliziert
   return (
-    <MotionConfig reducedMotion="user">
+    <MotionProvider>
     <section id="skills" className="py-24" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading title={t.skills.title} isInView={isInView} />
@@ -82,7 +83,7 @@ export default function Skills({ translations: t }: SkillsProps) {
             // Translations define the category count - never crash on a fifth one
             const Icon = categoryIcons[categoryIndex] ?? Code2;
             return (
-              <motion.div
+              <m.div
                 key={category.name}
                 initial={{ opacity: 0, y: 50 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -108,13 +109,13 @@ export default function Skills({ translations: t }: SkillsProps) {
                     ))}
                   </CardContent>
                 </GlowCard>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
 
         {/* Languages */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.6 }}
@@ -140,10 +141,10 @@ export default function Skills({ translations: t }: SkillsProps) {
               </div>
             </CardContent>
           </GlowCard>
-        </motion.div>
+        </m.div>
 
         {/* Interests */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.8 }}
@@ -156,7 +157,7 @@ export default function Skills({ translations: t }: SkillsProps) {
                 ? { name: interest, tooltip: undefined }
                 : interest as { name: string; tooltip?: string };
               return (
-                <motion.div
+                <m.div
                   key={item.name}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
@@ -176,13 +177,13 @@ export default function Skills({ translations: t }: SkillsProps) {
                       <div className="skill-tooltip-desc">{item.tooltip}</div>
                     </div>
                   )}
-                </motion.div>
+                </m.div>
               );
             })}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
-    </MotionConfig>
+    </MotionProvider>
   );
 }

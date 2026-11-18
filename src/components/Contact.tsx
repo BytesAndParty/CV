@@ -1,4 +1,5 @@
-import { motion, useInView, AnimatePresence, MotionConfig } from 'motion/react';
+import { m, useInView, AnimatePresence } from 'motion/react';
+import { MotionProvider } from './MotionProvider';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/magnetic-button';
@@ -25,7 +26,7 @@ interface ToastProps {
 
 function Toast({ type, message, onClose }: ToastProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 50, x: '-50%' }}
       animate={{ opacity: 1, y: 0, x: '-50%' }}
       exit={{ opacity: 0, y: 50, x: '-50%' }}
@@ -47,7 +48,7 @@ function Toast({ type, message, onClose }: ToastProps) {
       >
         <X className="w-4 h-4" />
       </button>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -177,7 +178,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
   };
 
   return (
-    <MotionConfig reducedMotion="user">
+    <MotionProvider>
     <section id="contact" className="py-24 relative grain-texture overflow-x-hidden" ref={ref}>
       {/* Background Gradient */}
       <div className="absolute inset-0 -z-10">
@@ -189,7 +190,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
 
         <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Contact Info & Social */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -206,7 +207,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                 {/* Contact Info */}
                 <div className="space-y-4 mb-8">
                   {contactInfo.map((info, index) => (
-                    <motion.div
+                    <m.div
                       key={info.label}
                       initial={{ opacity: 0, y: 20 }}
                       animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -239,14 +240,14 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                           </p>
                         )}
                       </div>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
 
                 <Separator className="my-6" />
 
                 {/* CV Download */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.6 }}
@@ -264,12 +265,12 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                     <div className="skill-tooltip-title">{t.contact.download}</div>
                     <div className="skill-tooltip-desc">{t.contact.downloadTooltip}</div>
                   </div>
-                </motion.div>
+                </m.div>
 
                 <Separator className="my-6" />
 
                 {/* Social Links */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.7 }}
@@ -277,7 +278,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                   <p className="text-sm text-muted-foreground mb-4">{t.contact.followMe}</p>
                   <div className="flex gap-3">
                     {socialLinks.map((link, index) => (
-                      <motion.a
+                      <m.a
                         key={link.name}
                         href={link.url}
                         target="_blank"
@@ -291,16 +292,16 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                         title={link.name}
                       >
                         <link.icon className="w-5 h-5" />
-                      </motion.a>
+                      </m.a>
                     ))}
                   </div>
-                </motion.div>
+                </m.div>
               </CardContent>
             </GlowCard>
-          </motion.div>
+          </m.div>
 
           {/* Contact Form */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -312,7 +313,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                 </h3>
 
                 {isSubmitted ? (
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="text-center py-12"
@@ -326,7 +327,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                     <p className="text-muted-foreground">
                       {t.contact.success.message}
                     </p>
-                  </motion.div>
+                  </m.div>
                 ) : (
                   <form
                     name="contact"
@@ -438,11 +439,11 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                 )}
               </CardContent>
             </GlowCard>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Footer */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.8 }}
@@ -469,7 +470,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
               {t.contact.footer.privacy}
             </a>
           </div>
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Toast Notifications */}
@@ -483,6 +484,6 @@ export default function Contact({ lang, translations: t }: ContactProps) {
         )}
       </AnimatePresence>
     </section>
-    </MotionConfig>
+    </MotionProvider>
   );
 }

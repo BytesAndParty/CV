@@ -1,4 +1,5 @@
-import { motion, useMotionValue, useTransform, animate, MotionConfig } from 'motion/react';
+import { m, useMotionValue, useTransform, animate } from 'motion/react';
+import { MotionProvider } from './MotionProvider';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/magnetic-button';
@@ -101,7 +102,7 @@ function AnimatedPatternMask() {
   );
 
   return (
-    <motion.div
+    <m.div
       className="absolute inset-0 -z-30 hero-decorative-pattern"
       style={{
         maskImage,
@@ -120,7 +121,7 @@ interface HeroProps {
 
 export default function Hero({ lang, translations: t }: HeroProps) {
   return (
-    <MotionConfig reducedMotion="user">
+    <MotionProvider>
     <section
       id="hero"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
@@ -136,7 +137,7 @@ export default function Hero({ lang, translations: t }: HeroProps) {
 
       {/* Animated Blobs - smaller on mobile */}
       <div className="absolute inset-0 -z-10">
-        <motion.div
+        <m.div
           className="absolute top-1/4 left-1/4 w-48 h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 bg-primary/20 dark:bg-primary/30 rounded-full blur-2xl sm:blur-3xl opacity-60 dark:opacity-100"
           animate={{
             x: [0, 30, 10, 0],
@@ -150,7 +151,7 @@ export default function Hero({ lang, translations: t }: HeroProps) {
             ease: 'easeInOut',
           }}
         />
-        <motion.div
+        <m.div
           className="absolute bottom-1/4 right-1/4 w-48 h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 bg-accent/20 dark:bg-accent/30 rounded-full blur-2xl sm:blur-3xl opacity-60 dark:opacity-100"
           animate={{
             x: [0, -35, -15, 0],
@@ -165,7 +166,7 @@ export default function Hero({ lang, translations: t }: HeroProps) {
           }}
         />
         {/* Third blob for more visual interest - hidden on mobile */}
-        <motion.div
+        <m.div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 md:w-125 md:h-125 bg-linear-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 rounded-full blur-2xl sm:blur-3xl opacity-50 dark:opacity-80"
           animate={{
             scale: [1, 1.15, 1, 0.9, 1],
@@ -180,12 +181,12 @@ export default function Hero({ lang, translations: t }: HeroProps) {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <motion.div
+          <m.div
             className="flex justify-center gap-2 mb-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -195,9 +196,9 @@ export default function Hero({ lang, translations: t }: HeroProps) {
               <MapPin className="w-3 h-3 mr-1" />
               {t.hero.location}
             </Badge>
-          </motion.div>
+          </m.div>
 
-          <motion.h1
+          <m.h1
             className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 blur-reveal whitespace-nowrap font-mono tracking-tighter"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -206,9 +207,9 @@ export default function Hero({ lang, translations: t }: HeroProps) {
             <span className="text-foreground">
               <TextScramble text={t.hero.name} delay={400} speed={40} />
             </span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.h2
+          <m.h2
             className="text-2xl md:text-3xl lg:text-4xl mb-8 blur-reveal"
             style={{ animationDelay: '0.2s' }}
             initial={{ opacity: 0 }}
@@ -218,18 +219,18 @@ export default function Hero({ lang, translations: t }: HeroProps) {
             <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent font-semibold">
               {t.hero.title}
             </span>
-          </motion.h2>
+          </m.h2>
 
-          <motion.p
+          <m.p
             className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
             {t.hero.description}
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             className="flex flex-wrap justify-center gap-3 mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -244,9 +245,9 @@ export default function Hero({ lang, translations: t }: HeroProps) {
                 {tech}
               </Badge>
             ))}
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             className="flex flex-wrap justify-center gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -266,14 +267,14 @@ export default function Hero({ lang, translations: t }: HeroProps) {
               size="lg"
               className="border-primary/50 hover:bg-primary/10"
             >
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => downloadCV(lang)}
               >
                 <Download className="w-4 h-4 mr-2" />
                 {t.hero.downloadCV}
-              </motion.button>
+              </m.button>
             </Button>
             <Button
               asChild
@@ -281,38 +282,38 @@ export default function Hero({ lang, translations: t }: HeroProps) {
               size="lg"
               className="border-primary/50 hover:bg-primary/10"
             >
-              <motion.a
+              <m.a
                 href="#experience"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 {t.hero.learnMore}
-              </motion.a>
+              </m.a>
             </Button>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
         {/* Scroll Indicator */}
-        <motion.div
+        <m.div
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
         >
-          <motion.div
+          <m.div
             className="w-6 h-10 border-2 border-muted-foreground/30 rounded-full flex justify-center"
             animate={{ y: [0, 5, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <motion.div
+            <m.div
               className="w-1.5 h-3 bg-primary rounded-full mt-2"
               animate={{ y: [0, 10, 0], opacity: [1, 0, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
     </section>
-    </MotionConfig>
+    </MotionProvider>
   );
 }

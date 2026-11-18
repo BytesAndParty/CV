@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 
 interface SectionHeadingProps {
   title: string;
@@ -8,7 +8,7 @@ interface SectionHeadingProps {
 /** Gradient section heading with underline - shared by all content sections. */
 export function SectionHeading({ title, isInView }: SectionHeadingProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6 }}
@@ -20,6 +20,6 @@ export function SectionHeading({ title, isInView }: SectionHeadingProps) {
         </span>
       </h2>
       <div className="w-24 h-1 bg-linear-to-r from-primary via-accent to-primary mx-auto rounded-full" />
-    </motion.div>
+    </m.div>
   );
 }

@@ -1,4 +1,5 @@
-import { motion, useInView, MotionConfig } from 'motion/react';
+import { m, useInView } from 'motion/react';
+import { MotionProvider } from './MotionProvider';
 import { useRef } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -16,14 +17,14 @@ export default function Projects({ translations: t }: ProjectsProps) {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <MotionConfig reducedMotion="user">
+    <MotionProvider>
     <section id="projects" className="py-24" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading title={t.projects.title} isInView={isInView} />
 
         <div className="grid md:grid-cols-2 gap-8">
           {t.projects.items.map((project, index) => (
-            <motion.div
+            <m.div
               key={project.title}
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -66,11 +67,11 @@ export default function Projects({ translations: t }: ProjectsProps) {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
     </section>
-    </MotionConfig>
+    </MotionProvider>
   );
 }

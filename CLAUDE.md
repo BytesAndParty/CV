@@ -143,6 +143,8 @@ Alle Sections verwenden:
 
 Jede Section erhält `translations` prop für i18n.
 
+Animationen: `m.*` statt `motion.*` (LazyMotion, spart ca. 15 KB gzip). Jede Insel (`client:*`) ist ein eigener React-Root und wickelt ihren Inhalt in `<MotionProvider>` (`src/components/MotionProvider.tsx`). Ein `m.*` außerhalb eines Providers wirft nicht, es animiert nur nie: Elemente mit `initial={{ opacity: 0 }}` bleiben unsichtbar. `drag`/`layout` bräuchten `domMax` statt `domAnimation`.
+
 ## TODOs
 
 Single Source of Truth: `todo.md` (Status) und `REFACTOR-PLAN.md` (Analyse & Begründungen, Stand 2026-07-08).

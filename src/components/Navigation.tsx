@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence, MotionConfig } from 'motion/react';
+import { m, AnimatePresence } from 'motion/react';
+import { MotionProvider } from './MotionProvider';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -41,8 +42,8 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
   }, []);
 
   return (
-    <MotionConfig reducedMotion="user">
-    <motion.nav
+    <MotionProvider>
+    <m.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -56,20 +57,20 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
         <div className="relative flex items-center justify-between h-16">
           {/* Logo - Left (with Easter Egg) */}
           <EasterEgg translations={t}>
-            <motion.span
+            <m.span
               className="text-xl font-bold bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent z-10 select-none"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               RS
-            </motion.span>
+            </m.span>
           </EasterEgg>
 
           {/* Desktop Menu - Center */}
           <div className="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2">
             <div className="flex items-center space-x-1">
               {navItems.map((item, index) => (
-                <motion.a
+                <m.a
                   key={item.name}
                   href={item.href}
                   initial={{ opacity: 0, y: -20 }}
@@ -80,7 +81,7 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
                   whileTap={{ scale: 0.95 }}
                 >
                   {item.name}
-                </motion.a>
+                </m.a>
               ))}
             </div>
           </div>
@@ -136,7 +137,7 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -163,10 +164,10 @@ export default function Navigation({ lang, translations: t }: NavigationProps) {
                 </a>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.nav>
-    </MotionConfig>
+    </m.nav>
+    </MotionProvider>
   );
 }

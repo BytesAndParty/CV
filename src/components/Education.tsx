@@ -1,4 +1,5 @@
-import { motion, useInView, MotionConfig } from 'motion/react';
+import { m, useInView } from 'motion/react';
+import { MotionProvider } from './MotionProvider';
 import { useRef } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -18,7 +19,7 @@ export default function Education({ translations: t }: EducationProps) {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <MotionConfig reducedMotion="user">
+    <MotionProvider>
     <section id="education" className="py-24 bg-secondary/30 dark:bg-secondary/30 overflow-x-hidden" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading title={t.education.title} isInView={isInView} />
@@ -26,7 +27,7 @@ export default function Education({ translations: t }: EducationProps) {
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
           {/* Education */}
           <div className="min-w-0">
-            <motion.h3
+            <m.h3
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6 }}
@@ -36,11 +37,11 @@ export default function Education({ translations: t }: EducationProps) {
                 <GraduationCap className="w-6 h-6 text-primary" />
               </span>
               {t.education.educationTitle}
-            </motion.h3>
+            </m.h3>
 
             <div className="space-y-6">
               {t.education.items.map((edu, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -68,14 +69,14 @@ export default function Education({ translations: t }: EducationProps) {
                       </CardContent>
                     )}
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
 
           {/* Certifications */}
           <div className="min-w-0">
-            <motion.h3
+            <m.h3
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -85,11 +86,11 @@ export default function Education({ translations: t }: EducationProps) {
                 <Award className="w-6 h-6 text-accent" />
               </span>
               {t.education.certificatesTitle}
-            </motion.h3>
+            </m.h3>
 
             <div className="space-y-4">
               {t.education.certificates.map((cert, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -109,13 +110,13 @@ export default function Education({ translations: t }: EducationProps) {
                       </Badge>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
         </div>
       </div>
     </section>
-    </MotionConfig>
+    </MotionProvider>
   );
 }

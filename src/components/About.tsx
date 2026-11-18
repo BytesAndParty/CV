@@ -1,4 +1,5 @@
-import { motion, useInView, MotionConfig } from 'motion/react';
+import { m, useInView } from 'motion/react';
+import { MotionProvider } from './MotionProvider';
 import { useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -21,14 +22,14 @@ export default function About({ translations: t }: AboutProps) {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <MotionConfig reducedMotion="user">
+    <MotionProvider>
     <section id="about" className="py-24 relative grain-texture" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading title={t.about.title} isInView={isInView} />
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Profile Image */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -46,7 +47,7 @@ export default function About({ translations: t }: AboutProps) {
             </div>
 
             {/* Floating badges - hidden on very small screens to prevent overflow */}
-            <motion.div
+            <m.div
               className="absolute -top-4 right-0 sm:-right-4 md:right-8 hidden sm:block"
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 3, repeat: Infinity }}
@@ -55,11 +56,11 @@ export default function About({ translations: t }: AboutProps) {
                 <Users className="w-3 h-3 mr-1" />
                 {t.about.company}
               </Badge>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
 
           {/* Bio */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -86,7 +87,7 @@ export default function About({ translations: t }: AboutProps) {
             {/* Quick Stats */}
             <div className="grid grid-cols-3 gap-2 sm:gap-4">
               {stats.map((stat, index) => (
-                <motion.div
+                <m.div
                   key={stat.label}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -99,13 +100,13 @@ export default function About({ translations: t }: AboutProps) {
                       <div className="text-[10px] sm:text-xs text-muted-foreground leading-tight">{stat.label}</div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>
-    </MotionConfig>
+    </MotionProvider>
   );
 }

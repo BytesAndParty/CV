@@ -1,4 +1,5 @@
-import { motion, useInView, MotionConfig } from 'motion/react';
+import { m, useInView } from 'motion/react';
+import { MotionProvider } from './MotionProvider';
 import { useRef } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -16,7 +17,7 @@ export default function Experience({ translations: t }: ExperienceProps) {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <MotionConfig reducedMotion="user">
+    <MotionProvider>
     <section id="experience" className="py-24 bg-secondary/30 dark:bg-secondary/30" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading title={t.experience.title} isInView={isInView} />
@@ -26,7 +27,7 @@ export default function Experience({ translations: t }: ExperienceProps) {
           <div className="absolute left-4 md:left-1/2 transform md:-translate-x-px top-0 bottom-0 w-0.5 bg-linear-to-b from-primary via-accent to-primary" />
 
           {t.experience.jobs.map((exp, index) => (
-            <motion.div
+            <m.div
               key={index}
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -40,7 +41,7 @@ export default function Experience({ translations: t }: ExperienceProps) {
 
               {/* Content */}
               <div className={`md:w-1/2 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'} pl-12 md:pl-0`}>
-                <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
+                <m.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
                   <Card className="bg-card/80 backdrop-blur-sm border-border hover:border-primary/50 transition-colors">
                     <CardHeader className="pb-2">
                       <div className="flex items-center gap-2 text-primary text-sm font-medium mb-1">
@@ -78,16 +79,16 @@ export default function Experience({ translations: t }: ExperienceProps) {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </m.div>
               </div>
 
               {/* Spacer for alternating layout */}
               <div className="hidden md:block md:w-1/2" />
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
     </section>
-    </MotionConfig>
+    </MotionProvider>
   );
 }
