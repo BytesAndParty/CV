@@ -54,7 +54,7 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
   const [snake, setSnake] = useState<Position[]>([{ x: 10, y: 10 }]);
   const [food, setFood] = useState<Position>({ x: 15, y: 15 });
   const [isPlaying, setIsPlaying] = useState(false);
-  const gameLoopRef = useRef<NodeJS.Timeout | null>(null);
+  const gameLoopRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const directionRef = useRef<Direction>('RIGHT');
   const directionQueueRef = useRef<Direction[]>([]);
   const particleIdRef = useRef(0);
@@ -64,9 +64,9 @@ export default function EasterEgg({ children, translations: t }: EasterEggProps)
   const [powerUp, setPowerUp] = useState<PowerUp | null>(null);
   const [activeEffect, setActiveEffect] = useState<ActiveEffect | null>(null);
   const [powerUpMessage, setPowerUpMessage] = useState<string | null>(null);
-  const powerUpSpawnRef = useRef<NodeJS.Timeout | null>(null);
-  const powerUpLifetimeRef = useRef<NodeJS.Timeout | null>(null);
-  const effectTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const powerUpSpawnRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const powerUpLifetimeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const effectTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Progressive speed state
   const gameStartTimeRef = useRef<number>(0);
