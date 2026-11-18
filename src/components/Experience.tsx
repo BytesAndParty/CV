@@ -48,13 +48,16 @@ export default function Experience({ translations: t }: ExperienceProps) {
                         <Calendar className="w-4 h-4" />
                         {exp.period}
                       </div>
-                      <h3 className="text-xl font-semibold text-foreground">
+                      <h3 className="text-xl font-semibold text-foreground hyphens-auto">
                         {exp.title}
                       </h3>
-                      <div className="flex items-center gap-2 text-accent">
-                        <Building2 className="w-4 h-4" />
-                        <span className="font-medium">{exp.company}</span>
-                        <span className="text-muted-foreground">• {exp.location}</span>
+                      {/* Icon + company stay together; the location wraps as a whole onto its own line on narrow screens */}
+                      <div className="flex flex-wrap items-center gap-x-2 text-accent">
+                        <span className="flex items-center gap-2">
+                          <Building2 className="w-4 h-4 shrink-0" />
+                          <span className="font-medium">{exp.company}</span>
+                        </span>
+                        <span className="text-muted-foreground whitespace-nowrap">• {exp.location}</span>
                       </div>
                     </CardHeader>
                     <CardContent>

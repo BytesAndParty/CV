@@ -224,19 +224,11 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                             href={info.href}
                             className="text-foreground font-medium hover:text-primary transition-colors"
                           >
-                            <TextScramble
-                              text={info.value}
-                              delay={500 + index * 200}
-                              speed={25}
-                            />
+                            <TextScramble text={info.value} delay={200 + index * 100} />
                           </a>
                         ) : (
                           <p className="text-foreground font-medium">
-                            <TextScramble
-                              text={info.value}
-                              delay={500 + index * 200}
-                              speed={25}
-                            />
+                            <TextScramble text={info.value} delay={200 + index * 100} />
                           </p>
                         )}
                       </div>
@@ -452,20 +444,21 @@ export default function Contact({ lang, translations: t }: ContactProps) {
           <p className="text-muted-foreground text-sm">
             {t.contact.footer.copyright.replace('{year}', new Date().getFullYear().toString())}
           </p>
-          <p className="text-muted-foreground/60 text-xs mt-2">
+          <p className="text-muted-foreground text-xs mt-2">
             {t.contact.footer.madeWith}
           </p>
+          {/* py-1.5/-my-1.5: 28px tall hit area (WCAG 2.5.8) without shifting the layout */}
           <div className="flex justify-center gap-3 mt-4 text-xs">
             <a
               href={`/${lang}/impressum`}
-              className="text-muted-foreground/70 hover:text-primary transition-colors hover:underline underline-offset-4"
+              className="py-1.5 -my-1.5 text-muted-foreground hover:text-primary transition-colors hover:underline underline-offset-4"
             >
               {t.contact.footer.imprint}
             </a>
             <span className="text-muted-foreground/40" aria-hidden="true">·</span>
             <a
               href={`/${lang}/datenschutz`}
-              className="text-muted-foreground/70 hover:text-primary transition-colors hover:underline underline-offset-4"
+              className="py-1.5 -my-1.5 text-muted-foreground hover:text-primary transition-colors hover:underline underline-offset-4"
             >
               {t.contact.footer.privacy}
             </a>

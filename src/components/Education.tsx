@@ -102,8 +102,8 @@ export default function Education({ translations: t }: EducationProps) {
                         {certIcons[index] || '🔷'}
                       </div>
                       <div className="grow min-w-0 overflow-hidden">
-                        <h4 className="text-foreground font-medium text-[11px] sm:text-xs md:text-sm leading-tight truncate sm:whitespace-normal sm:wrap-break-word">{cert.name}</h4>
-                        <p className="text-muted-foreground text-[10px] sm:text-xs truncate">{cert.issuer} Certified</p>
+                        <h4 className="text-foreground font-medium text-sm leading-tight wrap-break-word">{cert.name}</h4>
+                        <p className="text-muted-foreground text-xs">{cert.issuer} Certified</p>
                       </div>
                       <Badge variant="secondary" className="text-xs shrink-0 hidden sm:inline-flex">
                         {t.education.verified}
