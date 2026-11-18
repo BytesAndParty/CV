@@ -10,6 +10,7 @@ Personal CV & Portfolio website for Robert Stickler - Software Engineer & Soluti
 - **Animations:** Framer Motion
 - **Icons:** Lucide React
 - **Package Manager:** Bun
+- **Node:** 24 (`.nvmrc`, Netlify liest sie ebenfalls); Astro 7 braucht mindestens 22.23.4
 - **Deployment:** Netlify (mit Netlify Forms)
 
 ## Projektstruktur
