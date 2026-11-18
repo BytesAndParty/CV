@@ -155,5 +155,6 @@ Erledigt: E-Mail-Adresse verifiziert (`rstickler98` korrekt, 09.07.2026), Impres
 - Forms: Automatisch via `netlify` Attribut im Contact-Formular
 - Build Command `bun run build` und Publish Directory `dist/` stehen in `netlify.toml` (deckt sich mit der Netlify-UI, geprüft 2026-11-18)
 - Node: `.nvmrc`; in Netlify sind weder `NODE_VERSION` noch `BUN_VERSION` gesetzt
-- Stand 2026-11-18: letzter Production-Deploy vom 2026-02-10 (`8d14292` = `main`); der Refactor-Branch ist nicht gemergt, Branch-Deploys sind aus
+- Stand 2026-11-18: letzter Production-Deploy vom 2026-11-18 10:31 (`a783d8b` = `origin/main`, Live-Seite aktuell); der Refactor-Branch `refactor/analysis-fixes-2026-07` ist gemergt, Branch-Deploys sind aus
+- Der Build-Log ist über die Netlify-API nicht abrufbar; ob `bun install` lief, zeigt nur das Deploy-Log in der Netlify-UI
 - Netlify-MCP ist lokal registriert (Login über `/mcp` nötig); Rezepte zum Prüfen der Site: Skill `netlify`
