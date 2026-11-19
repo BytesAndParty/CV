@@ -1,6 +1,4 @@
-import { m, useInView } from 'motion/react';
-import { MotionProvider } from './MotionProvider';
-import { useRef } from 'react';
+import type { CSSProperties } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { GraduationCap, Award, MapPin, Calendar } from 'lucide-react';
@@ -14,38 +12,27 @@ interface EducationProps {
 }
 
 export default function Education({ translations: t }: EducationProps) {
-  // fallow-ignore-next-line code-duplication -- Section-Boilerplate (Ref/InView), bewusst je Section dupliziert
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-
   return (
-    <MotionProvider>
-    <section id="education" className="py-24 bg-secondary/30 dark:bg-secondary/30 overflow-x-hidden" ref={ref}>
+    <section id="education" className="py-24 bg-secondary/30 dark:bg-secondary/30 overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading title={t.education.title} isInView={isInView} />
+        <SectionHeading title={t.education.title} />
 
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
           {/* Education */}
           <div className="min-w-0">
-            <m.h3
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }}
-              className="text-2xl font-semibold text-foreground mb-8 flex items-center gap-3"
-            >
+            <h3 data-reveal className="text-2xl font-semibold text-foreground mb-8 flex items-center gap-3">
               <span className="p-2 bg-primary/20 rounded-lg shrink-0">
                 <GraduationCap className="w-6 h-6 text-primary" />
               </span>
               {t.education.educationTitle}
-            </m.h3>
+            </h3>
 
             <div className="space-y-6">
               {t.education.items.map((edu, index) => (
-                <m.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  data-reveal
+                  style={{ '--reveal-delay': `${index * 200}ms` } as CSSProperties}
                 >
                   <Card className="bg-card/80 backdrop-blur-sm border-border hover:border-primary/50 transition-colors overflow-hidden min-w-0">
                     <CardHeader className="pb-2">
@@ -69,32 +56,30 @@ export default function Education({ translations: t }: EducationProps) {
                       </CardContent>
                     )}
                   </Card>
-                </m.div>
+                </div>
               ))}
             </div>
           </div>
 
           {/* Certifications */}
           <div className="min-w-0">
-            <m.h3
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
+            <h3
+              data-reveal
+              style={{ '--reveal-delay': '0.2s' } as CSSProperties}
               className="text-2xl font-semibold text-foreground mb-8 flex items-center gap-3"
             >
               <span className="p-2 bg-accent/20 rounded-lg shrink-0">
                 <Award className="w-6 h-6 text-accent" />
               </span>
               {t.education.certificatesTitle}
-            </m.h3>
+            </h3>
 
             <div className="space-y-4">
               {t.education.certificates.map((cert, index) => (
-                <m.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                  data-reveal
+                  style={{ '--reveal-duration': '0.5s', '--reveal-delay': `${index * 100}ms` } as CSSProperties}
                 >
                   <Card className="bg-card/50 border-border hover:border-accent/50 transition-colors overflow-hidden min-w-0">
                     <CardContent className="p-3 sm:p-4 flex items-center gap-2 sm:gap-4">
@@ -110,13 +95,12 @@ export default function Education({ translations: t }: EducationProps) {
                       </Badge>
                     </CardContent>
                   </Card>
-                </m.div>
+                </div>
               ))}
             </div>
           </div>
         </div>
       </div>
     </section>
-    </MotionProvider>
   );
 }

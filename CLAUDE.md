@@ -127,6 +127,8 @@ Nur tatsächlich verwendete Klassen (Details in DESIGN.md):
 - `.hero-pattern` / `.hero-decorative-pattern` - CSS-Patterns im Hero
 - `.hero-text-scrim` - Dämpft den Glow hinter dem Hero-Text (Kontrast WCAG AA)
 - `.grain-texture` - Film-Grain Overlay
+- `[data-reveal]` / `.skill-fill` - Scroll-Reveal der Sections ohne JS-Abhängigkeit (Skript in Layout.astro, Details in DESIGN.md §12)
+- `primary-ink` / `accent-ink` - Text-sichere Farbvarianten für den Hero-Titel (Kontrast >= 4,5:1)
 - `.skill-tooltip` / `.skill-tooltip-wrapper` - Tooltips bzw. Mobile Bottom Sheets
 
 ## i18n System

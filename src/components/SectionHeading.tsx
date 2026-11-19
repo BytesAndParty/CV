@@ -1,17 +1,15 @@
-import { m } from 'motion/react';
+import type { CSSProperties } from 'react';
 
 interface SectionHeadingProps {
   title: string;
-  isInView: boolean;
 }
 
 /** Gradient section heading with underline - shared by all content sections. */
-export function SectionHeading({ title, isInView }: SectionHeadingProps) {
+export function SectionHeading({ title }: SectionHeadingProps) {
   return (
-    <m.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6 }}
+    <div
+      data-reveal
+      style={{ '--reveal-y': '50px' } as CSSProperties}
       className="text-center mb-16"
     >
       <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -20,6 +18,6 @@ export function SectionHeading({ title, isInView }: SectionHeadingProps) {
         </span>
       </h2>
       <div className="w-24 h-1 bg-linear-to-r from-primary via-accent to-primary mx-auto rounded-full" />
-    </m.div>
+    </div>
   );
 }

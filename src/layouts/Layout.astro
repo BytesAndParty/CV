@@ -116,6 +116,45 @@ const jsonLd = {
 				}
 			})();
 		</script>
+		<script is:inline>
+			// Scroll reveal (see "SCROLL REVEAL" in global.css): marks [data-reveal] elements
+			// with data-revealed once they enter the viewport. Plain DOM, so it works before and
+			// without React hydration. Runs before the body is parsed: the MutationObserver picks
+			// up elements as the parser adds them (no flash of visible content that is hidden
+			// again later) and also elements React re-creates on the client later on.
+			// The `js` class that enables the hidden start state is only set once both observers
+			// are running, so without JavaScript or on any error the content stays visible.
+			(function() {
+				try {
+					const io = new IntersectionObserver(function(entries) {
+						entries.forEach(function(entry) {
+							if (entry.isIntersecting) {
+								entry.target.setAttribute('data-revealed', '');
+								io.unobserve(entry.target);
+							}
+						});
+					}, { rootMargin: '0px 0px -10% 0px' });
+
+					const observe = function(el) {
+						if (!el.hasAttribute('data-revealed')) io.observe(el);
+					};
+
+					new MutationObserver(function(records) {
+						records.forEach(function(record) {
+							record.addedNodes.forEach(function(node) {
+								if (node.nodeType !== 1) return;
+								if (node.hasAttribute('data-reveal')) observe(node);
+								node.querySelectorAll('[data-reveal]').forEach(observe);
+							});
+						});
+					}).observe(document.documentElement, { childList: true, subtree: true });
+
+					document.documentElement.classList.add('js');
+				} catch {
+					// No IntersectionObserver / MutationObserver: nothing gets hidden
+				}
+			})();
+		</script>
 	</head>
 	<body class="bg-background text-foreground font-sans antialiased overflow-x-hidden">
 		<script is:inline>

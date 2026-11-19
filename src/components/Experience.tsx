@@ -1,6 +1,6 @@
-import { m, useInView } from 'motion/react';
+import { m } from 'motion/react';
 import { MotionProvider } from './MotionProvider';
-import { useRef } from 'react';
+import type { CSSProperties } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Building2, Calendar, CheckCircle2 } from 'lucide-react';
@@ -12,26 +12,22 @@ interface ExperienceProps {
 }
 
 export default function Experience({ translations: t }: ExperienceProps) {
-  // fallow-ignore-next-line code-duplication -- Section-Boilerplate (Ref/InView), bewusst je Section dupliziert
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-
   return (
     <MotionProvider>
-    <section id="experience" className="py-24 bg-secondary/30 dark:bg-secondary/30" ref={ref}>
+    <section id="experience" className="py-24 bg-secondary/30 dark:bg-secondary/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading title={t.experience.title} isInView={isInView} />
+        <SectionHeading title={t.experience.title} />
 
         <div className="relative">
           {/* Timeline Line */}
           <div className="absolute left-4 md:left-1/2 transform md:-translate-x-px top-0 bottom-0 w-0.5 bg-linear-to-b from-primary via-accent to-primary" />
 
+          {/* No index stagger: the tall timeline entries reach the viewport one by one anyway */}
           {t.experience.jobs.map((exp, index) => (
-            <m.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.3 }}
+              data-reveal
+              style={{ '--reveal-y': '50px' } as CSSProperties}
               className={`relative flex flex-col md:flex-row gap-8 mb-12 ${
                 index % 2 === 0 ? 'md:flex-row-reverse' : ''
               }`}
@@ -87,7 +83,7 @@ export default function Experience({ translations: t }: ExperienceProps) {
 
               {/* Spacer for alternating layout */}
               <div className="hidden md:block md:w-1/2" />
-            </m.div>
+            </div>
           ))}
         </div>
       </div>

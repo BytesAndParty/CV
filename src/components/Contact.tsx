@@ -1,6 +1,6 @@
-import { m, useInView, AnimatePresence } from 'motion/react';
+import { m, AnimatePresence } from 'motion/react';
 import { MotionProvider } from './MotionProvider';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/magnetic-button';
 import { CardContent } from '@/components/ui/card';
@@ -96,8 +96,6 @@ export default function Contact({ lang, translations: t }: ContactProps) {
       href: null,
     },
   ];
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasSubmittedOnce, setHasSubmittedOnce] = useState(false);
@@ -179,22 +177,18 @@ export default function Contact({ lang, translations: t }: ContactProps) {
 
   return (
     <MotionProvider>
-    <section id="contact" className="py-24 relative grain-texture overflow-x-hidden" ref={ref}>
+    <section id="contact" className="py-24 relative grain-texture overflow-x-hidden">
       {/* Background Gradient */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-linear-to-t from-primary/5 to-transparent" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading title={t.contact.title} isInView={isInView} />
+        <SectionHeading title={t.contact.title} />
 
         <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Contact Info & Social */}
-          <m.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <div data-reveal style={{ '--reveal-y': '30px', '--reveal-delay': '0.2s' } as CSSProperties}>
             <GlowCard className="bg-card/50 h-full">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-semibold text-foreground mb-6">
@@ -207,11 +201,10 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                 {/* Contact Info */}
                 <div className="space-y-4 mb-8">
                   {contactInfo.map((info, index) => (
-                    <m.div
+                    <div
                       key={info.label}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={isInView ? { opacity: 1, y: 0 } : {}}
-                      transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+                      data-reveal
+                      style={{ '--reveal-duration': '0.4s', '--reveal-delay': `${index * 100}ms` } as CSSProperties}
                       className="flex items-center gap-4"
                     >
                       <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
@@ -232,17 +225,16 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                           </p>
                         )}
                       </div>
-                    </m.div>
+                    </div>
                   ))}
                 </div>
 
                 <Separator className="my-6" />
 
                 {/* CV Download */}
-                <m.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.6 }}
+                <div
+                  data-reveal
+                  style={{ '--reveal-duration': '0.4s' } as CSSProperties}
                   className="mb-6 skill-tooltip-wrapper"
                 >
                   <Button
@@ -257,16 +249,12 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                     <div className="skill-tooltip-title">{t.contact.download}</div>
                     <div className="skill-tooltip-desc">{t.contact.downloadTooltip}</div>
                   </div>
-                </m.div>
+                </div>
 
                 <Separator className="my-6" />
 
                 {/* Social Links */}
-                <m.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.7 }}
-                >
+                <div data-reveal style={{ '--reveal-duration': '0.4s' } as CSSProperties}>
                   <p className="text-sm text-muted-foreground mb-4">{t.contact.followMe}</p>
                   <div className="flex gap-3">
                     {socialLinks.map((link, index) => (
@@ -275,9 +263,13 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                        transition={{ duration: 0.3, delay: 0.8 + index * 0.1 }}
+                        data-reveal
+                        style={{
+                          '--reveal-y': '0px',
+                          '--reveal-scale': '0',
+                          '--reveal-duration': '0.3s',
+                          '--reveal-delay': `${100 + index * 100}ms`,
+                        } as CSSProperties}
                         whileHover={{ scale: 1.1, y: -3 }}
                         whileTap={{ scale: 0.95 }}
                         className="p-3 bg-secondary text-muted-foreground hover:text-primary rounded-full border border-border hover:border-primary/50 transition-colors"
@@ -287,17 +279,13 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                       </m.a>
                     ))}
                   </div>
-                </m.div>
+                </div>
               </CardContent>
             </GlowCard>
-          </m.div>
+          </div>
 
           {/* Contact Form */}
-          <m.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
+          <div data-reveal style={{ '--reveal-y': '30px', '--reveal-delay': '0.3s' } as CSSProperties}>
             <GlowCard className="bg-card/50">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-semibold text-foreground mb-6">
@@ -431,14 +419,13 @@ export default function Contact({ lang, translations: t }: ContactProps) {
                 )}
               </CardContent>
             </GlowCard>
-          </m.div>
+          </div>
         </div>
 
         {/* Footer */}
-        <m.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
+        <div
+          data-reveal
+          style={{ '--reveal-y': '0px' } as CSSProperties}
           className="mt-16 pt-8 border-t border-border text-center"
         >
           <p className="text-muted-foreground text-sm">
@@ -463,7 +450,7 @@ export default function Contact({ lang, translations: t }: ContactProps) {
               {t.contact.footer.privacy}
             </a>
           </div>
-        </m.div>
+        </div>
       </div>
 
       {/* Toast Notifications */}

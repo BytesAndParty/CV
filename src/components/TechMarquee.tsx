@@ -1,5 +1,4 @@
-import { m, useInView } from 'motion/react';
-import { useRef } from 'react';
+import type { CSSProperties } from 'react';
 import { Badge } from '@/components/ui/badge';
 
 const techStack = [
@@ -40,28 +39,19 @@ interface TechMarqueeProps {
 }
 
 export default function TechMarquee({ title = "Tech Stack" }: TechMarqueeProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
-
   // Duplicate items for seamless loop
   const duplicatedTech = [...techStack, ...techStack];
 
   return (
-    <div ref={ref} className="py-12 overflow-hidden">
-      <m.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-8"
-      >
+    <div className="py-12 overflow-hidden">
+      <div data-reveal className="text-center mb-8">
         <h3 className="text-lg text-muted-foreground">{title}</h3>
-      </m.div>
+      </div>
 
       {/* First row - normal direction */}
-      <m.div
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.6, delay: 0.2 }}
+      <div
+        data-reveal
+        style={{ '--reveal-y': '0px', '--reveal-delay': '0.2s' } as CSSProperties}
         className="marquee mb-4"
       >
         <div className="marquee-content">
@@ -75,13 +65,12 @@ export default function TechMarquee({ title = "Tech Stack" }: TechMarqueeProps) 
             </Badge>
           ))}
         </div>
-      </m.div>
+      </div>
 
       {/* Second row - reverse direction */}
-      <m.div
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.6, delay: 0.4 }}
+      <div
+        data-reveal
+        style={{ '--reveal-y': '0px', '--reveal-delay': '0.4s' } as CSSProperties}
         className="marquee marquee-reverse"
       >
         <div className="marquee-content">
@@ -95,7 +84,7 @@ export default function TechMarquee({ title = "Tech Stack" }: TechMarqueeProps) 
             </Badge>
           ))}
         </div>
-      </m.div>
+      </div>
     </div>
   );
 }

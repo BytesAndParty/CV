@@ -21,6 +21,7 @@ Details und Begründungen zu allen Punkten: siehe [REFACTOR-PLAN.md](REFACTOR-PL
 - [x] **Impressum + Datenschutzerklärung** - DE/EN unter `/{lang}/impressum` und `/{lang}/datenschutz`, im Footer verlinkt
 - [x] **CV neu gestaltet (18.11.2026)** - `cv-a4.html` modern, einseitig DE/EN, lokales Inter statt Google Fonts, Akzentfarben ≥ 4,5:1 Kontrast, Consultant-Stand + AI-Skills + AI-901; PDFs neu erzeugt (je 3,2 MB → 0,4 MB), Befehl in CLAUDE.md
 - [x] **Hero-, Redirect- und Kontrast-Fixes (18.11.2026)** - Redirect-Fallback ohne 2-s-Wartezeit (mit Query/Hash), Name als Klartext im HTML (Scramble bleibt als kurzer Zusatzeffekt, respektiert Reduced Motion), Navigation und Hero ohne JS sichtbar, Hero-/Formular-/Footer-Kontrast, Mobil-Layout Erfahrung/Zertifikate; unabhängig geprüft
+- [x] **Sections ohne JS sichtbar, Hero-Titel >= 4,5:1 (19.11.2026)** - Scroll-Reveal per `data-reveal` statt Inline-`opacity:0` im HTML (auch Skill-Balken), Titel mit `primary-ink`/`accent-ink` in allen Schemata und Modi
 - [x] **Lucide 1.x** - Brand-Icons (Linkedin/Github/Instagram) liegen lokal in `BrandIcons.tsx` (Glyphen aus lucide-react 0.562)
 
 ## Offen
@@ -44,7 +45,6 @@ Details und Begründungen zu allen Punkten: siehe [REFACTOR-PLAN.md](REFACTOR-PL
 
 ### Technisch
 - [ ] Profilbild über astro:assets optimieren
-- [ ] Sections unterhalb des Heros sind ohne JS unsichtbar (motion `initial={{ opacity: 0 }}` landet als Inline-Style im SSR-HTML, ca. 60 Stellen)
 - [ ] Vollständiger a11y-Audit (Screenreader, Kontraste)
 - [ ] Test-Setup (Vitest; zuerst Game-Logik + Form-Validierung)
 

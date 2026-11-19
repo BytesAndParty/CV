@@ -1,6 +1,6 @@
-import { m, useInView } from 'motion/react';
+import { m } from 'motion/react';
 import { MotionProvider } from './MotionProvider';
-import { useRef } from 'react';
+import type { CSSProperties } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle2, Folder } from 'lucide-react';
@@ -12,23 +12,19 @@ interface ProjectsProps {
 }
 
 export default function Projects({ translations: t }: ProjectsProps) {
-  // fallow-ignore-next-line code-duplication -- Section-Boilerplate (Ref/InView), bewusst je Section dupliziert
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-
   return (
     <MotionProvider>
-    <section id="projects" className="py-24" ref={ref}>
+    <section id="projects" className="py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading title={t.projects.title} isInView={isInView} />
+        <SectionHeading title={t.projects.title} />
 
         <div className="grid md:grid-cols-2 gap-8">
+          {/* Stagger by grid column: each row of the grid enters the viewport on its own */}
           {t.projects.items.map((project, index) => (
             <m.div
               key={project.title}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              data-reveal
+              style={{ '--reveal-y': '50px', '--reveal-delay': `${(index % 2) * 200}ms` } as CSSProperties}
               whileHover={{ scale: 1.02 }}
             >
               <Card className="bg-card/80 backdrop-blur-sm border-border hover:border-primary/50 transition-colors h-full">

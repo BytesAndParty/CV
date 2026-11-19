@@ -1,6 +1,6 @@
-import { m, useInView } from 'motion/react';
+import { m } from 'motion/react';
 import { MotionProvider } from './MotionProvider';
-import { useRef } from 'react';
+import type { CSSProperties } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Briefcase, GraduationCap, Award, Users } from 'lucide-react';
@@ -17,22 +17,18 @@ export default function About({ translations: t }: AboutProps) {
     { value: '5', label: t.about.stats.certificates, icon: Award },
     { value: 'Master', label: t.about.stats.degree, icon: GraduationCap },
   ];
-  // fallow-ignore-next-line code-duplication -- Section-Boilerplate (Ref/InView), bewusst je Section dupliziert
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
     <MotionProvider>
-    <section id="about" className="py-24 relative grain-texture" ref={ref}>
+    <section id="about" className="py-24 relative grain-texture">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading title={t.about.title} isInView={isInView} />
+        <SectionHeading title={t.about.title} />
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Profile Image */}
-          <m.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <div
+            data-reveal
+            style={{ '--reveal-x': '-50px', '--reveal-y': '0px', '--reveal-delay': '0.2s' } as CSSProperties}
             className="relative"
           >
             <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto">
@@ -57,14 +53,10 @@ export default function About({ translations: t }: AboutProps) {
                 {t.about.company}
               </Badge>
             </m.div>
-          </m.div>
+          </div>
 
           {/* Bio */}
-          <m.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
+          <div data-reveal style={{ '--reveal-y': '30px', '--reveal-delay': '0.4s' } as CSSProperties}>
             <h3 className="text-2xl font-semibold text-foreground mb-4">
               {t.about.greeting} <span className="text-primary">{t.about.name}</span>
             </h3>
@@ -87,11 +79,10 @@ export default function About({ translations: t }: AboutProps) {
             {/* Quick Stats */}
             <div className="grid grid-cols-3 gap-2 sm:gap-4">
               {stats.map((stat, index) => (
-                <m.div
+                <div
                   key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
+                  data-reveal
+                  style={{ '--reveal-duration': '0.4s', '--reveal-delay': `${index * 100}ms` } as CSSProperties}
                 >
                   <Card className="bg-card/50 border-border/50 hover:border-primary/50 transition-colors">
                     <CardContent className="p-2 sm:p-4 text-center">
@@ -100,10 +91,10 @@ export default function About({ translations: t }: AboutProps) {
                       <div className="text-[10px] sm:text-xs text-muted-foreground leading-tight">{stat.label}</div>
                     </CardContent>
                   </Card>
-                </m.div>
+                </div>
               ))}
             </div>
-          </m.div>
+          </div>
         </div>
       </div>
     </section>

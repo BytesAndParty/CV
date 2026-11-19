@@ -1,6 +1,6 @@
-import { m, useInView } from 'motion/react';
+import { m } from 'motion/react';
 import { MotionProvider } from './MotionProvider';
-import { useRef, useEffect } from 'react';
+import { useEffect, type CSSProperties } from 'react';
 import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GlowCard } from '@/components/ui/glow-card';
 import { Badge } from '@/components/ui/badge';
@@ -15,22 +15,18 @@ interface SkillsProps {
   translations: Translations;
 }
 
+/** The fill is at its level in the server HTML; it runs up from 0 when the surrounding card is revealed. */
 function SkillBar({ name, level, delay }: { name: string; level: number; delay: number }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
   return (
-    <div ref={ref} className="mb-3">
+    <div className="mb-3">
       <div className="flex justify-between mb-1">
         <span className="text-sm text-foreground font-medium">{name}</span>
         <span className="text-xs text-primary">{level}%</span>
       </div>
       <div className="h-1.5 bg-secondary rounded-full overflow-hidden">
-        <m.div
-          initial={{ width: 0 }}
-          animate={isInView ? { width: `${level}%` } : {}}
-          transition={{ duration: 1, delay, ease: 'easeOut' }}
-          className="h-full bg-linear-to-r from-primary to-accent rounded-full"
+        <div
+          style={{ '--level': `${level}%`, '--fill-delay': `${delay}ms` } as CSSProperties}
+          className="skill-fill w-(--level) h-full bg-linear-to-r from-primary to-accent rounded-full"
         />
       </div>
     </div>
@@ -38,9 +34,6 @@ function SkillBar({ name, level, delay }: { name: string; level: number; delay: 
 }
 
 export default function Skills({ translations: t }: SkillsProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-
   // Dismiss mobile hobby bottom-sheet flyouts on scroll
   useEffect(() => {
     let scrollTimer: ReturnType<typeof setTimeout>;
@@ -68,12 +61,11 @@ export default function Skills({ translations: t }: SkillsProps) {
     };
   }, []);
 
-  // fallow-ignore-next-line code-duplication -- Section-Boilerplate (Ref/InView), bewusst je Section dupliziert
   return (
     <MotionProvider>
-    <section id="skills" className="py-24" ref={ref}>
+    <section id="skills" className="py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading title={t.skills.title} isInView={isInView} />
+        <SectionHeading title={t.skills.title} />
 
         {/* Tech Stack Marquee */}
         <TechMarquee title="Tech Stack" />
@@ -82,12 +74,13 @@ export default function Skills({ translations: t }: SkillsProps) {
           {t.skills.categories.map((category, categoryIndex) => {
             // Translations define the category count - never crash on a fifth one
             const Icon = categoryIcons[categoryIndex] ?? Code2;
+            // Stagger by grid column: each row of the grid enters the viewport on its own
+            const delay = (categoryIndex % 2) * 150;
             return (
-              <m.div
+              <div
                 key={category.name}
-                initial={{ opacity: 0, y: 50 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: categoryIndex * 0.15 }}
+                data-reveal
+                style={{ '--reveal-y': '50px', '--reveal-delay': `${delay}ms` } as CSSProperties}
               >
                 <GlowCard className="bg-card/50 h-full">
                   <CardHeader className="pb-4">
@@ -104,23 +97,18 @@ export default function Skills({ translations: t }: SkillsProps) {
                         key={skill.name}
                         name={skill.name}
                         level={skill.level}
-                        delay={categoryIndex * 0.15 + skillIndex * 0.08}
+                        delay={delay + skillIndex * 80}
                       />
                     ))}
                   </CardContent>
                 </GlowCard>
-              </m.div>
+              </div>
             );
           })}
         </div>
 
         {/* AI Development - plain chips, no level bars */}
-        <m.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: t.skills.categories.length * 0.15 }}
-          className="mt-6"
-        >
+        <div data-reveal style={{ '--reveal-y': '50px' } as CSSProperties} className="mt-6">
           <GlowCard className="bg-card/50">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-3 text-lg">
@@ -140,15 +128,10 @@ export default function Skills({ translations: t }: SkillsProps) {
               </div>
             </CardContent>
           </GlowCard>
-        </m.div>
+        </div>
 
         {/* Languages */}
-        <m.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-12"
-        >
+        <div data-reveal style={{ '--reveal-y': '30px' } as CSSProperties} className="mt-12">
           <GlowCard className="bg-card/50">
             <CardHeader className="pb-4">
               <CardTitle className="text-lg text-center">{t.skills.languages.title}</CardTitle>
@@ -169,15 +152,10 @@ export default function Skills({ translations: t }: SkillsProps) {
               </div>
             </CardContent>
           </GlowCard>
-        </m.div>
+        </div>
 
         {/* Interests */}
-        <m.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-8 text-center"
-        >
+        <div data-reveal style={{ '--reveal-y': '30px' } as CSSProperties} className="mt-8 text-center">
           <h3 className="text-lg text-muted-foreground mb-4">{t.skills.interests.title}</h3>
           <div className="flex flex-wrap justify-center gap-3">
             {t.skills.interests.items.map((interest, index) => {
@@ -187,9 +165,13 @@ export default function Skills({ translations: t }: SkillsProps) {
               return (
                 <m.div
                   key={item.name}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.3, delay: 1 + index * 0.05 }}
+                  data-reveal
+                  style={{
+                    '--reveal-y': '0px',
+                    '--reveal-scale': '0.8',
+                    '--reveal-duration': '0.3s',
+                    '--reveal-delay': `${200 + index * 50}ms`,
+                  } as CSSProperties}
                   whileHover={{ scale: 1.05, zIndex: 50 }}
                   className={item.tooltip ? 'skill-tooltip-wrapper relative' : ''}
                 >
@@ -209,7 +191,7 @@ export default function Skills({ translations: t }: SkillsProps) {
               );
             })}
           </div>
-        </m.div>
+        </div>
       </div>
     </section>
     </MotionProvider>
