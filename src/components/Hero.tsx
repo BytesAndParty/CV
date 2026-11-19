@@ -200,7 +200,7 @@ export default function Hero({ lang, translations: t }: HeroProps) {
           </h1>
 
           <h2 className="text-2xl md:text-3xl lg:text-4xl mb-8 blur-reveal">
-            <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent font-semibold">
+            <span className="bg-linear-to-r from-primary-ink via-accent-ink to-primary-ink bg-clip-text text-transparent font-semibold">
               {t.hero.title}
             </span>
           </h2>
