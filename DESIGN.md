@@ -70,8 +70,8 @@ Name, Titel und Intro stehen als Klartext im ausgelieferten HTML und sind im Her
 - Einblendung rein per CSS: `animate-in fade-in slide-in-from-bottom-[20px] animation-duration-400` (tw-animate-css) auf dem Content-Wrapper, dazu `.blur-reveal` (0.4s) auf Name und Titel
 - Kein Motion-`initial={{ opacity: 0 }}` im Hero, denn das landet als Inline-`opacity:0` im SSR-HTML und versteckt den Inhalt bis zur Hydration
 - `prefers-reduced-motion` greift über die globale Regel in `global.css`
-- Der Titel nutzt die text-sicheren Tokens `primary-ink`/`accent-ink` (Light: `primary`/`accent` mit 16 % Schwarz, Dark: 16 % Weiß gemischt, `color-mix` in oklab): mindestens 4,5:1 in allen 5 Schemata und beiden Modi; die Basisfarben bleiben unverändert
-- `.hero-text-scrim` dämpft den Glow direkt hinter dem Textblock (radialer Verlauf zu `--background` mit 50 %), damit Titel, Intro und Pills WCAG AA erreichen; die Tech-Pills haben dafür zusätzlich einen deckenden `bg-background`
+- Der Titel nutzt die text-sicheren Tokens `primary-ink`/`accent-ink` (Light: `primary`/`accent` mit 30 % Schwarz, Dark: 16 % Weiß gemischt, `color-mix` in oklab): mindestens 4,5:1 in allen 5 Schemata und beiden Modi; die Basisfarben bleiben unverändert
+- `.hero-text-scrim` dämpft den Glow direkt hinter dem Textblock (radialer Verlauf zu `--background`, 50 % im Dark Mode, 45 % im Light Mode), damit Titel, Intro und Pills WCAG AA erreichen; die Tech-Pills haben dafür zusätzlich einen deckenden `bg-background`
 - Text-Scramble (`TextScramble`) bleibt als kurzer Zusatzeffekt (ca. 0,6-0,8 s) auf Name und Kontaktdaten: Der Klartext steht im HTML (der Name auch im ersten Frame), der Effekt startet erst nach der Hydration und respektiert `prefers-reduced-motion`. Der Klartext bleibt unsichtbar im Textfluss (Screenreader, Auswahl und Kopieren liefern ihn, die Box ändert sich nie), die Zufallszeichen liegen als nicht auswählbare `aria-hidden`-Ebene darüber. Im Hero entfällt der Effekt, wenn die Hydration später als 1,5 s nach dem Laden fertig ist (langsame Geräte), damit der Name nicht mitten im Lesen flackert
 
 ---

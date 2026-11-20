@@ -185,8 +185,8 @@ html *::after {
   --accent: oklch(0.55 0.18 calc(var(--theme-hue) + 10));
   /* Text-safe variants of primary/accent for gradient headings on the tinted hero: >= 4.5:1 in every colour scheme.
      color-mix with black in oklab stays in gamut (no lightness tweaks in oklch). */
-  --primary-ink: color-mix(in oklab, var(--primary), black 16%);
-  --accent-ink: color-mix(in oklab, var(--accent), black 16%);
+  --primary-ink: color-mix(in oklab, var(--primary), black 30%);
+  --accent-ink: color-mix(in oklab, var(--accent), black 30%);
   --accent-foreground: oklch(0.99 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.90 0.005 var(--theme-hue));
@@ -436,10 +436,10 @@ html *::after {
 .morphing-gradient {
   background: linear-gradient(
     -45deg,
-    rgb(var(--theme-primary) / 0.12),
-    rgb(var(--theme-accent) / 0.08),
-    rgb(var(--theme-primary) / 0.05),
-    rgb(var(--theme-accent) / 0.12)
+    rgb(var(--theme-primary) / 0.26),
+    rgb(var(--theme-accent) / 0.18),
+    rgb(var(--theme-primary) / 0.1),
+    rgb(var(--theme-accent) / 0.26)
   );
   background-size: 400% 400%;
   animation: morphing-gradient 12s ease infinite;
@@ -499,13 +499,13 @@ html *::after {
   /* Network pattern: dots connected by lines */
   background-image:
     /* Grid lines - subtle */
-    linear-gradient(rgb(var(--theme-primary) / 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(var(--theme-primary) / 0.04) 1px, transparent 1px),
+    linear-gradient(rgb(var(--theme-primary) / 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--theme-primary) / 0.1) 1px, transparent 1px),
     /* Diagonal connection lines */
-    linear-gradient(45deg, transparent 48%, rgb(var(--theme-primary) / 0.03) 49%, rgb(var(--theme-primary) / 0.03) 51%, transparent 52%),
-    linear-gradient(-45deg, transparent 48%, rgb(var(--theme-primary) / 0.03) 49%, rgb(var(--theme-primary) / 0.03) 51%, transparent 52%),
+    linear-gradient(45deg, transparent 48%, rgb(var(--theme-primary) / 0.08) 49%, rgb(var(--theme-primary) / 0.08) 51%, transparent 52%),
+    linear-gradient(-45deg, transparent 48%, rgb(var(--theme-primary) / 0.08) 49%, rgb(var(--theme-primary) / 0.08) 51%, transparent 52%),
     /* Node dots at intersections */
-    radial-gradient(circle at center, rgb(var(--theme-primary) / 0.08) 2px, transparent 2px);
+    radial-gradient(circle at center, rgb(var(--theme-primary) / 0.22) 2px, transparent 2px);
   background-size: 80px 80px, 80px 80px, 80px 80px, 80px 80px, 80px 80px;
   background-position: 0 0, 0 0, 0 0, 0 0, 40px 40px;
   pointer-events: none;
@@ -541,13 +541,18 @@ html *::after {
    ============================================ */
 
 .hero-text-scrim {
-  --hero-scrim: color-mix(in oklab, var(--background) 50%, transparent);
+  /* Light mode: the glow is vivid, a moderate scrim keeps the text zone calm while the effects stay visible around it */
+  --hero-scrim: color-mix(in oklab, var(--background) 45%, transparent);
   background: radial-gradient(
     ellipse max(45vw, 280px) 40% at 50% 50%,
     var(--hero-scrim) 0%,
     var(--hero-scrim) 50%,
     transparent 100%
   );
+}
+
+.dark .hero-text-scrim {
+  --hero-scrim: color-mix(in oklab, var(--background) 50%, transparent);
 }
 
 /* ============================================
@@ -563,8 +568,8 @@ html *::after {
       0deg,
       transparent,
       transparent 40px,
-      rgb(var(--theme-primary) / 0.08) 40px,
-      rgb(var(--theme-primary) / 0.08) 41px
+      rgb(var(--theme-primary) / 0.16) 40px,
+      rgb(var(--theme-primary) / 0.16) 41px
     ),
     /* Vertical wavy lines */
     repeating-linear-gradient(

@@ -138,7 +138,7 @@ export default function Hero({ lang, translations: t }: HeroProps) {
       {/* Animated Blobs - smaller on mobile */}
       <div className="absolute inset-0 -z-10">
         <m.div
-          className="absolute top-1/4 left-1/4 w-48 h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 bg-primary/20 dark:bg-primary/30 rounded-full blur-2xl sm:blur-3xl opacity-60 dark:opacity-100"
+          className="absolute top-1/4 left-1/4 w-48 h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 bg-primary/40 dark:bg-primary/30 rounded-full blur-2xl sm:blur-3xl opacity-100"
           animate={{
             x: [0, 30, 10, 0],
             y: [0, 20, -10, 0],
@@ -152,7 +152,7 @@ export default function Hero({ lang, translations: t }: HeroProps) {
           }}
         />
         <m.div
-          className="absolute bottom-1/4 right-1/4 w-48 h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 bg-accent/20 dark:bg-accent/30 rounded-full blur-2xl sm:blur-3xl opacity-60 dark:opacity-100"
+          className="absolute bottom-1/4 right-1/4 w-48 h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 bg-accent/40 dark:bg-accent/30 rounded-full blur-2xl sm:blur-3xl opacity-100"
           animate={{
             x: [0, -35, -15, 0],
             y: [0, -25, 10, 0],
@@ -167,7 +167,7 @@ export default function Hero({ lang, translations: t }: HeroProps) {
         />
         {/* Third blob for more visual interest - hidden on mobile */}
         <m.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 md:w-125 md:h-125 bg-linear-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 rounded-full blur-2xl sm:blur-3xl opacity-50 dark:opacity-80"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 md:w-125 md:h-125 bg-linear-to-br from-primary/20 to-accent/20 dark:from-primary/20 dark:to-accent/20 rounded-full blur-2xl sm:blur-3xl opacity-70 dark:opacity-80"
           animate={{
             scale: [1, 1.15, 1, 0.9, 1],
             rotate: [0, 45, 90, 135, 180],
@@ -205,7 +205,7 @@ export default function Hero({ lang, translations: t }: HeroProps) {
             </span>
           </h2>
 
-          <p className="text-muted-foreground dark:text-foreground/75 text-lg md:text-xl max-w-3xl mx-auto mb-8">
+          <p className="text-foreground/85 dark:text-foreground/75 text-lg md:text-xl max-w-3xl mx-auto mb-8">
             {t.hero.description}
           </p>
 
